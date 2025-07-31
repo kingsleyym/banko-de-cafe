@@ -5,85 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Banco de Café – Neueröffnung</title>
 
-  <!-- Fonts -->
+  <!-- Inter als moderne System-Sans -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    :root{ --accent:#C19A6B; --bg:#111; --text:#f7f7f7; }
+    :root{ --accent:#C19A6B; --bg:#111; --text:#f6f6f6; }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);scroll-behavior:smooth;overflow-x:hidden}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;scroll-behavior:smooth}
 
-    /* --- HERO / PARALLAX --- */
-    .hero{position:relative;height:100vh;overflow:hidden;perspective:1px;}
-    .layer{position:absolute;inset:0;background-size:cover;background-position:center;}
-    .bg     {transform:translateZ(-1px) scale(2);background:url('assets/hero.jpg') no-repeat center/cover;}
-    .shade  {background:rgba(0,0,0,.55);}
-    .content{display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;padding:0 1rem;text-align:center}
-    #logo{width:140px;height:auto;margin-bottom:2.5rem}
-    h1{font-weight:600;font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:.02em;text-transform:uppercase}
-    .date{margin-top:.75rem;font-weight:400;font-size:1.25rem;opacity:.9}
-    .btn{display:inline-block;margin-top:2.8rem;padding:1rem 2.4rem;border:none;border-radius:4px;background:var(--accent);color:#fff;font-weight:600;transition:transform .25s}
+    /* ---------- HERO / PARALLAX ---------- */
+    .hero{position:relative;height:100vh;perspective:1px;overflow:hidden}
+    .layer{position:absolute;inset:0;background-size:cover;background-position:center}
+    .bg   {transform:translateZ(-1px) scale(2);background:url('assets/hero.jpg') no-repeat center/cover}
+    .shade{background:rgba(0,0,0,.55)}
+    .content{
+      position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;height:100%;padding:0 1rem;text-align:center
+    }
+    #logo{width:220px;max-width:70vw;margin-bottom:2.8rem;will-change:transform}
+    h1{font-weight:600;font-size:clamp(2.8rem,7vw,5rem);letter-spacing:.02em;text-transform:uppercase}
+    .sub{margin-top:1rem;font-size:1.2rem;font-weight:300;opacity:.9;max-width:28ch}
+    .btn{
+      display:inline-block;margin-top:3rem;padding:1rem 2.6rem;border:none;border-radius:4px;
+      background:var(--accent);color:#fff;font-weight:600;font-size:1rem;text-decoration:none;
+      transition:transform .25s cubic-bezier(.4,0,.2,1)
+    }
     .btn:hover{transform:translateY(-4px)}
+    .btn:active{transform:translateY(-1px)}
 
-    /* --- SECTIONS --- */
-    section{max-width:900px;margin:0 auto;padding:5rem 1rem;opacity:0;transform:translateY(60px);transition:.8s ease-out}
+    /* ---------- SECTIONS ---------- */
+    section{max-width:900px;margin:0 auto;padding:5rem 1rem;
+      opacity:0;transform:translateY(60px);transition:opacity .8s,transform .8s}
     section.reveal{opacity:1;transform:none}
-    section h2{font-size:2rem;margin-bottom:1rem;color:var(--accent);text-align:center;font-weight:600}
-    section p{text-align:center;font-size:1.15rem;line-height:1.7;max-width:60ch;margin:0 auto}
+    h2{font-weight:600;font-size:2rem;margin-bottom:1.2rem;color:var(--accent);text-align:center}
+    p{text-align:center;font-size:1.1rem;line-height:1.7;max-width:60ch;margin:0 auto}
 
-    /* --- FOOTER --- */
+    /* ---------- FOOTER ---------- */
     footer{background:#000;padding:2rem 1rem;text-align:center;font-size:.9rem}
 
+    /* ---------- KEYFRAMES ---------- */
     @keyframes fadeIn{to{opacity:1}}
     .content{animation:fadeIn 1.2s ease-out both .2s}
   </style>
 </head>
 <body>
 
-<!-- HERO -->
 <header class="hero">
   <div class="layer bg"></div>
   <div class="layer shade"></div>
 
-  <div class="layer content">
+  <div class="content">
     <img id="logo" src="assets/logo.svg" alt="Banco de Café Logo">
     <h1>Neueröffnung</h1>
-    <div class="date">7.&nbsp;August&nbsp;2025</div>
-    <a class="btn" href="mailto:info@bancodecafe.de">Kontakt&nbsp;aufnehmen</a>
+    <p class="sub">Wir bringen Specialty&nbsp;Coffee &nbsp;– ab&nbsp;7.&nbsp;August&nbsp;2025 in München-Laim.</p>
+    <a class="btn" href="mailto:info@banko-de-cafe.de">Kontakt&nbsp;aufnehmen</a>
   </div>
 </header>
 
-<!-- ABOUT -->
 <section id="about">
   <h2>Kaffee · Kultur · Community</h2>
-  <p>
-    In München-Laim entsteht ein Ort, an dem Specialty-Coffee auf Pâtisserie-Handwerk trifft.  
-    Erlebe minimalistisches Design, warme Atmosphäre und urbanen Flair – mitten in der Stadt.
-  </p>
+  <p>Ein minimalistischer Treffpunkt für Kaffeeliebhaber.  
+     Genieße sorgfältig geröstete Bohnen, feine Pâtisserie und entspanntes Ambiente.</p>
 </section>
 
-<!-- LOCATION -->
 <section id="location">
   <h2>Adresse</h2>
-  <p>📍 Fürstenrieder&nbsp;Str.&nbsp;8<br>80687&nbsp;München</p>
+  <p>Fürstenrieder Str. 8<br>80687 München</p>
   <p style="margin-top:1.2rem;font-size:1rem;opacity:.85">
-     Telefon&nbsp;<a style="color:inherit;text-decoration:none" href="tel:+4917631115508">0176&nbsp;3111&nbsp;5508</a> ·
-     E-Mail&nbsp;<a style="color:inherit;text-decoration:none" href="mailto:info@bancodecafe.de">info@bancodecafe.de</a>
+     Tel.&nbsp;<a style="color:inherit;text-decoration:none" href="tel:+4917631115508">0176&nbsp;3111&nbsp;5508</a> ·
+     E-Mail&nbsp;<a style="color:inherit;text-decoration:none" href="mailto:info@banko-de-cafe.de">info@banko-de-cafe.de</a>
   </p>
 </section>
 
 <footer>© 2025 Banco de Café</footer>
 
-<!-- REVEAL & LOGO PARALLAX -->
+<!-- ---------- JS: Reveal & dezente Logo-Parallax ---------- -->
 <script>
-  /* Scroll-Reveal */
-  const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('reveal')),{threshold:.25});
+  /* Section-Reveal */
+  const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('reveal')),
+                                    {threshold:.25});
   document.querySelectorAll('section').forEach(s=>io.observe(s));
 
-  /* Dezente Logo-Parallax */
+  /* Logo-Parallax */
   const logo=document.getElementById('logo');
-  window.addEventListener('scroll',()=>logo.style.transform=`translateY(${window.scrollY*0.1}px)`);
+  window.addEventListener('scroll',()=>logo.style.transform=`translateY(${window.scrollY*0.08}px)`);
 </script>
 </body>
 </html>
