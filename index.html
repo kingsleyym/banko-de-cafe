@@ -7,69 +7,49 @@
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --accent:#C19A6B;
-      --bg:#111;
-      --text:#f8f8f8;
-    }
+    :root{ --accent:#C19A6B; --bg:#111; --text:#f7f7f7; }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);scroll-behavior:smooth;overflow-x:hidden}
-    h1,h2{font-family:'Playfair Display',serif;letter-spacing:.04em}
 
-    /* ---------- Parallax-Wrapper ---------- */
-    .hero{
-      position:relative;height:100vh;overflow:hidden;
-      perspective:1px; /* key for parallax illusion */
-    }
-    .parallax__layer{
-      position:absolute;inset:0;
-      background-size:cover;background-position:center;
-    }
-    .layer--bg{transform:translateZ(-1px) scale(2);background:url('assets/hero.jpg') no-repeat center/cover;}
-    .layer--overlay{background:rgba(0,0,0,.55);}
-    .layer--content{display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;padding:0 1rem;text-align:center}
-    #logo{width:140px;height:auto;margin-bottom:1rem;will-change:transform}
-    h1{font-size:clamp(2.8rem,6vw,5rem);text-transform:uppercase}
-    .date{margin-top:.5rem;font-weight:600;font-size:1.2rem}
+    /* --- HERO / PARALLAX --- */
+    .hero{position:relative;height:100vh;overflow:hidden;perspective:1px;}
+    .layer{position:absolute;inset:0;background-size:cover;background-position:center;}
+    .bg     {transform:translateZ(-1px) scale(2);background:url('assets/hero.jpg') no-repeat center/cover;}
+    .shade  {background:rgba(0,0,0,.55);}
+    .content{display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;padding:0 1rem;text-align:center}
+    #logo{width:140px;height:auto;margin-bottom:2.5rem}
+    h1{font-weight:600;font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:.02em;text-transform:uppercase}
+    .date{margin-top:.75rem;font-weight:400;font-size:1.25rem;opacity:.9}
+    .btn{display:inline-block;margin-top:2.8rem;padding:1rem 2.4rem;border:none;border-radius:4px;background:var(--accent);color:#fff;font-weight:600;transition:transform .25s}
+    .btn:hover{transform:translateY(-4px)}
 
-    /* Button */
-    .btn{display:inline-block;margin-top:2.5rem;padding:1rem 2.2rem;
-      border:none;border-radius:4px;background:var(--accent);color:#fff;font-weight:600;
-      transform:translateZ(.1px); /* keeps it above bg */
-      transition:transform .25s cubic-bezier(.4,0,.2,1);}
-    .btn:hover{transform:translateZ(.1px) translateY(-4px)}
-
-    /* ---------- Sections ---------- */
-    section{max-width:880px;margin:0 auto;padding:5rem 1rem;
-      opacity:0;transform:translateY(60px);transition:opacity .8s ease-out,transform .8s ease-out}
-    section.reveal{opacity:1;transform:translateY(0)}
-    section h2{font-size:2rem;margin-bottom:1rem;color:var(--accent);text-align:center}
+    /* --- SECTIONS --- */
+    section{max-width:900px;margin:0 auto;padding:5rem 1rem;opacity:0;transform:translateY(60px);transition:.8s ease-out}
+    section.reveal{opacity:1;transform:none}
+    section h2{font-size:2rem;margin-bottom:1rem;color:var(--accent);text-align:center;font-weight:600}
     section p{text-align:center;font-size:1.15rem;line-height:1.7;max-width:60ch;margin:0 auto}
 
+    /* --- FOOTER --- */
     footer{background:#000;padding:2rem 1rem;text-align:center;font-size:.9rem}
 
-    /* ---------- Small niceties ---------- */
-    @media (prefers-reduced-motion:no-preference){
-      .btn::after{content:'';position:absolute;inset:0;border-radius:inherit;background:inherit;opacity:0;transition:opacity .4s}
-      .btn:active::after{opacity:.3}
-    }
+    @keyframes fadeIn{to{opacity:1}}
+    .content{animation:fadeIn 1.2s ease-out both .2s}
   </style>
 </head>
 <body>
 
-<!-- HERO / PARALLAX -->
+<!-- HERO -->
 <header class="hero">
-  <div class="parallax__layer layer--bg"></div>
-  <div class="parallax__layer layer--overlay"></div>
+  <div class="layer bg"></div>
+  <div class="layer shade"></div>
 
-  <div class="parallax__layer layer--content">
-    <!-- Logo – SVG inline, damit es sich färben lässt; ersetz src -->
+  <div class="layer content">
     <img id="logo" src="assets/logo.svg" alt="Banco de Café Logo">
-    <h1>Banco de&nbsp;Café</h1>
-    <div class="date">🎉 Eröffnung am <strong>7.&nbsp;August 2025</strong></div>
+    <h1>Neueröffnung</h1>
+    <div class="date">7.&nbsp;August&nbsp;2025</div>
     <a class="btn" href="mailto:info@bancodecafe.de">Kontakt&nbsp;aufnehmen</a>
   </div>
 </header>
@@ -77,34 +57,33 @@
 <!-- ABOUT -->
 <section id="about">
   <h2>Kaffee · Kultur · Community</h2>
-  <p>Inmitten von Neuss entsteht ein Ort, an dem Specialty-Coffee auf
-     Pâtisserie-Handwerkskunst trifft. Erlebe ein modernes Café-Ambiente,
-     das Minimalismus, Wärme und urbanen Flair vereint.</p>
+  <p>
+    In München-Laim entsteht ein Ort, an dem Specialty-Coffee auf Pâtisserie-Handwerk trifft.  
+    Erlebe minimalistisches Design, warme Atmosphäre und urbanen Flair – mitten in der Stadt.
+  </p>
 </section>
 
 <!-- LOCATION -->
 <section id="location">
-  <h2>Standort</h2>
-  <p>📍 Niederstraße&nbsp;12 &middot; 41460 Neuss<br>
-     5&nbsp;Minuten vom Marktplatz / ÖPNV-Haltestelle</p>
+  <h2>Adresse</h2>
+  <p>📍 Fürstenrieder&nbsp;Str.&nbsp;8<br>80687&nbsp;München</p>
+  <p style="margin-top:1.2rem;font-size:1rem;opacity:.85">
+     Telefon&nbsp;<a style="color:inherit;text-decoration:none" href="tel:+4917631115508">0176&nbsp;3111&nbsp;5508</a> ·
+     E-Mail&nbsp;<a style="color:inherit;text-decoration:none" href="mailto:info@bancodecafe.de">info@bancodecafe.de</a>
+  </p>
 </section>
 
-<footer>© 2025 Banco de Café • Design & Code by Luca Kingsley</footer>
+<footer>© 2025 Banco de Café</footer>
 
-<!-- ---------- Scripts ---------- -->
+<!-- REVEAL & LOGO PARALLAX -->
 <script>
-/* Parallax: verschiebt Logo leicht abhängig von Scroll */
-const logo = document.getElementById('logo');
-window.addEventListener('scroll', () => {
-  const y = window.scrollY * 0.1;          // speed factor
-  logo.style.transform = `translateY(${y}px) scale(1.0)`;
-});
+  /* Scroll-Reveal */
+  const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('reveal')),{threshold:.25});
+  document.querySelectorAll('section').forEach(s=>io.observe(s));
 
-/* Reveal Sections on Scroll */
-const io = new IntersectionObserver(entries =>
-  entries.forEach(e => e.isIntersecting && e.target.classList.add('reveal')),
-  {threshold: .25});
-document.querySelectorAll('section').forEach(s => io.observe(s));
+  /* Dezente Logo-Parallax */
+  const logo=document.getElementById('logo');
+  window.addEventListener('scroll',()=>logo.style.transform=`translateY(${window.scrollY*0.1}px)`);
 </script>
 </body>
 </html>
