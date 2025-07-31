@@ -11,6 +11,14 @@
     rel="stylesheet"
   />
 
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+e2Jrv/u+2MfMD4Xso6Qi8LYjFZBv0w3sZkEX+k9w="
+    crossorigin=""
+  />
+
   <style>
     :root {
       --accent: #c19a6b;
@@ -46,9 +54,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
       padding-top: 6vh;
       text-align: center;
+      justify-content: flex-start;
     }
 
     .layer {
@@ -56,17 +64,16 @@
       inset: 0;
       background-size: cover;
       background-position: center;
+      z-index: 0;
     }
 
     .bg {
       transform: translateZ(-1px) scale(2.2);
       background: url('assets/hero.jpg') center/cover no-repeat;
-      z-index: 0;
     }
 
     .shade {
       background: rgba(0, 0, 0, 0.55);
-      z-index: 0;
     }
 
     #logo {
@@ -93,38 +100,42 @@
 
     .hero-content h1 {
       font-weight: 600;
-      font-size: clamp(3.2rem, 8vw, 5.5rem);
+      font-size: clamp(2rem, 6vw, 3.6rem);
       letter-spacing: 0.02em;
       text-transform: uppercase;
       line-height: 1.1;
-      margin-bottom: 1rem;
+      margin-bottom: 0.7rem;
       color: var(--text);
+      max-width: 90vw;
     }
 
     .hero-content .sub {
       font-weight: 300;
-      font-size: clamp(1.6rem, 2.5vw, 2rem);
+      font-size: clamp(1rem, 2vw, 1.3rem);
       opacity: 0.9;
-      max-width: 40ch;
-      margin: 0 auto 3.5rem auto;
+      max-width: 80vw;
+      margin: 0 auto 2rem auto;
       color: var(--text);
+      line-height: 1.3;
     }
 
     .btn {
       display: inline-block;
-      padding: 1.1rem 3.2rem;
+      padding: 0.6rem 2rem;
       border: none;
       border-radius: 4px;
       background: var(--accent);
       color: #fff;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1rem;
       text-decoration: none;
       transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+      max-width: 90vw;
     }
 
     .btn:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
     }
 
     .btn:active {
@@ -178,6 +189,7 @@
       max-width: var(--max-width);
       margin: 4rem auto;
       box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
+      min-height: 320px;
     }
 
     #location-text,
@@ -192,7 +204,7 @@
 
     #location-text h2 {
       font-weight: 600;
-      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
       margin-bottom: 1rem;
       color: var(--accent);
     }
@@ -210,15 +222,14 @@
     }
 
     #location-text p a:hover,
-    #location-text p a:focus {
+    #location-text p:focus-visible {
       text-decoration: underline;
     }
 
-    /* Map iframe */
-    #location-map iframe {
+    /* Leaflet Map */
+    #location-map #map {
       width: 100%;
       height: 100%;
-      border: none;
       border-radius: 16px;
       box-shadow: 0 2px 6px rgb(0 0 0 / 0.12);
       min-height: 280px;
@@ -230,6 +241,7 @@
       #location-wrapper {
         flex-direction: column;
         margin: 3rem 1rem;
+        min-height: auto;
       }
 
       #location-text,
@@ -238,21 +250,28 @@
         padding: 2rem 1rem;
       }
 
-      #location-map iframe {
+      #location-map #map {
         max-height: 300px;
+        min-height: 240px;
+      }
+
+      /* Hero mobile smaller text and button */
+      .hero-content h1 {
+        font-size: 2rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .hero-content .sub {
+        font-size: 1rem;
+        margin-bottom: 1.6rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1.6rem;
+        font-size: 0.95rem;
+        max-width: 80vw;
       }
     }
-
-    /* ---------- FOOTER ---------- */
-    footer {
-      background: #000;
-      text-align: center;
-      font-size: 0.9rem;
-      padding: 2rem 1rem;
-      color: var(--text);
-    }
-
-    /* ---------- JS: Reveal + Logo-Parallax ---------- */
   </style>
 </head>
 <body>
@@ -274,7 +293,7 @@
   </header>
 
   <!-- ABOUT -->
-  <section id="about">
+  <section id="about" class="reveal">
     <h2>Kaffee · Kultur · Community</h2>
     <p>
       Ein minimalistischer Treffpunkt für echte Kaffee­liebhaber – mit
@@ -298,17 +317,18 @@
       </p>
     </div>
     <div id="location-map">
-      <!-- Google Maps iframe Beispiel (München-Laim) -->
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2663.833996048151!2d11.503250476015553!3d48.12310308595668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479dd0110d1c24d5%3A0x8cc3eac2ff0e8ad3!2sF%C3%BCrstenrieder%20Str.%208%2C%2080687%20M%C3%BCnchen!5e0!3m2!1sde!2sde!4v1690793891234!5m2!1sde!2sde"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
+      <div id="map"></div>
     </div>
   </section>
 
   <footer>© 2025 Banco de Café</footer>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o9N1j6gG/J63ElS3M4UV9K0wzqV1IQE2RbC7B1KOG3s="
+    crossorigin=""
+  ></script>
 
   <script>
     /* Section-Reveal */
@@ -330,6 +350,25 @@
       const y = window.scrollY * 0.06; // geringer Faktor → Motion-Comfort
       logo.style.transform = `translateY(${y}px)`;
     });
+
+    /* Leaflet Map Init */
+    const map = L.map('map', {
+      center: [48.1231, 11.5033], // München-Laim Koordinaten
+      zoom: 16,
+      scrollWheelZoom: false,
+      dragging: true,
+      tap: false
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    // Marker auf der Adresse
+    L.marker([48.1231, 11.5033]).addTo(map)
+      .bindPopup('Banco de Café<br>Fürstenrieder Str. 8')
+      .openPopup();
   </script>
 </body>
 </html>
