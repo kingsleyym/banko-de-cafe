@@ -1,100 +1,110 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Banco de Café – Neueröffnung</title>
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    :root{ --accent:#C19A6B; --bg-dark:rgba(20,18,16,.85); }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Open Sans',sans-serif;background:#111;color:#fafafa;scroll-behavior:smooth}
+    :root{
+      --accent:#C19A6B;
+      --bg:#111;
+      --text:#f8f8f8;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);scroll-behavior:smooth;overflow-x:hidden}
+    h1,h2{font-family:'Playfair Display',serif;letter-spacing:.04em}
 
-    /* ---------- HERO ---------- */
+    /* ---------- Parallax-Wrapper ---------- */
     .hero{
-      min-height:100vh;
-      background:url('hero.jpg') center/cover no-repeat fixed;
-      display:flex;align-items:center;justify-content:center;
-      text-align:center;position:relative;overflow:hidden;
+      position:relative;height:100vh;overflow:hidden;
+      perspective:1px; /* key for parallax illusion */
     }
-    .hero::before{content:'';position:absolute;inset:0;
-      background:var(--bg-dark);backdrop-filter:blur(2px);}
-    .hero-content{position:relative;z-index:1;opacity:0;
-      animation:fadeIn 1.2s ease-out forwards;}
-    h1{font-family:'Playfair Display',serif;
-      font-size:clamp(2.5rem,6vw,4.5rem);
-      letter-spacing:.05em;text-transform:uppercase;margin-bottom:.5em;}
-    h1 span{color:var(--accent)}
-    .date{font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:600;margin-bottom:1.5em}
-    .cta a{text-decoration:none;color:#fff;background:var(--accent);
-      padding:.8em 2em;border-radius:4px;font-weight:600;transition:transform .2s;}
-    .cta a:hover{transform:translateY(-3px)}
-
-    /* ---------- DAMPF ---------- */
-    .steam{width:8px;height:80px;margin:0 auto;position:relative}
-    .steam::before,.steam::after{
-      content:'';position:absolute;left:0;width:100%;height:100%;border-radius:50%;
-      background:linear-gradient(0deg,transparent 0%,rgba(255,255,255,.5) 100%);
-      animation:rise 4s linear infinite;}
-    .steam::after{animation-delay:2s}
-    @keyframes rise{
-      0%{transform:translateY(60px) scale(.3);opacity:0}
-      30%{opacity:.7}
-      100%{transform:translateY(-60px) scale(1);opacity:0}
+    .parallax__layer{
+      position:absolute;inset:0;
+      background-size:cover;background-position:center;
     }
+    .layer--bg{transform:translateZ(-1px) scale(2);background:url('assets/hero.jpg') no-repeat center/cover;}
+    .layer--overlay{background:rgba(0,0,0,.55);}
+    .layer--content{display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;padding:0 1rem;text-align:center}
+    #logo{width:140px;height:auto;margin-bottom:1rem;will-change:transform}
+    h1{font-size:clamp(2.8rem,6vw,5rem);text-transform:uppercase}
+    .date{margin-top:.5rem;font-weight:600;font-size:1.2rem}
 
-    /* ---------- SECTIONS ---------- */
-    section{padding:4rem 1rem;max-width:900px;margin:auto;
-      opacity:0;transform:translateY(40px);transition:all .8s ease-out;}
-    section.visible{opacity:1;transform:none}
-    section h2{font-family:'Playfair Display',serif;font-size:2rem;
-      margin-bottom:1rem;color:var(--accent);text-align:center}
-    section p{line-height:1.6;font-size:1.1rem;text-align:center;
-      max-width:60ch;margin:0 auto}
+    /* Button */
+    .btn{display:inline-block;margin-top:2.5rem;padding:1rem 2.2rem;
+      border:none;border-radius:4px;background:var(--accent);color:#fff;font-weight:600;
+      transform:translateZ(.1px); /* keeps it above bg */
+      transition:transform .25s cubic-bezier(.4,0,.2,1);}
+    .btn:hover{transform:translateZ(.1px) translateY(-4px)}
 
-    footer{padding:2rem 1rem;text-align:center;font-size:.9rem;background:#000}
+    /* ---------- Sections ---------- */
+    section{max-width:880px;margin:0 auto;padding:5rem 1rem;
+      opacity:0;transform:translateY(60px);transition:opacity .8s ease-out,transform .8s ease-out}
+    section.reveal{opacity:1;transform:translateY(0)}
+    section h2{font-size:2rem;margin-bottom:1rem;color:var(--accent);text-align:center}
+    section p{text-align:center;font-size:1.15rem;line-height:1.7;max-width:60ch;margin:0 auto}
 
-    @keyframes fadeIn{to{opacity:1}}
+    footer{background:#000;padding:2rem 1rem;text-align:center;font-size:.9rem}
+
+    /* ---------- Small niceties ---------- */
+    @media (prefers-reduced-motion:no-preference){
+      .btn::after{content:'';position:absolute;inset:0;border-radius:inherit;background:inherit;opacity:0;transition:opacity .4s}
+      .btn:active::after{opacity:.3}
+    }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-content">
-      <h1><span>Banco</span> de Café</h1>
-      <div class="date">🎉 Eröffnung am <strong>7. August 2025</strong></div>
-      <div class="steam"></div><br>
-      <div class="cta">
-        <a href="mailto:info@bancodecafe.de">Schreib uns: info@bancodecafe.de</a>
-      </div>
-    </div>
-  </header>
+<!-- HERO / PARALLAX -->
+<header class="hero">
+  <div class="parallax__layer layer--bg"></div>
+  <div class="parallax__layer layer--overlay"></div>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <h2>Kaffee • Kultur • Community</h2>
-    <p>Inmitten von Neuss entsteht ein Ort voll Aroma und Atmosphäre.<br>
-       Freu dich auf Specialty Coffee, frische Pâtisserie und entspannte Vibes.<br>
-       Wir öffnen in wenigen Tagen – sei dabei und koste den ersten Espresso aufs Haus!</p>
-  </section>
+  <div class="parallax__layer layer--content">
+    <!-- Logo – SVG inline, damit es sich färben lässt; ersetz src -->
+    <img id="logo" src="assets/logo.svg" alt="Banco de Café Logo">
+    <h1>Banco de&nbsp;Café</h1>
+    <div class="date">🎉 Eröffnung am <strong>7.&nbsp;August 2025</strong></div>
+    <a class="btn" href="mailto:info@bancodecafe.de">Kontakt&nbsp;aufnehmen</a>
+  </div>
+</header>
 
-  <!-- LOCATION -->
-  <section id="location">
-    <h2>Wo du uns findest</h2>
-    <p>📍 Niederstraße 12, 41460 Neuss (5 Minuten zu Fuß vom Marktplatz)</p>
-  </section>
+<!-- ABOUT -->
+<section id="about">
+  <h2>Kaffee · Kultur · Community</h2>
+  <p>Inmitten von Neuss entsteht ein Ort, an dem Specialty-Coffee auf
+     Pâtisserie-Handwerkskunst trifft. Erlebe ein modernes Café-Ambiente,
+     das Minimalismus, Wärme und urbanen Flair vereint.</p>
+</section>
 
-  <footer>© 2025 Banco de Café • Design & Code: Luca Kingsley</footer>
+<!-- LOCATION -->
+<section id="location">
+  <h2>Standort</h2>
+  <p>📍 Niederstraße&nbsp;12 &middot; 41460 Neuss<br>
+     5&nbsp;Minuten vom Marktplatz / ÖPNV-Haltestelle</p>
+</section>
 
-  <!-- Fade-In per IntersectionObserver -->
-  <script>
-    const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('visible')), {threshold:.2});
-    document.querySelectorAll('section').forEach(s=>io.observe(s));
-  </script>
+<footer>© 2025 Banco de Café • Design & Code by Luca Kingsley</footer>
+
+<!-- ---------- Scripts ---------- -->
+<script>
+/* Parallax: verschiebt Logo leicht abhängig von Scroll */
+const logo = document.getElementById('logo');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY * 0.1;          // speed factor
+  logo.style.transform = `translateY(${y}px) scale(1.0)`;
+});
+
+/* Reveal Sections on Scroll */
+const io = new IntersectionObserver(entries =>
+  entries.forEach(e => e.isIntersecting && e.target.classList.add('reveal')),
+  {threshold: .25});
+document.querySelectorAll('section').forEach(s => io.observe(s));
+</script>
 </body>
 </html>
