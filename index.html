@@ -1,532 +1,236 @@
 <!DOCTYPE html>
-<html lang="de" >
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Banco de Café – Neueröffnung</title>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    crossorigin=""
-  />
-
+  <!-- Google Fonts Einbindung -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --accent: #c19a6b;
-      --bg: #111;
-      --text: #f6f6f6;
-      --max-width: 900px;
-
-      --beige-bg: #f5f0e8;
-      --beige-text: #4a473f;
+      /* Standard Theme (hell) Farbkriterien */
+      --bg-color: #f9f9f9;
+      --text-color: #111;
+      --accent-color: #C19A6B; /* Kaffeemilch-Ton */
+      --overlay-color: rgba(255,255,255,0.5);
     }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    body.theme-beige {
+      --bg-color: #F7F2E7;
+      --text-color: #3B2A2A;
+      --accent-color: #A65E2E; /* Karamellbraun */
+      --overlay-color: rgba(255,255,255,0.5);
     }
-
+    body.theme-dark {
+      --bg-color: #111;
+      --text-color: #fafafa;
+      --accent-color: #C19A6B;
+      --overlay-color: rgba(20,18,16,0.85);
+    }
+    /* Globale Grundstyles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
+      font-family: 'Open Sans', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
       scroll-behavior: smooth;
-      line-height: 1.6;
+    }
+    h1, h2 { font-family: 'Playfair Display', serif; }
+    /* Header (Hero) Bereich */
+    header.hero {
       min-height: 100vh;
-      position: relative;
-    }
-
-    /* ---------- HERO / PARALLAX ---------- */
-    .hero {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-      perspective: 1px;
+      background: url('hero.jpg') center/cover no-repeat fixed;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 6vh;
-      text-align: center;
-      justify-content: flex-start;
-      background: url('assets/hero.jpg') center/cover no-repeat fixed;
-      /* Fixes responsiveness */
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-
-    .shade {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      z-index: 0;
-    }
-
-    #logo {
-      width: min(260px, 36vw);
-      max-width: 90%;
-      margin-bottom: clamp(2.5rem, 5vw, 4.2rem);
-      will-change: transform;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 1rem;
-      display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-grow: 1;
-      animation: fadeInUp 1s ease forwards;
-    }
-
-    .hero-content h1 {
-      font-weight: 600;
-      font-size: clamp(2rem, 6vw, 3.6rem);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      line-height: 1.1;
-      margin-bottom: 0.7rem;
-      max-width: 90vw;
-      color: var(--text);
-      opacity: 0;
-      animation: fadeInText 1.2s ease forwards 0.3s;
-    }
-
-    .hero-content .sub {
-      font-weight: 300;
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      opacity: 0;
-      max-width: 80vw;
-      margin: 0 auto 2rem auto;
-      color: var(--text);
-      line-height: 1.3;
-      animation: fadeInText 1.2s ease forwards 0.6s;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.6rem 2rem;
-      border: none;
-      border-radius: 4px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      font-size: 1rem;
-      text-decoration: none;
-      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       text-align: center;
-      max-width: 90vw;
+      position: relative;
+      overflow: hidden;
+    }
+    header.hero .overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--overlay-color);
+      backdrop-filter: blur(2px);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
       opacity: 0;
-      animation: fadeInText 1.2s ease forwards 0.9s;
+      animation: fadeIn 1.2s ease-out forwards;
     }
-
-    .btn:hover {
-      transform: translateY(-3px);
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5em;
     }
-
-    .btn:active {
-      transform: translateY(-1px);
+    h1 span { color: var(--accent-color); }
+    .date {
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 600;
+      margin-bottom: 1.5em;
     }
-
-    /* ---------- SECTION LAYOUT ---------- */
-    section {
-      max-width: var(--max-width);
+    /* Call-To-Action Link/Button */
+    .cta a {
+      text-decoration: none;
+      padding: 0.8em 2em;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: transform 0.2s;
+    }
+    .cta a:hover { transform: translateY(-3px); }
+    /* Theme-spezifischer Buttonstil */
+    body.theme-dark .cta a,
+    body.theme-beige .cta a {
+      background: var(--accent-color);
+      color: #fff;
+    }
+    body.theme-light .cta a {
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      background: transparent;
+    }
+    /* Aroma-Dampf Effekt (animierter Kaffeedampf) */
+    .steam {
+      width: 8px;
+      height: 80px;
       margin: 0 auto;
-      padding: clamp(3.5rem, 7vw, 5.5rem) 1rem;
-      opacity: 0;
-      transform: translateY(60px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      position: relative;
     }
-
-    section.reveal {
+    .steam:before,
+    .steam:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(0deg, transparent 0%, rgba(255,255,255,0.5) 100%);
+      animation: rise 4s linear infinite;
+    }
+    .steam:after { animation-delay: 2s; }
+    @keyframes rise {
+      0%   { transform: translateY(60px) scale(0.3); opacity: 0; }
+      30%  { opacity: 0.7; }
+      100% { transform: translateY(-60px) scale(1); opacity: 0; }
+    }
+    /* Sektionen (About, Location) */
+    section {
+      padding: 4rem 1rem;
+      max-width: 900px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+    section.visible {
       opacity: 1;
       transform: none;
     }
-
-    /* Kaffee · Kultur · Community Sektion (dunkel) */
-    #about {
-      color: var(--text);
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
       text-align: center;
     }
-
-    #about h2 {
-      font-weight: 600;
-      font-size: clamp(1.9rem, 3.2vw, 2.2rem);
-      margin-bottom: 1.2rem;
-      color: var(--accent);
-    }
-
-    #about p {
-      font-size: clamp(1.1rem, 1.4vw, 1.3rem);
-      max-width: 60ch;
-      margin-left: auto;
-      margin-right: auto;
-      font-weight: 300;
-    }
-
-    /* Adresse + Map Sektion - beige Hintergrund, geteiltes Layout */
-    #location-wrapper {
-      background: var(--beige-bg);
-      color: var(--beige-text);
-      border-radius: 16px;
-      overflow: hidden;
-      display: flex;
-      flex-wrap: wrap;
-      max-width: var(--max-width);
-      margin: 4rem auto;
-      box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
-      min-height: 320px;
-    }
-
-    #location-text,
-    #location-map {
-      flex: 1 1 320px;
-      padding: 3rem 2.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: left;
-    }
-
-    #location-text h2 {
-      font-weight: 600;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      margin-bottom: 1rem;
-      color: var(--accent);
-    }
-
-    #location-text p {
+    section p {
+      line-height: 1.6;
       font-size: 1.1rem;
-      line-height: 1.5;
-      margin-bottom: 1.4rem;
-      font-weight: 400;
+      text-align: center;
+      max-width: 60ch;
+      margin: 0 auto;
     }
-
-    #location-text p a {
-      color: var(--beige-text);
-      text-decoration: none;
+    /* Footer */
+    footer {
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 0.9rem;
     }
-
-    #location-text p a:hover,
-    #location-text p:focus-visible {
-      text-decoration: underline;
+    body.theme-dark footer {
+      background: #000;
+      color: #fafafa;
     }
-
-    /* Leaflet Map */
-    #location-map #map {
-      width: 100%;
-      height: 100%;
-      border-radius: 16px;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.12);
-      min-height: 280px;
-      max-height: 400px;
+    body.theme-light footer {
+      background: #eee;
+      color: #111;
     }
-
-    /* Scroll Indicator */
-    #scroll-indicator {
+    body.theme-beige footer {
+      background: #E8D8B0;
+      color: #3B2A2A;
+    }
+    /* Keyframe für Hero-Fade-In */
+    @keyframes fadeIn { to { opacity: 1; } }
+    /* Schalter für Theme-Wechsel (nur Demo, unten rechts) */
+    .theme-switcher {
       position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 30px;
-      height: 50px;
-      border: 2px solid var(--accent);
-      border-radius: 25px;
-      opacity: 1;
-      animation: scrollIndicatorPulse 2s ease-in-out 3;
-      z-index: 10;
-      pointer-events: none;
-      background: transparent;
+      bottom: 1rem;
+      right: 1rem;
+      opacity: 0.2;
+      transition: opacity 0.2s;
     }
-
-    #scroll-indicator::before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 10px;
-      border-radius: 3px;
-      background: var(--accent);
-      animation: scrollIndicatorMove 2s ease-in-out 3;
+    .theme-switcher:hover { opacity: 1; }
+    .theme-switcher button {
+      width: 20px;
+      height: 20px;
+      margin: 0 5px;
+      padding: 0;
+      border: 1px solid #aaa;
+      border-radius: 50%;
+      cursor: pointer;
     }
-
-    @keyframes scrollIndicatorPulse {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.3;
-      }
-    }
-
-    @keyframes scrollIndicatorMove {
-      0% {
-        top: 10px;
-        opacity: 1;
-      }
-      100% {
-        top: 30px;
-        opacity: 0;
-      }
-    }
-
-    /* FadeIn Text */
-    @keyframes fadeInText {
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    /* Rauch-Animation (simple example) */
-    #smoke-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      width: 100vw;
-      height: 100vh;
-      z-index: 1;
-      mix-blend-mode: screen;
-      opacity: 0.15;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      #location-wrapper {
-        flex-direction: column;
-        margin: 3rem 1rem;
-        min-height: auto;
-      }
-
-      #location-text,
-      #location-map {
-        flex: none;
-        padding: 2rem 1rem;
-      }
-
-      #location-map #map {
-        max-height: 300px;
-        min-height: 240px;
-      }
-
-      /* Hero mobile smaller text and button */
-      .hero-content h1 {
-        font-size: 2rem;
-        margin-bottom: 0.6rem;
-      }
-
-      .hero-content .sub {
-        font-size: 1rem;
-        margin-bottom: 1.6rem;
-      }
-
-      .btn {
-        padding: 0.5rem 1.6rem;
-        font-size: 0.95rem;
-        max-width: 80vw;
-      }
-    }
+    /* Farbige Indikatoren für die drei Themes */
+    .theme-switcher .light-btn  { background: #f9f9f9; }
+    .theme-switcher .beige-btn  { background: #A65E2E; }
+    .theme-switcher .dark-btn   { background: #111; }
   </style>
 </head>
-
-<body>
-  <header class="hero" role="banner">
-    <div class="shade"></div>
-
-    <img id="logo" src="assets/logo.svg" alt="Banco de Café Logo" />
-
+<body class="theme-light">
+  <!-- Hero Section mit Titel und Eröffnungsdatum -->
+  <header class="hero">
+    <div class="overlay"></div>
     <div class="hero-content">
-      <h1>Neueröffnung</h1>
-      <p class="sub">
-        Unser Specialty-Coffee-Spot öffnet am&nbsp;7.&nbsp;August&nbsp;2025 in
-        München-Laim.
-      </p>
-      <a class="btn" href="mailto:info@banko-de-cafe.de">Kontakt&nbsp;aufnehmen</a>
+      <h1><span>Banco</span> de Café</h1>
+      <div class="date">🎉 Eröffnung am&nbsp;<strong>7.&nbsp;August&nbsp;2025</strong></div>
+      <div class="steam"></div><br>
+      <div class="cta">
+        <a href="mailto:info@bancodecafe.de">Schreib&nbsp;uns: info@bancodecafe.de</a>
+      </div>
     </div>
   </header>
-
-  <section id="about" class="reveal" role="region" aria-labelledby="about-title">
-    <h2 id="about-title">Kaffee · Kultur · Community</h2>
-    <p>
-      Ein minimalistischer Treffpunkt für echte Kaffee­liebhaber – mit
-      sorgfältig gerösteten Bohnen, hausgemachter Pâtisserie und entspanntem
-      Ambiente.
-    </p>
+  <!-- About-Section -->
+  <section id="about">
+    <h2>Kaffee • Kultur • Community</h2>
+    <p>Inmitten von Neuss entsteht ein Ort voll Aroma und Atmosphäre. Freu dich auf Specialty Coffee, frische Pâtisserie und entspannte Vibes. Wir öffnen in wenigen Tagen – sei dabei und koste den ersten Espresso aufs Haus!</p>
   </section>
-
-  <section
-    id="location-wrapper"
-    class="reveal"
-    role="region"
-    aria-labelledby="location-title"
-  >
-    <div id="location-text">
-      <h2 id="location-title">Adresse</h2>
-      <p>
-        Fürstenrieder&nbsp;Str.&nbsp;8<br />
-        80687&nbsp;München
-      </p>
-      <p style="margin-top: 1.4rem; font-size: 1rem; opacity: 0.85;">
-        Tel.&nbsp;
-        <a href="tel:+4917631115508">0176&nbsp;3111&nbsp;5508</a> &middot;
-        <a href="mailto:info@banko-de-cafe.de">info@banko-de-cafe.de</a>
-      </p>
-    </div>
-    <div id="location-map">
-      <div id="map"></div>
-    </div>
+  <!-- Location-Section -->
+  <section id="location">
+    <h2>Wo du uns findest</h2>
+    <p>📍 Niederstraße&nbsp;12, 41460&nbsp;Neuss <br>(5&nbsp;Minuten zu Fuß vom Marktplatz)</p>
   </section>
-
-  <footer>© 2025 Banco de Café</footer>
-
-  <div id="scroll-indicator" aria-hidden="true"></div>
-
-  <canvas id="smoke-canvas" aria-hidden="true"></canvas>
-
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    crossorigin=""
-  ></script>
-
+  <footer>
+    © 2025&nbsp;Banco de Café&nbsp;• Design &amp; Code: Luca Kingsley
+  </footer>
+  <!-- Theme-Auswahl Buttons (temporär) -->
+  <div class="theme-switcher">
+    <button class="light-btn" onclick="setTheme('theme-light')" title="Helles Design"></button>
+    <button class="beige-btn" onclick="setTheme('theme-beige')" title="Beiges Design"></button>
+    <button class="dark-btn" onclick="setTheme('theme-dark')" title="Dunkles Design"></button>
+  </div>
+  <!-- Intersect-Observer Script für Fade-In Animationen -->
   <script>
-    // Section-Reveal
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('reveal');
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-    document.querySelectorAll('section').forEach((s) => io.observe(s));
-
-    // Logo-Parallax (dezente Bewegung)
-    const logo = document.getElementById('logo');
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY * 0.06; // geringer Faktor → Motion-Comfort
-      logo.style.transform = `translateY(${y}px)`;
-    });
-
-    // Leaflet Map Init
-    const map = L.map('map', {
-      center: [48.1231, 11.5033], // München-Laim Koordinaten
-      zoom: 16,
-      scrollWheelZoom: false,
-      dragging: true,
-      tap: false,
-    });
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution:
-        '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
-    }).addTo(map);
-
-    L.marker([48.1231, 11.5033])
-      .addTo(map)
-      .bindPopup('Banco de Café<br>Fürstenrieder Str. 8')
-      .openPopup();
-
-    // Scroll Indicator nach 5 Sekunden langsam ausblenden
-    setTimeout(() => {
-      const indicator = document.getElementById('scroll-indicator');
-      if (indicator) {
-        indicator.style.transition = 'opacity 2s ease';
-        indicator.style.opacity = '0';
-        setTimeout(() => {
-          indicator.style.display = 'none';
-        }, 2000);
-      }
-    }, 5000);
-
-    // Simple Rauch-Animation auf Canvas
-    const canvas = document.getElementById('smoke-canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
+    function setTheme(themeName) {
+      document.body.className = themeName;
     }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * width;
-        this.y = height + Math.random() * 100;
-        this.radius = 10 + Math.random() * 20;
-        this.speed = 0.3 + Math.random() * 0.7;
-        this.alpha = 0.1 + Math.random() * 0.15;
-      }
-      update() {
-        this.y -= this.speed;
-        this.alpha -= 0.001;
-        if (this.alpha <= 0) {
-          this.reset();
+    const callback = (entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
         }
-      }
-      draw() {
-        ctx.beginPath();
-        const gradient = ctx.createRadialGradient(
-          this.x,
-          this.y,
-          0,
-          this.x,
-          this.y,
-          this.radius
-        );
-        gradient.addColorStop(0, `rgba(255,255,255,${this.alpha})`);
-        gradient.addColorStop(1, 'rgba(255,255,255,0)');
-        ctx.fillStyle = gradient;
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < 25; i++) {
-      particles.push(new Particle());
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
       });
-      requestAnimationFrame(animate);
-    }
-
-    animate();
+    };
+    const observer = new IntersectionObserver(callback, { threshold: 0.2 });
+    document.querySelectorAll('section').forEach(sec => observer.observe(sec));
   </script>
 </body>
 </html>
