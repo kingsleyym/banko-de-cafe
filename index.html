@@ -1,129 +1,335 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Banco de Café – Neueröffnung</title>
 
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
-    :root{
-      --accent:#C19A6B;
-      --bg:#111;
-      --text:#f6f6f6;
-      --max-width:900px;
+    :root {
+      --accent: #c19a6b;
+      --bg: #111;
+      --text: #f6f6f6;
+      --max-width: 900px;
+
+      --beige-bg: #f5f0e8;
+      --beige-text: #4a473f;
     }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);scroll-behavior:smooth;overflow-x:hidden}
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
 
     /* ---------- HERO / PARALLAX ---------- */
-    .hero{position:relative;height:100vh;overflow:hidden;perspective:1px}
-    .layer{position:absolute;inset:0;background-size:cover;background-position:center}
-    .bg   {transform:translateZ(-1px) scale(2.2);background:url('assets/hero.jpg') center/cover no-repeat}
-    .shade{background:rgba(0,0,0,.55)}
-    .content{
-      position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;
-      width:100%;max-width:var(--max-width);margin:0 auto;
-      padding:6vh 1rem 0;   /* Abstand zum oberen Rand */
-      text-align:center;animation:fadeIn .9s ease-out both .2s
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      perspective: 1px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 6vh;
+      text-align: center;
     }
-    #logo{width:min(260px,36vw);max-width:90%;margin-bottom:clamp(2.5rem,5vw,4.2rem);will-change:transform}
 
-    h1{
-      font-weight:600;
-      font-size:clamp(2.8rem,6.5vw,5.2rem);
-      letter-spacing:.02em;text-transform:uppercase;
-      line-height:1.15;
+    .layer {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
     }
-    .sub{
-      margin-top:clamp(1.2rem,2.2vw,1.8rem);
-      font-size:clamp(1.2rem,1.8vw,1.4rem);
-      font-weight:300;opacity:.9;max-width:32ch
+
+    .bg {
+      transform: translateZ(-1px) scale(2.2);
+      background: url('assets/hero.jpg') center/cover no-repeat;
+      z-index: 0;
     }
-    .btn{
-      display:inline-block;margin-top:clamp(2.8rem,5vw,4rem);
-      padding:1rem 2.6rem;border:none;border-radius:4px;
-      background:var(--accent);color:#fff;font-weight:600;
-      font-size:1rem;text-decoration:none;
-      transition:transform .25s cubic-bezier(.4,0,.2,1)
+
+    .shade {
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 0;
     }
-    .btn:hover{transform:translateY(-4px)}
-    .btn:active{transform:translateY(-1px)}
+
+    #logo {
+      width: min(260px, 36vw);
+      max-width: 90%;
+      margin-bottom: clamp(2.5rem, 5vw, 4.2rem);
+      will-change: transform;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    .hero-content h1 {
+      font-weight: 600;
+      font-size: clamp(3.2rem, 8vw, 5.5rem);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .hero-content .sub {
+      font-weight: 300;
+      font-size: clamp(1.6rem, 2.5vw, 2rem);
+      opacity: 0.9;
+      max-width: 40ch;
+      margin: 0 auto 3.5rem auto;
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1.1rem 3.2rem;
+      border: none;
+      border-radius: 4px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+    }
 
     /* ---------- SECTION LAYOUT ---------- */
-    section{
-      max-width:var(--max-width);margin:0 auto;
-      padding:clamp(3.5rem,7vw,5.5rem) 1rem;
-      opacity:0;transform:translateY(60px);
-      transition:opacity .8s ease-out,transform .8s ease-out
+    section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: clamp(3.5rem, 7vw, 5.5rem) 1rem;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
-    section.reveal{opacity:1;transform:none}
-    h2{
-      font-weight:600;font-size:clamp(1.9rem,3.2vw,2.2rem);
-      margin-bottom:1.2rem;color:var(--accent);text-align:center
+
+    section.reveal {
+      opacity: 1;
+      transform: none;
     }
-    p{
-      text-align:center;font-size:clamp(1.1rem,1.4vw,1.2rem);
-      line-height:1.7;max-width:60ch;margin:0 auto;
+
+    /* Kaffee · Kultur · Community Sektion (dunkel) */
+    #about {
+      color: var(--text);
+      text-align: center;
+    }
+
+    #about h2 {
+      font-weight: 600;
+      font-size: clamp(1.9rem, 3.2vw, 2.2rem);
+      margin-bottom: 1.2rem;
+      color: var(--accent);
+    }
+
+    #about p {
+      font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+      max-width: 60ch;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 300;
+    }
+
+    /* Adresse + Map Sektion - beige Hintergrund, geteiltes Layout */
+    #location-wrapper {
+      background: var(--beige-bg);
+      color: var(--beige-text);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      max-width: var(--max-width);
+      margin: 4rem auto;
+      box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
+    }
+
+    #location-text,
+    #location-map {
+      flex: 1 1 320px;
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    #location-text h2 {
+      font-weight: 600;
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    #location-text p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-bottom: 1.4rem;
+      font-weight: 400;
+    }
+
+    #location-text p a {
+      color: var(--beige-text);
+      text-decoration: none;
+    }
+
+    #location-text p a:hover,
+    #location-text p a:focus {
+      text-decoration: underline;
+    }
+
+    /* Map iframe */
+    #location-map iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.12);
+      min-height: 280px;
+      max-height: 400px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #location-wrapper {
+        flex-direction: column;
+        margin: 3rem 1rem;
+      }
+
+      #location-text,
+      #location-map {
+        flex: none;
+        padding: 2rem 1rem;
+      }
+
+      #location-map iframe {
+        max-height: 300px;
+      }
     }
 
     /* ---------- FOOTER ---------- */
-    footer{
-      background:#000;text-align:center;
-      font-size:.9rem;padding:2rem 1rem
+    footer {
+      background: #000;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 2rem 1rem;
+      color: var(--text);
     }
 
-    @keyframes fadeIn{to{opacity:1}}
+    /* ---------- JS: Reveal + Logo-Parallax ---------- */
   </style>
 </head>
 <body>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="layer bg"></div>
+    <div class="layer shade"></div>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="layer bg"></div>
-  <div class="layer shade"></div>
+    <img id="logo" src="assets/logo.svg" alt="Banco de Café Logo" />
 
-  <div class="content">
-    <img id="logo" src="assets/logo.svg" alt="Banco de Café Logo">
-    <h1>Neueröffnung</h1>
-    <p class="sub">Unser Specialty-Coffee-Spot öffnet am&nbsp;7.&nbsp;August&nbsp;2025 in München-Laim.</p>
-    <a class="btn" href="mailto:info@banko-de-cafe.de">Kontakt&nbsp;aufnehmen</a>
-  </div>
-</header>
+    <div class="hero-content">
+      <h1>Neueröffnung</h1>
+      <p class="sub">
+        Unser Specialty-Coffee-Spot öffnet am&nbsp;7.&nbsp;August&nbsp;2025 in
+        München-Laim.
+      </p>
+      <a class="btn" href="mailto:info@banko-de-cafe.de">Kontakt&nbsp;aufnehmen</a>
+    </div>
+  </header>
 
-<!-- ABOUT -->
-<section id="about">
-  <h2>Kaffee · Kultur · Community</h2>
-  <p>Ein minimalistischer Treffpunkt für echte Kaffee­liebhaber – mit sorgfältig gerösteten Bohnen,
-     hausgemachter Pâtisserie und entspanntem Ambiente.</p>
-</section>
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>Kaffee · Kultur · Community</h2>
+    <p>
+      Ein minimalistischer Treffpunkt für echte Kaffee­liebhaber – mit
+      sorgfältig gerösteten Bohnen, hausgemachter Pâtisserie und entspanntem
+      Ambiente.
+    </p>
+  </section>
 
-<!-- LOCATION -->
-<section id="location">
-  <h2>Adresse</h2>
-  <p>Fürstenrieder&nbsp;Str.&nbsp;8<br>80687&nbsp;München</p>
-  <p style="margin-top:1.4rem;font-size:1rem;opacity:.85">
-     Tel.&nbsp;<a href="tel:+4917631115508" style="color:inherit;text-decoration:none">0176&nbsp;3111&nbsp;5508</a> ·
-     <a href="mailto:info@banko-de-cafe.de" style="color:inherit;text-decoration:none">info@banko-de-cafe.de</a>
-  </p>
-</section>
+  <!-- LOCATION + MAP -->
+  <section id="location-wrapper" class="reveal">
+    <div id="location-text">
+      <h2>Adresse</h2>
+      <p>
+        Fürstenrieder&nbsp;Str.&nbsp;8<br />
+        80687&nbsp;München
+      </p>
+      <p style="margin-top: 1.4rem; font-size: 1rem; opacity: 0.85;">
+        Tel.&nbsp;
+        <a href="tel:+4917631115508">0176&nbsp;3111&nbsp;5508</a> &middot;
+        <a href="mailto:info@banko-de-cafe.de">info@banko-de-cafe.de</a>
+      </p>
+    </div>
+    <div id="location-map">
+      <!-- Google Maps iframe Beispiel (München-Laim) -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2663.833996048151!2d11.503250476015553!3d48.12310308595668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479dd0110d1c24d5%3A0x8cc3eac2ff0e8ad3!2sF%C3%BCrstenrieder%20Str.%208%2C%2080687%20M%C3%BCnchen!5e0!3m2!1sde!2sde!4v1690793891234!5m2!1sde!2sde"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </section>
 
-<footer>© 2025 Banco de Café</footer>
+  <footer>© 2025 Banco de Café</footer>
 
-<!-- ---------- JS: Reveal + Logo-Parallax ---------- -->
-<script>
-  /* Section-Reveal */
-  const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('reveal')), {threshold:.25});
-  document.querySelectorAll('section').forEach(s=>io.observe(s));
+  <script>
+    /* Section-Reveal */
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal');
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+    document.querySelectorAll('section').forEach((s) => io.observe(s));
 
-  /* Logo-Parallax (dezente Bewegung) */
-  const logo=document.getElementById('logo');
-  window.addEventListener('scroll', () => {
-    const y=window.scrollY*0.06;              // geringer Faktor → Motion-Comfort
-    logo.style.transform=`translateY(${y}px)`;
-  });
-</script>
+    /* Logo-Parallax (dezente Bewegung) */
+    const logo = document.getElementById('logo');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY * 0.06; // geringer Faktor → Motion-Comfort
+      logo.style.transform = `translateY(${y}px)`;
+    });
+  </script>
 </body>
 </html>
