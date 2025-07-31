@@ -1,21 +1,17 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Banco de Café – Neueröffnung</title>
 
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
     rel="stylesheet"
   />
-
-  <!-- Leaflet CSS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-sA+e2Jrv/u+2MfMD4Xso6Qi8LYjFZBv0w3sZkEX+k9w="
     crossorigin=""
   />
 
@@ -40,9 +36,11 @@
       font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
-      scroll-behavior: smooth;
       overflow-x: hidden;
+      scroll-behavior: smooth;
       line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
     }
 
     /* ---------- HERO / PARALLAX ---------- */
@@ -57,23 +55,18 @@
       padding-top: 6vh;
       text-align: center;
       justify-content: flex-start;
-    }
-
-    .layer {
-      position: absolute;
-      inset: 0;
+      background: url('assets/hero.jpg') center/cover no-repeat fixed;
+      /* Fixes responsiveness */
       background-size: cover;
       background-position: center;
-      z-index: 0;
-    }
-
-    .bg {
-      transform: translateZ(-1px) scale(2.2);
-      background: url('assets/hero.jpg') center/cover no-repeat;
+      background-attachment: fixed;
     }
 
     .shade {
-      background: rgba(0, 0, 0, 0.55);
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 0;
     }
 
     #logo {
@@ -82,12 +75,12 @@
       margin-bottom: clamp(2.5rem, 5vw, 4.2rem);
       will-change: transform;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 0 1rem;
@@ -96,6 +89,7 @@
       align-items: center;
       justify-content: center;
       flex-grow: 1;
+      animation: fadeInUp 1s ease forwards;
     }
 
     .hero-content h1 {
@@ -105,18 +99,21 @@
       text-transform: uppercase;
       line-height: 1.1;
       margin-bottom: 0.7rem;
-      color: var(--text);
       max-width: 90vw;
+      color: var(--text);
+      opacity: 0;
+      animation: fadeInText 1.2s ease forwards 0.3s;
     }
 
     .hero-content .sub {
       font-weight: 300;
       font-size: clamp(1rem, 2vw, 1.3rem);
-      opacity: 0.9;
+      opacity: 0;
       max-width: 80vw;
       margin: 0 auto 2rem auto;
       color: var(--text);
       line-height: 1.3;
+      animation: fadeInText 1.2s ease forwards 0.6s;
     }
 
     .btn {
@@ -132,6 +129,8 @@
       transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       text-align: center;
       max-width: 90vw;
+      opacity: 0;
+      animation: fadeInText 1.2s ease forwards 0.9s;
     }
 
     .btn:hover {
@@ -236,6 +235,83 @@
       max-height: 400px;
     }
 
+    /* Scroll Indicator */
+    #scroll-indicator {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 50px;
+      border: 2px solid var(--accent);
+      border-radius: 25px;
+      opacity: 1;
+      animation: scrollIndicatorPulse 2s ease-in-out 3;
+      z-index: 10;
+      pointer-events: none;
+      background: transparent;
+    }
+
+    #scroll-indicator::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--accent);
+      animation: scrollIndicatorMove 2s ease-in-out 3;
+    }
+
+    @keyframes scrollIndicatorPulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    @keyframes scrollIndicatorMove {
+      0% {
+        top: 10px;
+        opacity: 1;
+      }
+      100% {
+        top: 30px;
+        opacity: 0;
+      }
+    }
+
+    /* FadeIn Text */
+    @keyframes fadeInText {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* Rauch-Animation (simple example) */
+    #smoke-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      mix-blend-mode: screen;
+      opacity: 0.15;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       #location-wrapper {
@@ -274,11 +350,10 @@
     }
   </style>
 </head>
+
 <body>
-  <!-- HERO -->
-  <header class="hero">
-    <div class="layer bg"></div>
-    <div class="layer shade"></div>
+  <header class="hero" role="banner">
+    <div class="shade"></div>
 
     <img id="logo" src="assets/logo.svg" alt="Banco de Café Logo" />
 
@@ -292,9 +367,8 @@
     </div>
   </header>
 
-  <!-- ABOUT -->
-  <section id="about" class="reveal">
-    <h2>Kaffee · Kultur · Community</h2>
+  <section id="about" class="reveal" role="region" aria-labelledby="about-title">
+    <h2 id="about-title">Kaffee · Kultur · Community</h2>
     <p>
       Ein minimalistischer Treffpunkt für echte Kaffee­liebhaber – mit
       sorgfältig gerösteten Bohnen, hausgemachter Pâtisserie und entspanntem
@@ -302,10 +376,14 @@
     </p>
   </section>
 
-  <!-- LOCATION + MAP -->
-  <section id="location-wrapper" class="reveal">
+  <section
+    id="location-wrapper"
+    class="reveal"
+    role="region"
+    aria-labelledby="location-title"
+  >
     <div id="location-text">
-      <h2>Adresse</h2>
+      <h2 id="location-title">Adresse</h2>
       <p>
         Fürstenrieder&nbsp;Str.&nbsp;8<br />
         80687&nbsp;München
@@ -323,15 +401,17 @@
 
   <footer>© 2025 Banco de Café</footer>
 
-  <!-- Leaflet JS -->
+  <div id="scroll-indicator" aria-hidden="true"></div>
+
+  <canvas id="smoke-canvas" aria-hidden="true"></canvas>
+
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-o9N1j6gG/J63ElS3M4UV9K0wzqV1IQE2RbC7B1KOG3s="
     crossorigin=""
   ></script>
 
   <script>
-    /* Section-Reveal */
+    // Section-Reveal
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -344,20 +424,20 @@
     );
     document.querySelectorAll('section').forEach((s) => io.observe(s));
 
-    /* Logo-Parallax (dezente Bewegung) */
+    // Logo-Parallax (dezente Bewegung)
     const logo = document.getElementById('logo');
     window.addEventListener('scroll', () => {
       const y = window.scrollY * 0.06; // geringer Faktor → Motion-Comfort
       logo.style.transform = `translateY(${y}px)`;
     });
 
-    /* Leaflet Map Init */
+    // Leaflet Map Init
     const map = L.map('map', {
       center: [48.1231, 11.5033], // München-Laim Koordinaten
       zoom: 16,
       scrollWheelZoom: false,
       dragging: true,
-      tap: false
+      tap: false,
     });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -365,10 +445,88 @@
         '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    // Marker auf der Adresse
-    L.marker([48.1231, 11.5033]).addTo(map)
+    L.marker([48.1231, 11.5033])
+      .addTo(map)
       .bindPopup('Banco de Café<br>Fürstenrieder Str. 8')
       .openPopup();
+
+    // Scroll Indicator nach 5 Sekunden langsam ausblenden
+    setTimeout(() => {
+      const indicator = document.getElementById('scroll-indicator');
+      if (indicator) {
+        indicator.style.transition = 'opacity 2s ease';
+        indicator.style.opacity = '0';
+        setTimeout(() => {
+          indicator.style.display = 'none';
+        }, 2000);
+      }
+    }, 5000);
+
+    // Simple Rauch-Animation auf Canvas
+    const canvas = document.getElementById('smoke-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = height + Math.random() * 100;
+        this.radius = 10 + Math.random() * 20;
+        this.speed = 0.3 + Math.random() * 0.7;
+        this.alpha = 0.1 + Math.random() * 0.15;
+      }
+      update() {
+        this.y -= this.speed;
+        this.alpha -= 0.001;
+        if (this.alpha <= 0) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        const gradient = ctx.createRadialGradient(
+          this.x,
+          this.y,
+          0,
+          this.x,
+          this.y,
+          this.radius
+        );
+        gradient.addColorStop(0, `rgba(255,255,255,${this.alpha})`);
+        gradient.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = gradient;
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 25; i++) {
+      particles.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach((p) => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   </script>
 </body>
 </html>
