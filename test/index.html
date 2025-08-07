@@ -79,171 +79,125 @@
             z-index: -1;
         }
 
-        /* Kleine Asset-Elemente über und unter dem Bagel */
-        .asset-element {
-            position: absolute;
-            z-index: 2;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .asset-top {
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            animation-delay: -1s;
-        }
-
-        .asset-bottom {
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            animation-delay: -3s;
-        }
-
-        .asset-left {
-            top: 30%;
-            left: 20%;
-            animation-delay: -2s;
-        }
-
-        .asset-right {
-            top: 70%;
-            right: 20%;
-            animation-delay: -4s;
-        }
-
-        .asset-element img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 50%;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
         /* Main Content */
         .main-content {
             padding: 4rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
+            background: #FAFAFA;
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 3rem);
             text-align: center;
             margin-bottom: 3rem;
-            color: #2c2c2c;
+            color: #111;
             font-weight: 700;
         }
 
-        /* 4er Grid mit schwebenden Bildern */
+        /* Horizontales Karussell */
         .food-section {
             margin-bottom: 6rem;
         }
 
-        .food-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+        .carousel-container {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .food-carousel {
+            display: flex;
             gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 0 2rem 2rem;
+            min-width: max-content;
         }
 
         .food-card {
             position: relative;
             background: white;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: visible;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
             transition: all 0.3s ease;
-            padding: 2rem 1.5rem 1.5rem;
-            margin-top: 60px; /* Platz für schwebendes Bild */
+            padding: 4rem 1.5rem 1.5rem;
+            width: 280px;
+            flex-shrink: 0;
+            scroll-snap-align: start;
         }
 
         .food-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
-        /* Schwebendes PNG-Bild über der Karte */
+        /* Überlappende Produktbilder */
         .floating-image {
             position: absolute;
-            top: -60px;
+            top: -40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
         }
 
         .floating-image img {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             object-fit: cover;
             border-radius: 50%;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             background: white;
-            padding: 5px;
+            padding: 8px;
         }
 
         .food-card .content {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 2rem;
         }
 
         .food-card .content h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 600;
             margin-bottom: 0.8rem;
-            color: #2c2c2c;
+            color: #111;
+            text-transform: capitalize;
         }
 
         .food-card .content p {
-            font-size: 0.9rem;
-            color: #666;
+            font-size: 0.875rem;
+            color: #555;
             margin-bottom: 1.2rem;
-            line-height: 1.5;
+            line-height: 1.4;
             min-height: 60px;
         }
 
         .food-card .content .price {
             font-weight: 700;
-            font-size: 1.4rem;
-            color: #2c2c2c;
+            font-size: 1rem;
+            color: #C19A6B;
         }
 
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .food-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 900px) {
-            .food-grid {
-                grid-template-columns: repeat(2, 1fr);
+        /* Responsive */
+        @media (max-width: 768px) {
+            .food-carousel {
+                padding: 0 1rem 2rem;
+                gap: 1.5rem;
             }
             
-            .left-text, .right-text {
-                font-size: 0.9rem;
-            }
-            
-            .floating-bagel img {
-                width: 250px;
-                height: 250px;
+            .food-card {
+                width: 260px;
             }
         }
 
-        @media (max-width: 600px) {
-            .food-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .left-text {
-                left: 5%;
-                top: 25%;
-            }
-            
-            .right-text {
-                right: 5%;
-                top: 75%;
+        @media (prefers-reduced-motion: reduce) {
+            header {
+                background-attachment: scroll;
             }
         }
     </style>
@@ -255,20 +209,10 @@
         <a href="../" class="nav-link">← Zurück zur Hauptseite</a>
         
         <div class="hero-container">
-            <!-- We Love Text links -->
-            <div class="left-text">
-                <h1>We<br>Love</h1>
-            </div>
-            
-            <!-- Getränk in der Mitte (placeholder - wird durch echtes Getränk ersetzt) -->
-            <div class="center-drink">
-                <img src="../assets/caesars_front.webp" alt="Drink">
-            </div>
-            
-            <!-- Café Text rechts -->
-            <div class="right-text">
-                <h1>Café</h1>
-            </div>
+            <h1 class="hero-title">
+                <span class="hero-title-duplicate">We love coffee</span>
+                We love coffee
+            </h1>
         </div>
     </header>
 
@@ -276,45 +220,47 @@
         <!-- Bagels Sektion -->
         <section class="food-section" id="bagels">
             <h2 class="section-title">Bagels</h2>
-            <div class="food-grid">
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/manhatten_city_plain.webp" alt="Manhattan City Bagel">
+            <div class="carousel-container">
+                <div class="food-carousel">
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/manhatten_city_plain.webp" alt="Manhattan City Bagel">
+                        </div>
+                        <div class="content">
+                            <h3>Manhattan City</h3>
+                            <p>Frischkäse, Avocado, Räucherlachs, Dill, Rucola, Limetten-Olivenöl-Dressing</p>
+                            <span class="price">€6,95</span>
+                        </div>
                     </div>
-                    <div class="content">
-                        <h3>Manhattan City</h3>
-                        <p>Frischkäse, Avocado, Räucherlachs, Dill, Rucola, Limetten-Olivenöl-Dressing</p>
-                        <span class="price">€6,95</span>
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/new_york_style_plain.webp" alt="New York Style Bagel">
+                        </div>
+                        <div class="content">
+                            <h3>New York Style</h3>
+                            <p>Rührei, Schnittlauch, Cheddar, Beef Bacon, Honig-Dressing</p>
+                            <span class="price">€6,95</span>
+                        </div>
                     </div>
-                </div>
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/new_york_style_plain.webp" alt="New York Style Bagel">
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/pastrami_deluxe_plain.webp" alt="Pastrami Deluxe Bagel">
+                        </div>
+                        <div class="content">
+                            <h3>Pastrami Deluxe</h3>
+                            <p>Frischkäse, Pastrami, Spiegelei, Rucola, Lime-Dressing</p>
+                            <span class="price">€6,95</span>
+                        </div>
                     </div>
-                    <div class="content">
-                        <h3>New York Style</h3>
-                        <p>Rührei, Schnittlauch, Cheddar, Beef Bacon, Honig-Dressing</p>
-                        <span class="price">€6,95</span>
-                    </div>
-                </div>
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/pastrami_deluxe_plain.webp" alt="Pastrami Deluxe Bagel">
-                    </div>
-                    <div class="content">
-                        <h3>Pastrami Deluxe</h3>
-                        <p>Frischkäse, Pastrami, Spiegelei, Rucola, Lime-Dressing</p>
-                        <span class="price">€6,95</span>
-                    </div>
-                </div>
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/vegan_vegas_plain.webp" alt="Vegan Vegas Bagel">
-                    </div>
-                    <div class="content">
-                        <h3>Vegan Vegas</h3>
-                        <p>Hummus, Gurke, Rucola, Avocado, Tomate, Sesam-Dressing</p>
-                        <span class="price">€6,95</span>
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/vegan_vegas_plain.webp" alt="Vegan Vegas Bagel">
+                        </div>
+                        <div class="content">
+                            <h3>Vegan Vegas</h3>
+                            <p>Hummus, Gurke, Rucola, Avocado, Tomate, Sesam-Dressing</p>
+                            <span class="price">€6,95</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -323,45 +269,47 @@
         <!-- Focaccia Sektion -->
         <section class="food-section" id="focaccia">
             <h2 class="section-title">Focaccia</h2>
-            <div class="food-grid">
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/pastrami_plain.webp" alt="Focaccia Pastrami">
+            <div class="carousel-container">
+                <div class="food-carousel">
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/pastrami_plain.webp" alt="Focaccia Pastrami">
+                        </div>
+                        <div class="content">
+                            <h3>Pastrami</h3>
+                            <p>Frischkäse, Rucola, Pastrami, Cherry Tomaten, Lime Dressing</p>
+                            <span class="price">€6,95</span>
+                        </div>
                     </div>
-                    <div class="content">
-                        <h3>Pastrami</h3>
-                        <p>Frischkäse, Rucola, Pastrami, Cherry Tomaten, Lime Dressing</p>
-                        <span class="price">€6,95</span>
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/italiano_plain.webp" alt="Focaccia Italiano">
+                        </div>
+                        <div class="content">
+                            <h3>Italiano</h3>
+                            <p>Rinder Salami, Burrata, Rucola, Pesto, getrocknete Tomaten, Olivenöl</p>
+                            <span class="price">€6,95</span>
+                        </div>
                     </div>
-                </div>
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/italiano_plain.webp" alt="Focaccia Italiano">
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/milano_plain.webp" alt="Focaccia Milano">
+                        </div>
+                        <div class="content">
+                            <h3>Milano</h3>
+                            <p>Truthahn Schinken, Salatmix, Parmesan, Pistazien Sauce, Ricotta, Cherry Tomaten</p>
+                            <span class="price">€6,95</span>
+                        </div>
                     </div>
-                    <div class="content">
-                        <h3>Italiano</h3>
-                        <p>Rinder Salami, Burrata, Rucola, Pesto, getrocknete Tomaten, Olivenöl</p>
-                        <span class="price">€6,95</span>
-                    </div>
-                </div>
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/milano_plain.webp" alt="Focaccia Milano">
-                    </div>
-                    <div class="content">
-                        <h3>Milano</h3>
-                        <p>Truthahn Schinken, Salatmix, Parmesan, Pistazien Sauce, Ricotta, Cherry Tomaten</p>
-                        <span class="price">€6,95</span>
-                    </div>
-                </div>
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/giuliana_plain.webp" alt="Focaccia Giuliana">
-                    </div>
-                    <div class="content">
-                        <h3>Giuliana</h3>
-                        <p>Tomate, Mozzarella, Balsamico-Creme, Rucola, Parmesan, Truthahn Schinken</p>
-                        <span class="price">€6,95</span>
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/giuliana_plain.webp" alt="Focaccia Giuliana">
+                        </div>
+                        <div class="content">
+                            <h3>Giuliana</h3>
+                            <p>Tomate, Mozzarella, Balsamico-Creme, Rucola, Parmesan, Truthahn Schinken</p>
+                            <span class="price">€6,95</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -370,45 +318,96 @@
         <!-- Bowls Sektion -->
         <section class="food-section" id="bowls">
             <h2 class="section-title">Bowls</h2>
-            <div class="food-grid">
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/chicken_teriyaki_front.webp" alt="Chicken Teriyaki Bowl">
+            <div class="carousel-container">
+                <div class="food-carousel">
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/chicken_teriyaki_top.webp" alt="Chicken Teriyaki Bowl">
+                        </div>
+                        <div class="content">
+                            <h3>Chicken Teriyaki</h3>
+                            <p>Grilled Chicken 150g, Teriyaki Sauce, Basmati Reis, Edamame, Mango, Avocado</p>
+                            <span class="price">€9,90</span>
+                        </div>
                     </div>
-                    <div class="content">
-                        <h3>Chicken Teriyaki</h3>
-                        <p>Grilled Chicken 150g, Teriyaki Sauce, Basmati Reis, Edamame, Mango, Avocado</p>
-                        <span class="price">€9,90</span>
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/peanut_chicken_top.webp" alt="Peanut Chicken Bowl">
+                        </div>
+                        <div class="content">
+                            <h3>Peanut Chicken</h3>
+                            <p>Grilled Chicken 150g, Peanut Sauce, Basmati Reis, Edamame, Mango, Avocado</p>
+                            <span class="price">€9,90</span>
+                        </div>
+                    </div>
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/caesars_top.webp" alt="Caesars Bowl">
+                        </div>
+                        <div class="content">
+                            <h3>Caesars</h3>
+                            <p>Grilled Chicken 150g, Romana Salat, Quinoa, Croutons, Parmesan, Cherrytomaten</p>
+                            <span class="price">€9,90</span>
+                        </div>
+                    </div>
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/falafel_top.webp" alt="Falafel Bowl">
+                        </div>
+                        <div class="content">
+                            <h3>Falafel</h3>
+                            <p>Falafel, Quinoa, Sesam Sauce, Hummus, Granatapfel Dressing, Salatmix, Cherry Tomaten</p>
+                            <span class="price">€9,90</span>
+                        </div>
                     </div>
                 </div>
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/peanut_chicken_front.webp" alt="Peanut Chicken Bowl">
+            </div>
+        </section>
+
+        <!-- Getränke Sektion (Bagel als Vorlage) -->
+        <section class="food-section" id="drinks">
+            <h2 class="section-title">Getränke</h2>
+            <div class="carousel-container">
+                <div class="food-carousel">
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/manhatten_city_plain.webp" alt="Kaffee Spezialität">
+                        </div>
+                        <div class="content">
+                            <h3>Cappuccino</h3>
+                            <p>Cremiger Cappuccino mit perfekt aufgeschäumter Milch</p>
+                            <span class="price">€3,50</span>
+                        </div>
                     </div>
-                    <div class="content">
-                        <h3>Peanut Chicken</h3>
-                        <p>Grilled Chicken 150g, Peanut Sauce, Basmati Reis, Edamame, Mango, Avocado</p>
-                        <span class="price">€9,90</span>
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/new_york_style_plain.webp" alt="Latte Macchiato">
+                        </div>
+                        <div class="content">
+                            <h3>Latte Macchiato</h3>
+                            <p>Geschichteter Latte mit aromatischem Espresso</p>
+                            <span class="price">€4,20</span>
+                        </div>
                     </div>
-                </div>
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/caesars_front.webp" alt="Caesars Bowl">
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/pastrami_deluxe_plain.webp" alt="Espresso">
+                        </div>
+                        <div class="content">
+                            <h3>Espresso</h3>
+                            <p>Kraftvoller italienischer Espresso</p>
+                            <span class="price">€2,50</span>
+                        </div>
                     </div>
-                    <div class="content">
-                        <h3>Caesars</h3>
-                        <p>Grilled Chicken 150g, Romana Salat, Quinoa, Croutons, Parmesan, Cherrytomaten</p>
-                        <span class="price">€9,90</span>
-                    </div>
-                </div>
-                <div class="food-card">
-                    <div class="floating-image">
-                        <img src="../assets/falafel_front.webp" alt="Falafel Bowl">
-                    </div>
-                    <div class="content">
-                        <h3>Falafel</h3>
-                        <p>Falafel, Quinoa, Sesam Sauce, Hummus, Granatapfel Dressing, Salatmix, Cherry Tomaten</p>
-                        <span class="price">€9,90</span>
+                    <div class="food-card">
+                        <div class="floating-image">
+                            <img src="../assets/vegan_vegas_plain.webp" alt="Cold Brew">
+                        </div>
+                        <div class="content">
+                            <h3>Cold Brew</h3>
+                            <p>Kalt gebrühter Kaffee mit intensivem Aroma</p>
+                            <span class="price">€4,50</span>
+                        </div>
                     </div>
                 </div>
             </div>
