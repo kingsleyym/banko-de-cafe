@@ -71,13 +71,13 @@
             justify-content: center;
         }
 
-        /* Zentrales Bowl-PNG - höher positioniert */
+        /* Zentrales Bowl-PNG - unten fixiert, 10% abgeschnitten */
         .center-drink {
             position: fixed;
             z-index: 1;
             left: 50%;
-            top: 40%; /* Höher positioniert */
-            transform: translate(-50%, -50%);
+            bottom: -10%; /* Unten positioniert, 10% abgeschnitten */
+            transform: translateX(-50%);
             will-change: transform;
         }
 
@@ -85,24 +85,23 @@
             width: clamp(600px, 70vw, 900px);
             height: clamp(960px, 112vw, 1440px);
             object-fit: contain;
-            transform: translateY(clamp(100px, 15vw, 200px));
         }
 
         /* Dekorative Bagels - über den Texten */
         .coffee-bean {
             position: absolute;
-            z-index: 5;
+            z-index: 6; /* Über dem Text */
         }
 
         .coffee-bean.left {
-            left: 15%;
-            top: 35%;
+            left: 8%; /* Näher zur Schrift, über das "W" */
+            top: 55%;
             transform: rotate(-15deg);
         }
 
         .coffee-bean.right {
             right: 15%;
-            top: 35%;
+            top: 55%;
             transform: rotate(25deg);
         }
 
@@ -112,10 +111,10 @@
             opacity: 0.9;
         }
 
-        /* "We Love Coffee" Typography - in Boxen zentriert */
+        /* "We Love Coffee" Typography - korrekte Ausrichtung */
         .hero-text {
             position: absolute;
-            z-index: 4;
+            z-index: 5;
             top: 60%;
             transform: translateY(-50%);
             width: 25%;
@@ -123,12 +122,12 @@
 
         .hero-text.left {
             left: 5%;
-            text-align: center;
+            text-align: left; /* Linksbündig */
         }
 
         .hero-text.right {
             right: 5%;
-            text-align: center;
+            text-align: right; /* Rechtsbündig */
         }
 
         .hero-title {
@@ -144,12 +143,7 @@
 
 
 
-        /* Divider */
-        .divider {
-            height: 6px;
-            background: #252424;
-            width: 100%;
-        }
+
 
         /* Sektionen */
         .main-content {
@@ -388,17 +382,17 @@
             }
             
             .coffee-bean.left {
-                left: 10%;
-                top: 40%;
+                left: 6%;
+                top: 50%;
             }
             
             .coffee-bean.right {
                 right: 10%;
-                top: 40%;
+                top: 50%;
             }
             
             .center-drink {
-                top: 35%;
+                bottom: -15%; /* Mehr abgeschnitten auf Mobile */
             }
             
             .food-carousel {
@@ -426,13 +420,17 @@
             }
             
             .coffee-bean.left {
-                left: 8%;
-                top: 45%;
+                left: 5%;
+                top: 55%;
             }
             
             .coffee-bean.right {
                 right: 8%;
-                top: 45%;
+                top: 55%;
+            }
+            
+            .center-drink {
+                bottom: -20%; /* Noch mehr abgeschnitten auf sehr kleinen Screens */
             }
             
             .logo {
@@ -484,8 +482,6 @@
             </div>
         </div>
     </header>
-
-    <div class="divider"></div>
 
     <div class="main-content">
         <!-- Getränke Sektion (Hell) -->
@@ -742,15 +738,15 @@
     </div>
 
     <script>
-        // Parallax Effekt für die Bowl
+        // Parallax Effekt für die Bowl - unten fixiert
         function updateParallax() {
             const scrolled = window.pageYOffset;
             const parallaxElement = document.querySelector('.center-drink');
-            const speed = 0.5; // Parallax-Geschwindigkeit
+            const speed = 0.3; // Langsamere Parallax-Geschwindigkeit
             
             if (parallaxElement) {
                 const yPos = -(scrolled * speed);
-                parallaxElement.style.transform = `translate(-50%, calc(-50% + ${yPos}px))`;
+                parallaxElement.style.transform = `translateX(-50%) translateY(${yPos}px)`;
             }
         }
 
