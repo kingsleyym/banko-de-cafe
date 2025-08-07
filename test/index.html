@@ -16,12 +16,12 @@
         body {
             line-height: 1.6;
             color: #333;
-            background: #f8f9fa;
+            background: #EDE8E2;
         }
 
-        /* Header mit radialem Verlauf */
+        /* Hero mit korrektem Gradient */
         header {
-            background: radial-gradient(circle at center, #074574 0%, #053659 50%, #02243d 100%);
+            background: linear-gradient(to bottom, #D4C4B5 0%, #B49A86 100%);
             height: 80vh;
             position: relative;
             display: flex;
@@ -29,10 +29,22 @@
             justify-content: center;
         }
 
-        .nav-link {
+        /* Logo oben links */
+        .logo {
             position: absolute;
             top: 30px;
             left: 30px;
+            color: white;
+            font-family: serif;
+            font-size: 24px;
+            font-weight: 100;
+            z-index: 10;
+        }
+
+        .nav-link {
+            position: absolute;
+            top: 30px;
+            right: 30px;
             background: rgba(255, 255, 255, 0.15);
             color: white;
             padding: 12px 24px;
@@ -51,133 +63,265 @@
         }
 
         .hero-container {
-            text-align: center;
-            color: white;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Zentrales Frappuccino-PNG */
+        .center-drink {
+            position: absolute;
+            z-index: 5;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .center-drink img {
+            width: 300px;
+            height: 480px;
+            object-fit: contain;
+        }
+
+        /* Dekorative Kaffeebohnen */
+        .coffee-bean {
+            position: absolute;
+            z-index: 3;
+        }
+
+        .coffee-bean.left {
+            left: 15%;
+            top: 40%;
+            transform: rotate(-15deg);
+        }
+
+        .coffee-bean.right {
+            right: 15%;
+            top: 60%;
+            transform: rotate(25deg);
+        }
+
+        .coffee-bean img {
+            width: 180px;
+            height: auto;
+            opacity: 0.8;
         }
 
         /* "We love coffee" Typography */
+        .hero-text {
+            position: relative;
+            z-index: 4;
+        }
+
         .hero-title {
-            font-size: clamp(4rem, 8vw, 8rem);
-            font-weight: 300;
-            letter-spacing: 0.1em;
+            font-size: clamp(3rem, 6vw, 7rem);
+            font-weight: 900;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             line-height: 0.9;
             margin: 0;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         /* Zweizeilige Dopplung für Tiefe */
         .hero-title-duplicate {
-            opacity: 0.3;
-            transform: translate(4px, 4px);
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 4px;
+            left: 4px;
+            opacity: 0.2;
             z-index: -1;
         }
 
-        /* Main Content */
+        /* Divider */
+        .divider {
+            height: 6px;
+            background: #252424;
+            width: 100%;
+        }
+
+        /* Sektionen */
         .main-content {
+            background: #EDE8E2;
+        }
+
+        .content-section {
             padding: 4rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
-            background: #FAFAFA;
+        }
+
+        .content-section.dark {
+            background: #3B3B38;
+            color: white;
         }
 
         .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #111;
+            font-size: 40px;
             font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #222;
         }
 
-        /* Horizontales Karussell */
-        .food-section {
-            margin-bottom: 6rem;
+        .content-section.dark .section-title {
+            color: #FFF;
         }
 
-        .carousel-container {
+        .section-subtitle {
+            font-size: 16px;
+            color: #666;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.4;
+        }
+
+        .content-section.dark .section-subtitle {
+            color: #DDD;
+        }
+
+        /* Carousel mit 3D-Effekt */
+        .carousel-wrapper {
+            position: relative;
+        }
+
+        .carousel {
+            display: flex;
+            gap: 32px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
+            padding: 0 2rem 2rem;
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
 
-        .carousel-container::-webkit-scrollbar {
+        .carousel::-webkit-scrollbar {
             display: none;
         }
 
-        .food-carousel {
-            display: flex;
-            gap: 2rem;
-            padding: 0 2rem 2rem;
-            min-width: max-content;
-        }
-
-        .food-card {
+        .product-card {
             position: relative;
             background: white;
             border-radius: 16px;
             overflow: visible;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
-            transition: all 0.3s ease;
-            padding: 4rem 1.5rem 1.5rem;
-            width: 280px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            width: 260px;
             flex-shrink: 0;
-            scroll-snap-align: start;
+            scroll-snap-align: center;
+            transform: scale(0.95);
         }
 
-        .food-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        .product-card.active {
+            transform: scale(1.08) translateY(-12px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card:hover {
+            transform: scale(1.02) translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
 
         /* Überlappende Produktbilder */
-        .floating-image {
-            position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
+        .product-image {
+            position: relative;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -30px;
             z-index: 10;
         }
 
-        .floating-image img {
-            width: 140px;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 50%;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            background: white;
-            padding: 8px;
+        .product-image img {
+            width: auto;
+            height: 180px;
+            object-fit: contain;
         }
 
-        .food-card .content {
-            text-align: center;
-            margin-top: 2rem;
+        .product-content {
+            padding: 20px 18px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .food-card .content h3 {
-            font-size: 1.25rem;
+        .product-name {
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: #111;
+            color: #222;
             text-transform: capitalize;
         }
 
-        .food-card .content p {
-            font-size: 0.875rem;
+        .product-description {
+            font-size: 14px;
             color: #555;
-            margin-bottom: 1.2rem;
             line-height: 1.4;
-            min-height: 60px;
+            margin-bottom: 12px;
         }
 
-        .food-card .content .price {
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-size {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .product-price {
+            font-size: 20px;
             font-weight: 700;
-            font-size: 1rem;
-            color: #C19A6B;
+            color: #222;
+        }
+
+        /* Arrow Buttons */
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #333;
+            border: none;
+            color: white;
+            cursor: pointer;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-button:hover {
+            background: #B49A86;
+        }
+
+        .carousel-button.prev {
+            left: -24px;
+        }
+
+        .carousel-button.next {
+            right: -24px;
+        }
+
+        .content-section.dark .carousel-button {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .content-section.dark .carousel-button:hover {
+            background: white;
+            color: #3B3B38;
         }
 
         /* Responsive */
@@ -203,210 +347,163 @@
 <body>
 
     <header>
+        <div class="logo">BANCO The Café</div>
         <a href="../" class="nav-link">← Zurück zur Hauptseite</a>
         
         <div class="hero-container">
-            <h1 class="hero-title">
-                <span class="hero-title-duplicate">We love coffee</span>
-                We love coffee
-            </h1>
+            <!-- Dekorative Kaffeebohnen -->
+            <div class="coffee-bean left">
+                <img src="../assets/manhatten_city_plain.webp" alt="Coffee Bean">
+            </div>
+            <div class="coffee-bean right">
+                <img src="../assets/vegan_vegas_plain.webp" alt="Coffee Bean">
+            </div>
+            
+            <!-- Zentrales Frappuccino-PNG -->
+            <div class="center-drink">
+                <img src="../assets/chicken_teriyaki_front.webp" alt="Frappuccino">
+            </div>
+            
+            <!-- "We love coffee" Text -->
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="hero-title-duplicate">We love coffee</span>
+                    We love coffee
+                </h1>
+            </div>
         </div>
     </header>
 
+    <div class="divider"></div>
+
     <div class="main-content">
-        <!-- Bagels Sektion -->
-        <section class="food-section" id="bagels">
-            <h2 class="section-title">Bagels</h2>
-            <div class="carousel-container">
-                <div class="food-carousel">
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/manhatten_city_plain.webp" alt="Manhattan City Bagel">
+        <!-- Getränke Sektion (Hell) -->
+        <section class="content-section">
+            <h2 class="section-title">Unsere Getränke</h2>
+            <p class="section-subtitle">Entdecken Sie unsere köstliche Auswahl an frisch gebrühten Kaffees, cremigen Cappuccinos und erfrischenden Cold Brews.</p>
+            
+            <div class="carousel-wrapper">
+                <button class="carousel-button prev">‹</button>
+                <div class="carousel" id="drinks-carousel">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/manhatten_city_plain.webp" alt="Cappuccino">
                         </div>
-                        <div class="content">
-                            <h3>Manhattan City</h3>
-                            <p>Frischkäse, Avocado, Räucherlachs, Dill, Rucola, Limetten-Olivenöl-Dressing</p>
-                            <span class="price">€6,95</span>
-                        </div>
-                    </div>
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/new_york_style_plain.webp" alt="New York Style Bagel">
-                        </div>
-                        <div class="content">
-                            <h3>New York Style</h3>
-                            <p>Rührei, Schnittlauch, Cheddar, Beef Bacon, Honig-Dressing</p>
-                            <span class="price">€6,95</span>
+                        <div class="product-content">
+                            <div class="product-name">Cappuccino</div>
+                            <div class="product-description">Cremiger Cappuccino mit perfekt aufgeschäumter Milch</div>
+                            <div class="product-footer">
+                                <span class="product-size">250ml</span>
+                                <span class="product-price">€3,50</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/pastrami_deluxe_plain.webp" alt="Pastrami Deluxe Bagel">
-                        </div>
-                        <div class="content">
-                            <h3>Pastrami Deluxe</h3>
-                            <p>Frischkäse, Pastrami, Spiegelei, Rucola, Lime-Dressing</p>
-                            <span class="price">€6,95</span>
-                        </div>
-                    </div>
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/vegan_vegas_plain.webp" alt="Vegan Vegas Bagel">
-                        </div>
-                        <div class="content">
-                            <h3>Vegan Vegas</h3>
-                            <p>Hummus, Gurke, Rucola, Avocado, Tomate, Sesam-Dressing</p>
-                            <span class="price">€6,95</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Focaccia Sektion -->
-        <section class="food-section" id="focaccia">
-            <h2 class="section-title">Focaccia</h2>
-            <div class="carousel-container">
-                <div class="food-carousel">
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/pastrami_plain.webp" alt="Focaccia Pastrami">
-                        </div>
-                        <div class="content">
-                            <h3>Pastrami</h3>
-                            <p>Frischkäse, Rucola, Pastrami, Cherry Tomaten, Lime Dressing</p>
-                            <span class="price">€6,95</span>
-                        </div>
-                    </div>
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/italiano_plain.webp" alt="Focaccia Italiano">
-                        </div>
-                        <div class="content">
-                            <h3>Italiano</h3>
-                            <p>Rinder Salami, Burrata, Rucola, Pesto, getrocknete Tomaten, Olivenöl</p>
-                            <span class="price">€6,95</span>
-                        </div>
-                    </div>
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/milano_plain.webp" alt="Focaccia Milano">
-                        </div>
-                        <div class="content">
-                            <h3>Milano</h3>
-                            <p>Truthahn Schinken, Salatmix, Parmesan, Pistazien Sauce, Ricotta, Cherry Tomaten</p>
-                            <span class="price">€6,95</span>
-                        </div>
-                    </div>
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/giuliana_plain.webp" alt="Focaccia Giuliana">
-                        </div>
-                        <div class="content">
-                            <h3>Giuliana</h3>
-                            <p>Tomate, Mozzarella, Balsamico-Creme, Rucola, Parmesan, Truthahn Schinken</p>
-                            <span class="price">€6,95</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bowls Sektion -->
-        <section class="food-section" id="bowls">
-            <h2 class="section-title">Bowls</h2>
-            <div class="carousel-container">
-                <div class="food-carousel">
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/chicken_teriyaki_top.webp" alt="Chicken Teriyaki Bowl">
-                        </div>
-                        <div class="content">
-                            <h3>Chicken Teriyaki</h3>
-                            <p>Grilled Chicken 150g, Teriyaki Sauce, Basmati Reis, Edamame, Mango, Avocado</p>
-                            <span class="price">€9,90</span>
-                        </div>
-                    </div>
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/peanut_chicken_top.webp" alt="Peanut Chicken Bowl">
-                        </div>
-                        <div class="content">
-                            <h3>Peanut Chicken</h3>
-                            <p>Grilled Chicken 150g, Peanut Sauce, Basmati Reis, Edamame, Mango, Avocado</p>
-                            <span class="price">€9,90</span>
-                        </div>
-                    </div>
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/caesars_top.webp" alt="Caesars Bowl">
-                        </div>
-                        <div class="content">
-                            <h3>Caesars</h3>
-                            <p>Grilled Chicken 150g, Romana Salat, Quinoa, Croutons, Parmesan, Cherrytomaten</p>
-                            <span class="price">€9,90</span>
-                        </div>
-                    </div>
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/falafel_top.webp" alt="Falafel Bowl">
-                        </div>
-                        <div class="content">
-                            <h3>Falafel</h3>
-                            <p>Falafel, Quinoa, Sesam Sauce, Hummus, Granatapfel Dressing, Salatmix, Cherry Tomaten</p>
-                            <span class="price">€9,90</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Getränke Sektion (Bagel als Vorlage) -->
-        <section class="food-section" id="drinks">
-            <h2 class="section-title">Getränke</h2>
-            <div class="carousel-container">
-                <div class="food-carousel">
-                    <div class="food-card">
-                        <div class="floating-image">
-                            <img src="../assets/manhatten_city_plain.webp" alt="Kaffee Spezialität">
-                        </div>
-                        <div class="content">
-                            <h3>Cappuccino</h3>
-                            <p>Cremiger Cappuccino mit perfekt aufgeschäumter Milch</p>
-                            <span class="price">€3,50</span>
-                        </div>
-                    </div>
-                    <div class="food-card">
-                        <div class="floating-image">
+                    <div class="product-card active">
+                        <div class="product-image">
                             <img src="../assets/new_york_style_plain.webp" alt="Latte Macchiato">
                         </div>
-                        <div class="content">
-                            <h3>Latte Macchiato</h3>
-                            <p>Geschichteter Latte mit aromatischem Espresso</p>
-                            <span class="price">€4,20</span>
+                        <div class="product-content">
+                            <div class="product-name">Latte Macchiato</div>
+                            <div class="product-description">Geschichteter Latte mit aromatischem Espresso</div>
+                            <div class="product-footer">
+                                <span class="product-size">300ml</span>
+                                <span class="product-price">€4,20</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="food-card">
-                        <div class="floating-image">
+                    <div class="product-card">
+                        <div class="product-image">
                             <img src="../assets/pastrami_deluxe_plain.webp" alt="Espresso">
                         </div>
-                        <div class="content">
-                            <h3>Espresso</h3>
-                            <p>Kraftvoller italienischer Espresso</p>
-                            <span class="price">€2,50</span>
+                        <div class="product-content">
+                            <div class="product-name">Espresso</div>
+                            <div class="product-description">Kraftvoller italienischer Espresso</div>
+                            <div class="product-footer">
+                                <span class="product-size">50ml</span>
+                                <span class="product-price">€2,50</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="food-card">
-                        <div class="floating-image">
+                    <div class="product-card">
+                        <div class="product-image">
                             <img src="../assets/vegan_vegas_plain.webp" alt="Cold Brew">
                         </div>
-                        <div class="content">
-                            <h3>Cold Brew</h3>
-                            <p>Kalt gebrühter Kaffee mit intensivem Aroma</p>
-                            <span class="price">€4,50</span>
+                        <div class="product-content">
+                            <div class="product-name">Cold Brew</div>
+                            <div class="product-description">Kalt gebrühter Kaffee mit intensivem Aroma</div>
+                            <div class="product-footer">
+                                <span class="product-size">400ml</span>
+                                <span class="product-price">€4,50</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <button class="carousel-button next">›</button>
+            </div>
+        </section>
+
+        <!-- Speisen Sektion (Dunkel) -->
+        <section class="content-section dark">
+            <h2 class="section-title">Unsere Speisen</h2>
+            <p class="section-subtitle">Genießen Sie unsere handgemachten Bagels, knusprigen Focaccias und nahrhaften Bowls - alle frisch zubereitet.</p>
+            
+            <div class="carousel-wrapper">
+                <button class="carousel-button prev">‹</button>
+                <div class="carousel" id="food-carousel">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/manhatten_city_plain.webp" alt="Manhattan City Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Manhattan City</div>
+                            <div class="product-description">Frischkäse, Avocado, Räucherlachs, Dill, Rucola</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€6,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card active">
+                        <div class="product-image">
+                            <img src="../assets/chicken_teriyaki_top.webp" alt="Chicken Teriyaki Bowl">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Chicken Teriyaki</div>
+                            <div class="product-description">Grilled Chicken, Teriyaki Sauce, Basmati Reis</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bowl</span>
+                                <span class="product-price">€9,90</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/italiano_plain.webp" alt="Focaccia Italiano">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Italiano</div>
+                            <div class="product-description">Rinder Salami, Burrata, Rucola, Pesto</div>
+                            <div class="product-footer">
+                                <span class="product-size">Focaccia</span>
+                                <span class="product-price">€6,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/falafel_top.webp" alt="Falafel Bowl">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Falafel Bowl</div>
+                            <div class="product-description">Falafel, Quinoa, Sesam Sauce, Hummus</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bowl</span>
+                                <span class="product-price">€9,90</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-button next">›</button>
             </div>
         </section>
     </div>
