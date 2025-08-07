@@ -71,12 +71,12 @@
             justify-content: center;
         }
 
-        /* Zentrales Bowl-PNG - unten fixiert, 10% abgeschnitten */
+        /* Zentrales Bowl-PNG - überlappt 5% in die erste Section */
         .center-drink {
             position: fixed;
             z-index: 1;
             left: 50%;
-            bottom: -10%; /* Unten positioniert, 10% abgeschnitten */
+            bottom: 5%; /* 5% über dem unteren Rand, überlappt in die Section */
             transform: translateX(-50%);
             will-change: transform;
         }
@@ -392,7 +392,7 @@
             }
             
             .center-drink {
-                bottom: -15%; /* Mehr abgeschnitten auf Mobile */
+                bottom: 0%; /* Auf Mobile weniger Überlappung */
             }
             
             .food-carousel {
@@ -430,7 +430,7 @@
             }
             
             .center-drink {
-                bottom: -20%; /* Noch mehr abgeschnitten auf sehr kleinen Screens */
+                bottom: -5%; /* Auf sehr kleinen Screens leicht abgeschnitten */
             }
             
             .logo {
