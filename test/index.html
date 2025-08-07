@@ -76,7 +76,7 @@
             position: absolute;
             z-index: 1;
             left: 50%;
-            bottom: -50%; /* Viel weiter unten, fast am Bildschirmrand */
+            bottom: -55%; /* Noch weiter unten, mehr angeschnitten */
             transform: translateX(-50%);
             will-change: transform;
         }
@@ -392,7 +392,7 @@
             }
             
             .center-drink {
-                bottom: -55%; /* Auf Mobile noch weiter unten */
+                bottom: -60%; /* Auf Mobile noch weiter unten */
             }
             
             .food-carousel {
@@ -430,7 +430,7 @@
             }
             
             .center-drink {
-                bottom: -60%; /* Auf sehr kleinen Screens ganz unten */
+                bottom: -65%; /* Auf sehr kleinen Screens noch mehr unten */
             }
             
             .logo {
@@ -738,14 +738,15 @@
     </div>
 
     <script>
-        // Parallax Effekt für die Bowl - relativ zum Header
+        // Parallax Effekt für die Bowl - nach unten verschwinden
         function updateParallax() {
             const scrolled = window.pageYOffset;
             const parallaxElement = document.querySelector('.center-drink');
             const speed = 0.5; // Parallax-Geschwindigkeit
             
             if (parallaxElement) {
-                const yPos = -(scrolled * speed);
+                // Bowl bewegt sich beim Scrollen nach unten weg (positive Richtung)
+                const yPos = scrolled * speed;
                 parallaxElement.style.transform = `translateX(-50%) translateY(${yPos}px)`;
             }
         }
