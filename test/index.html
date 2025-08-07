@@ -76,9 +76,8 @@
             position: absolute;
             z-index: 1;
             left: 50%;
-            bottom: -10%; /* 10% unter dem Header-Bereich angeschnitten */
+            bottom: -15%; /* Statisch am unteren Header-Rand angeschnitten */
             transform: translateX(-50%);
-            will-change: transform;
         }
 
         .center-drink img {
@@ -392,7 +391,7 @@
             }
             
             .center-drink {
-                bottom: -15%; /* Auf Mobile etwas mehr angeschnitten */
+                bottom: -20%; /* Auf Mobile etwas mehr angeschnitten */
             }
             
             .food-carousel {
@@ -430,7 +429,7 @@
             }
             
             .center-drink {
-                bottom: -20%; /* Auf sehr kleinen Screens mehr angeschnitten */
+                bottom: -25%; /* Auf sehr kleinen Screens mehr angeschnitten */
             }
             
             .logo {
@@ -738,21 +737,6 @@
     </div>
 
     <script>
-        // Parallax Effekt für die Bowl - relativ zum Header
-        function updateParallax() {
-            const scrolled = window.pageYOffset;
-            const parallaxElement = document.querySelector('.center-drink');
-            const speed = 0.5; // Parallax-Geschwindigkeit
-            
-            if (parallaxElement) {
-                const yPos = -(scrolled * speed);
-                parallaxElement.style.transform = `translateX(-50%) translateY(${yPos}px)`;
-            }
-        }
-
-        // Event Listener für Scroll
-        window.addEventListener('scroll', updateParallax);
-        
         function scrollCarousel(carouselId, direction) {
             const carousel = document.getElementById(carouselId);
             const scrollAmount = 292; // Kartenbreite + Gap
