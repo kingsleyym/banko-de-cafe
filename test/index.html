@@ -19,10 +19,10 @@
             background: #EDE8E2;
         }
 
-        /* Hero mit radialem Gradient */
+        /* Hero mit radialem Gradient - volle Höhe */
         header {
             background: radial-gradient(circle, #D4C4B5 0%, #B49A86 70%);
-            height: 80vh;
+            height: 100vh;
             position: relative;
             display: flex;
             align-items: center;
@@ -71,71 +71,72 @@
             justify-content: center;
         }
 
-        /* Zentrales Bowl-PNG - 3x größer mit Parallax */
+        /* Zentrales Bowl-PNG - höher positioniert */
         .center-drink {
             position: fixed;
-            z-index: 1; /* Niedriger z-index damit es hinter Content verschwindet */
+            z-index: 1;
             left: 50%;
-            top: 50%;
+            top: 40%; /* Höher positioniert */
             transform: translate(-50%, -50%);
             will-change: transform;
         }
 
         .center-drink img {
-            width: 900px;
-            height: 1440px;
+            width: clamp(600px, 70vw, 900px);
+            height: clamp(960px, 112vw, 1440px);
             object-fit: contain;
-            transform: translateY(200px); /* Bowl unten abgeschnitten */
+            transform: translateY(clamp(100px, 15vw, 200px));
         }
 
-        /* Dekorative Bagels - fest positioniert */
+        /* Dekorative Bagels - über den Texten */
         .coffee-bean {
             position: absolute;
-            z-index: 3;
+            z-index: 5;
         }
 
         .coffee-bean.left {
-            left: 8%;
-            top: 25%;
+            left: 15%;
+            top: 35%;
             transform: rotate(-15deg);
         }
 
         .coffee-bean.right {
-            right: 8%;
-            top: 25%;
+            right: 15%;
+            top: 35%;
             transform: rotate(25deg);
         }
 
         .coffee-bean img {
-            width: 200px;
+            width: clamp(120px, 15vw, 200px);
             height: auto;
             opacity: 0.9;
         }
 
-        /* "We love coffee" Typography - horizontal zentriert */
+        /* "We Love Coffee" Typography - in Boxen zentriert */
         .hero-text {
             position: absolute;
             z-index: 4;
-            top: 50%;
+            top: 60%;
             transform: translateY(-50%);
+            width: 25%;
         }
 
         .hero-text.left {
-            left: 25%;
+            left: 5%;
             text-align: center;
         }
 
         .hero-text.right {
-            right: 25%;
+            right: 5%;
             text-align: center;
         }
 
         .hero-title {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-size: clamp(1.2rem, 2.5vw, 2.2rem);
             font-weight: 700;
             letter-spacing: 0.04em;
             text-transform: uppercase;
-            line-height: 1.1;
+            line-height: 1.2;
             margin: 0;
             color: white;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
@@ -354,7 +355,52 @@
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-text {
+                width: 30%;
+            }
+            
+            .coffee-bean.left {
+                left: 12%;
+            }
+            
+            .coffee-bean.right {
+                right: 12%;
+            }
+        }
+        
         @media (max-width: 768px) {
+            header {
+                height: 100vh;
+            }
+            
+            .hero-text {
+                width: 35%;
+                top: 65%;
+            }
+            
+            .hero-text.left {
+                left: 8%;
+            }
+            
+            .hero-text.right {
+                right: 8%;
+            }
+            
+            .coffee-bean.left {
+                left: 10%;
+                top: 40%;
+            }
+            
+            .coffee-bean.right {
+                right: 10%;
+                top: 40%;
+            }
+            
+            .center-drink {
+                top: 35%;
+            }
+            
             .food-carousel {
                 padding: 0 1rem 2rem;
                 gap: 1.5rem;
@@ -362,6 +408,40 @@
             
             .food-card {
                 width: 260px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-text {
+                width: 40%;
+                top: 70%;
+            }
+            
+            .hero-text.left {
+                left: 5%;
+            }
+            
+            .hero-text.right {
+                right: 5%;
+            }
+            
+            .coffee-bean.left {
+                left: 8%;
+                top: 45%;
+            }
+            
+            .coffee-bean.right {
+                right: 8%;
+                top: 45%;
+            }
+            
+            .logo {
+                font-size: 18px;
+            }
+            
+            .nav-link {
+                padding: 10px 20px;
+                font-size: 12px;
             }
         }
 
