@@ -94,14 +94,14 @@
         }
 
         .coffee-bean.left {
-            left: 8%; /* Näher zur Schrift, über das "W" */
-            top: 55%;
+            left: 12%; /* Näher zur Mitte, größerer Außenrand */
+            top: 45%; /* Höher positioniert */
             transform: rotate(-15deg);
         }
 
         .coffee-bean.right {
-            right: 15%;
-            top: 55%;
+            right: 12%; /* Näher zur Mitte, größerer Außenrand */
+            top: 45%; /* Höher positioniert */
             transform: rotate(25deg);
         }
 
@@ -115,18 +115,18 @@
         .hero-text {
             position: absolute;
             z-index: 5;
-            top: 60%;
+            top: 50%; /* Höher positioniert */
             transform: translateY(-50%);
             width: 25%;
         }
 
         .hero-text.left {
-            left: 5%;
+            left: 10%; /* Näher zur Mitte */
             text-align: left; /* Linksbündig */
         }
 
         .hero-text.right {
-            right: 5%;
+            right: 10%; /* Näher zur Mitte */
             text-align: right; /* Rechtsbündig */
         }
 
@@ -352,14 +352,25 @@
         @media (max-width: 1024px) {
             .hero-text {
                 width: 30%;
+                top: 52%; /* Angepasst für Tablets */
             }
             
-            .coffee-bean.left {
+            .hero-text.left {
                 left: 12%;
             }
             
-            .coffee-bean.right {
+            .hero-text.right {
                 right: 12%;
+            }
+            
+            .coffee-bean.left {
+                left: 15%; /* Angepasst für Tablets */
+                top: 42%;
+            }
+            
+            .coffee-bean.right {
+                right: 15%; /* Angepasst für Tablets */
+                top: 42%;
             }
         }
         
@@ -370,25 +381,25 @@
             
             .hero-text {
                 width: 35%;
-                top: 65%;
+                top: 55%; /* Angepasst für Mobile */
             }
             
             .hero-text.left {
-                left: 8%;
+                left: 12%; /* Näher zur Mitte */
             }
             
             .hero-text.right {
-                right: 8%;
+                right: 12%; /* Näher zur Mitte */
             }
             
             .coffee-bean.left {
-                left: 6%;
-                top: 50%;
+                left: 8%; /* Leicht von Text wegbewegt, aber noch berührend */
+                top: 45%;
             }
             
             .coffee-bean.right {
-                right: 10%;
-                top: 50%;
+                right: 8%; /* Leicht von Text wegbewegt, aber noch berührend */
+                top: 45%;
             }
             
             .center-drink {
@@ -408,25 +419,25 @@
         @media (max-width: 480px) {
             .hero-text {
                 width: 40%;
-                top: 70%;
+                top: 60%; /* Angepasst für kleine Screens */
             }
             
             .hero-text.left {
-                left: 5%;
+                left: 8%; /* Näher zur Mitte */
             }
             
             .hero-text.right {
-                right: 5%;
+                right: 8%; /* Näher zur Mitte */
             }
             
             .coffee-bean.left {
-                left: 5%;
-                top: 55%;
+                left: 5%; /* Leicht von Text wegbewegt */
+                top: 50%;
             }
             
             .coffee-bean.right {
-                right: 8%;
-                top: 55%;
+                right: 5%; /* Leicht von Text wegbewegt */
+                top: 50%;
             }
             
             .center-drink {
