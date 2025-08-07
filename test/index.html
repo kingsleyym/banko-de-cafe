@@ -10,124 +10,158 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Inter, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            line-height: 1.5;
+            line-height: 1.6;
             color: #333;
-            background: #fafafa;
+            background: #f8f9fa;
         }
 
+        /* Header wie im PDF Design */
         header {
-            height: 80vh;
-            background-image: url('../hero.jpg');
-            /* Hero-Bild aus dem Hauptverzeichnis */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            /* Parallax-Effekt */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: #2c2c2c;
+            padding: 2rem 1rem;
             text-align: center;
             position: relative;
-        }
-
-        header::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, .45);
-        }
-
-        header h1 {
-            position: relative;
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            color: #fff;
-            letter-spacing: .1em;
-        }
-
-        section {
-            padding: 4rem 1rem;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        section h2 {
-            font-size: clamp(1.75rem, 4vw, 3rem);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .grid {
-            display: grid;
-            gap: 2rem;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        }
-
-        .card {
-            background: #fff;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, .07);
-            transition: transform .2s;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-        }
-
-        .card img {
-            width: 100%;
-            display: block;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-        }
-
-        .card .content {
-            padding: 1rem;
-        }
-
-        .card .content h3 {
-            font-size: 1.25rem;
-            margin-bottom: .5rem;
-            text-transform: capitalize;
-        }
-
-        .card .content p {
-            font-size: .875rem;
-            margin-bottom: 1rem;
-            min-height: 72px;
-        }
-
-        .card .content span {
-            font-weight: 600;
-            font-size: 1rem;
-            color: #222;
         }
 
         .nav-link {
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
             padding: 10px 20px;
             border-radius: 25px;
             text-decoration: none;
-            color: #333;
             font-weight: 500;
             transition: background 0.2s;
             z-index: 10;
         }
 
         .nav-link:hover {
-            background: rgba(255, 255, 255, 1);
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        @media (prefers-reduced-motion:reduce) {
-            header {
-                background-attachment: scroll;
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .hero-text {
+            color: white;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c2c2c;
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card .content {
+            padding: 1.5rem;
+        }
+
+        .card .content h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #2c2c2c;
+        }
+
+        .card .content p {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .card .content .price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #2c2c2c;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .nav-link {
+                position: static;
+                display: inline-block;
+                margin-bottom: 2rem;
             }
         }
     </style>
@@ -137,57 +171,149 @@
 
     <header>
         <a href="../" class="nav-link">← Zurück zur Hauptseite</a>
-        <h1>Test&nbsp;Seite</h1>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Test Bereich</h1>
+                <p>Hier können neue Features und Designs getestet werden, bevor sie live gehen.</p>
+            </div>
+            <div class="hero-image">
+                <img src="../assets/manhatten_city_plain.webp" alt="Delicious Bagel">
+            </div>
+        </div>
     </header>
 
-    <!-- Test Bereich -->
-    <section id="test">
-        <h2>Test Bereich</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="../assets/manhatten_city_plain.webp" alt="Test Bild 1">
-                <div class="content">
-                    <h3>Test Element 1</h3>
-                    <p>Dies ist ein Test-Element für die Unterseite. Hier können neue Features getestet werden.</p>
-                    <span>Test</span>
+    <div class="main-content">
+        <!-- Bagels Sektion -->
+        <section id="bagels">
+            <h2 class="section-title">Bagels</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="../assets/manhatten_city_plain.webp" alt="Manhattan City Bagel">
+                    <div class="content">
+                        <h3>Manhattan City</h3>
+                        <p>Frischkäse, Avocado, Räucherlachs, Dill, Rucola, Limetten-Olivenöl-Dressing</p>
+                        <span class="price">€6,95</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../assets/new_york_style_plain.webp" alt="New York Style Bagel">
+                    <div class="content">
+                        <h3>New York Style</h3>
+                        <p>Rührei, Schnittlauch, Cheddar, Beef Bacon, Honig-Dressing</p>
+                        <span class="price">€6,95</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../assets/pastrami_deluxe_plain.webp" alt="Pastrami Deluxe Bagel">
+                    <div class="content">
+                        <h3>Pastrami Deluxe</h3>
+                        <p>Frischkäse, Pastrami, Spiegelei, Rucola, Lime-Dressing</p>
+                        <span class="price">€6,95</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../assets/vegan_vegas_plain.webp" alt="Vegan Vegas Bagel">
+                    <div class="content">
+                        <h3>Vegan Vegas</h3>
+                        <p>Hummus, Gurke, Rucola, Avocado, Tomate, Sesam-Dressing</p>
+                        <span class="price">€6,95</span>
+                    </div>
                 </div>
             </div>
-            <div class="card">
-                <img src="../assets/new_york_style_plain.webp" alt="Test Bild 2">
-                <div class="content">
-                    <h3>Test Element 2</h3>
-                    <p>Ein weiteres Test-Element mit ähnlichem Design wie die Hauptseite.</p>
-                    <span>Test</span>
-                </div>
-            </div>
-            <div class="card">
-                <img src="../assets/pastrami_deluxe_plain.webp" alt="Test Bild 3">
-                <div class="content">
-                    <h3>Test Element 3</h3>
-                    <p>Drittes Test-Element für experimentelle Inhalte und neue Layouts.</p>
-                    <span>Test</span>
-                </div>
-            </div>
-            <div class="card">
-                <img src="../assets/vegan_vegas_plain.webp" alt="Test Bild 4">
-                <div class="content">
-                    <h3>Test Element 4</h3>
-                    <p>Letztes Test-Element in dieser Sektion für umfassende Tests.</p>
-                    <span>Test</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Weitere Test Sektion -->
-    <section id="experimental">
-        <h2>Experimenteller Bereich</h2>
-        <div style="text-align:center;padding:2rem;background:#fff;border-radius:1rem;margin:2rem 0;">
-            <h3>Hier können neue Features getestet werden</h3>
-            <p style="margin-top:1rem;color:#666;">Diese Seite dient als Testumgebung für neue Funktionen, bevor sie auf
-                der Hauptseite implementiert werden.</p>
-        </div>
-    </section>
+        <!-- Focaccia Sektion -->
+        <section id="focaccia">
+            <h2 class="section-title">Focaccia</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="../assets/pastrami_plain.webp" alt="Focaccia Pastrami">
+                    <div class="content">
+                        <h3>Pastrami</h3>
+                        <p>Frischkäse, Rucola, Pastrami, Cherry Tomaten, Lime Dressing</p>
+                        <span class="price">€6,95</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../assets/italiano_plain.webp" alt="Focaccia Italiano">
+                    <div class="content">
+                        <h3>Italiano</h3>
+                        <p>Rinder Salami, Burrata, Rucola, Pesto, getrocknete Tomaten, Olivenöl</p>
+                        <span class="price">€6,95</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../assets/milano_plain.webp" alt="Focaccia Milano">
+                    <div class="content">
+                        <h3>Milano</h3>
+                        <p>Truthahn Schinken, Salatmix, Parmesan, Pistazien Sauce, Ricotta, Cherry Tomaten</p>
+                        <span class="price">€6,95</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../assets/giuliana_plain.webp" alt="Focaccia Giuliana">
+                    <div class="content">
+                        <h3>Giuliana</h3>
+                        <p>Tomate, Mozzarella, Balsamico-Creme, Rucola, Parmesan, Truthahn Schinken</p>
+                        <span class="price">€6,95</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bowls Sektion -->
+        <section id="bowls">
+            <h2 class="section-title">Bowls</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="../assets/chicken_teriyaki_front.webp" alt="Chicken Teriyaki Bowl">
+                    <div class="content">
+                        <h3>Chicken Teriyaki</h3>
+                        <p>Grilled Chicken 150g, Teriyaki Sauce, Basmati Reis, Edamame, Mango, Avocado,
+                            Frühlingszwiebeln, Sesam</p>
+                        <span class="price">€9,90</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../assets/peanut_chicken_front.webp" alt="Peanut Chicken Bowl">
+                    <div class="content">
+                        <h3>Peanut Chicken</h3>
+                        <p>Grilled Chicken 150g, Peanut Sauce, Basmati Reis, Edamame, Mango, Avocado, Frühlingszwiebeln,
+                            Sesam</p>
+                        <span class="price">€9,90</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../assets/caesars_front.webp" alt="Caesars Bowl">
+                    <div class="content">
+                        <h3>Caesars</h3>
+                        <p>Grilled Chicken 150g, Romana Salat, Quinoa, Croutons, Parmesan, Cherrytomaten</p>
+                        <span class="price">€9,90</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../assets/falafel_front.webp" alt="Falafel Bowl">
+                    <div class="content">
+                        <h3>Falafel</h3>
+                        <p>Falafel, Quinoa, Sesam Sauce, Hummus, Granatapfel Dressing, Salatmix, Cherry Tomaten</p>
+                        <span class="price">€9,90</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coming Soon Sektion für Getränke -->
+        <section id="drinks">
+            <h2 class="section-title">Getränke - Coming Soon</h2>
+            <div
+                style="text-align:center;padding:3rem;background:white;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,0.1);">
+                <h3 style="font-size:1.5rem;margin-bottom:1rem;color:#2c2c2c;">Unsere Getränkekarte wird gerade
+                    entwickelt</h3>
+                <p style="color:#666;font-size:1.1rem;">Bald gibt es hier eine große Auswahl an Kaffee, Tee und anderen
+                    erfrischenden Getränken.</p>
+            </div>
+        </section>
+    </div>
 
 </body>
 
