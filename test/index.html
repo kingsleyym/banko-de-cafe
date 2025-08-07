@@ -71,10 +71,10 @@
             justify-content: center;
         }
 
-        /* Zentrales Frappuccino-PNG - 3x größer mit Parallax */
+        /* Zentrales Bowl-PNG - 3x größer mit Parallax */
         .center-drink {
             position: fixed;
-            z-index: 5;
+            z-index: 1; /* Niedriger z-index damit es hinter Content verschwindet */
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
@@ -112,22 +112,22 @@
             opacity: 0.9;
         }
 
-        /* "We love coffee" Typography - fest positioniert */
+        /* "We love coffee" Typography - horizontal zentriert */
         .hero-text {
             position: absolute;
             z-index: 4;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .hero-text.left {
-            left: 8%;
-            bottom: 15%;
-            text-align: left;
+            left: 25%;
+            text-align: center;
         }
 
         .hero-text.right {
-            right: 8%;
-            bottom: 15%;
-            text-align: right;
+            right: 25%;
+            text-align: center;
         }
 
         .hero-title {
@@ -153,6 +153,8 @@
         /* Sektionen */
         .main-content {
             background: #EDE8E2;
+            position: relative;
+            z-index: 10; /* Über der Bowl */
         }
 
         .content-section {
@@ -391,14 +393,14 @@
                 <img src="../assets/chicken_teriyaki_front.webp" alt="Bowl">
             </div>
             
-            <!-- "We love coffee" Text links -->
+            <!-- "We Love Coffee" Text links -->
             <div class="hero-text left">
-                <h1 class="hero-title">We love coffee</h1>
+                <h1 class="hero-title">We Love<br>Coffee</h1>
             </div>
             
-            <!-- "We love coffee" Text rechts -->
+            <!-- "We Love Coffee" Text rechts -->
             <div class="hero-text right">
-                <h1 class="hero-title">We love coffee</h1>
+                <h1 class="hero-title">We Love<br>Coffee</h1>
             </div>
         </div>
     </header>
