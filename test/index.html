@@ -71,70 +71,77 @@
             justify-content: center;
         }
 
-        /* Zentrales Frappuccino-PNG */
+        /* Zentrales Frappuccino-PNG - 3x größer mit Parallax */
         .center-drink {
-            position: absolute;
+            position: fixed;
             z-index: 5;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+            will-change: transform;
         }
 
         .center-drink img {
-            width: 300px;
-            height: 480px;
+            width: 900px;
+            height: 1440px;
             object-fit: contain;
+            transform: translateY(200px); /* Bowl unten abgeschnitten */
         }
 
-        /* Dekorative Kaffeebohnen */
+        /* Dekorative Bagels - fest positioniert */
         .coffee-bean {
             position: absolute;
             z-index: 3;
         }
 
         .coffee-bean.left {
-            left: 15%;
-            top: 40%;
+            left: 8%;
+            top: 25%;
             transform: rotate(-15deg);
         }
 
         .coffee-bean.right {
-            right: 15%;
-            top: 60%;
+            right: 8%;
+            top: 25%;
             transform: rotate(25deg);
         }
 
         .coffee-bean img {
-            width: 180px;
+            width: 200px;
             height: auto;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
-        /* "We love coffee" Typography */
+        /* "We love coffee" Typography - fest positioniert */
         .hero-text {
-            position: relative;
+            position: absolute;
             z-index: 4;
         }
 
+        .hero-text.left {
+            left: 8%;
+            bottom: 15%;
+            text-align: left;
+        }
+
+        .hero-text.right {
+            right: 8%;
+            bottom: 15%;
+            text-align: right;
+        }
+
         .hero-title {
-            font-size: clamp(3rem, 6vw, 7rem);
-            font-weight: 900;
-            letter-spacing: 0.06em;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: 0.04em;
             text-transform: uppercase;
-            line-height: 0.9;
+            line-height: 1.1;
             margin: 0;
             color: white;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* Zweizeilige Dopplung für Tiefe */
-        .hero-title-duplicate {
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            opacity: 0.2;
-            z-index: -1;
-        }
+
 
         /* Divider */
         .divider {
@@ -371,25 +378,27 @@
         <a href="../" class="nav-link">← Zurück zur Hauptseite</a>
         
         <div class="hero-container">
-            <!-- Dekorative Kaffeebohnen -->
+            <!-- Dekorative Bagels -->
             <div class="coffee-bean left">
-                <img src="../assets/manhatten_city_plain.webp" alt="Coffee Bean">
+                <img src="../assets/manhatten_city_plain.webp" alt="Bagel Links">
             </div>
             <div class="coffee-bean right">
-                <img src="../assets/vegan_vegas_plain.webp" alt="Coffee Bean">
+                <img src="../assets/vegan_vegas_plain.webp" alt="Bagel Rechts">
             </div>
             
-            <!-- Zentrales Frappuccino-PNG -->
+            <!-- Zentrales Bowl-PNG mit Parallax -->
             <div class="center-drink">
-                <img src="../assets/chicken_teriyaki_front.webp" alt="Frappuccino">
+                <img src="../assets/chicken_teriyaki_front.webp" alt="Bowl">
             </div>
             
-            <!-- "We love coffee" Text -->
-            <div class="hero-text">
-                <h1 class="hero-title">
-                    <span class="hero-title-duplicate">We love coffee</span>
-                    We love coffee
-                </h1>
+            <!-- "We love coffee" Text links -->
+            <div class="hero-text left">
+                <h1 class="hero-title">We love coffee</h1>
+            </div>
+            
+            <!-- "We love coffee" Text rechts -->
+            <div class="hero-text right">
+                <h1 class="hero-title">We love coffee</h1>
             </div>
         </div>
     </header>
@@ -651,6 +660,21 @@
     </div>
 
     <script>
+        // Parallax Effekt für die Bowl
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const parallaxElement = document.querySelector('.center-drink');
+            const speed = 0.5; // Parallax-Geschwindigkeit
+            
+            if (parallaxElement) {
+                const yPos = -(scrolled * speed);
+                parallaxElement.style.transform = `translate(-50%, calc(-50% + ${yPos}px))`;
+            }
+        }
+
+        // Event Listener für Scroll
+        window.addEventListener('scroll', updateParallax);
+        
         function scrollCarousel(carouselId, direction) {
             const carousel = document.getElementById(carouselId);
             const scrollAmount = 292; // Kartenbreite + Gap
