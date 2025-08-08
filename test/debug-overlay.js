@@ -3,24 +3,33 @@ function createDebugOverlay() {
     const overlay = document.createElement('div');
     overlay.className = 'debug-overlay';
     overlay.innerHTML = `
-        <h4>📐 Debug Info</h4>
-        <div class="debug-item">
-            <span class="debug-label">Breite:</span>
-            <span class="debug-value" id="debug-width">0px</span>
+        <div class="debug-header">
+            <h4>📐 Debug Info</h4>
+            <button class="debug-toggle" onclick="toggleDebugOverlay()">−</button>
         </div>
-        <div class="debug-item">
-            <span class="debug-label">Höhe:</span>
-            <span class="debug-value" id="debug-height">0px</span>
-        </div>
-        <div class="debug-item">
-            <span class="debug-label">Breakpoint:</span>
-            <span class="debug-value" id="debug-breakpoint">
-                <span class="breakpoint mobile">Mobile</span>
-            </span>
-        </div>
-        <div class="debug-item">
-            <span class="debug-label">Scroll:</span>
-            <span class="debug-value" id="debug-scroll">0px</span>
+        <div class="debug-content">
+            <div class="debug-item">
+                <span class="debug-label">Breite:</span>
+                <span class="debug-value" id="debug-width">0px</span>
+            </div>
+            <div class="debug-item">
+                <span class="debug-label">Höhe:</span>
+                <span class="debug-value" id="debug-height">0px</span>
+            </div>
+            <div class="debug-item">
+                <span class="debug-label">Breakpoint:</span>
+                <span class="debug-value" id="debug-breakpoint">
+                    <span class="breakpoint mobile">Mobile</span>
+                </span>
+            </div>
+            <div class="debug-item">
+                <span class="debug-label">Scroll:</span>
+                <span class="debug-value" id="debug-scroll">0px</span>
+            </div>
+            <div class="debug-item">
+                <span class="debug-label">Produkt:</span>
+                <span class="debug-value" id="debug-product">Bowl</span>
+            </div>
         </div>
     `;
     
@@ -61,6 +70,28 @@ function createDebugOverlay() {
     updateDebugInfo();
     window.addEventListener('resize', updateDebugInfo);
     window.addEventListener('scroll', updateDebugInfo);
+    
+    // Höre auf Produkt-Wechsel
+    document.addEventListener('productChanged', (event) => {
+        const productElement = document.getElementById('debug-product');
+        if (productElement) {
+            productElement.textContent = event.detail.product.name;
+        }
+    });
+}
+
+// MINIMIEREN-FUNKTION
+function toggleDebugOverlay() {
+    const overlay = document.querySelector('.debug-overlay');
+    const button = document.querySelector('.debug-toggle');
+    
+    if (overlay.classList.contains('minimized')) {
+        overlay.classList.remove('minimized');
+        button.textContent = '−';
+    } else {
+        overlay.classList.add('minimized');
+        button.textContent = '+';
+    }
 }
 
 // Initialize debug overlay

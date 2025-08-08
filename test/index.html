@@ -7,45 +7,60 @@
     <title>Coffee & Food - Test</title>
     <link rel="stylesheet" href="gallery-new.css">
     <link rel="stylesheet" href="parallax.css">
+    <link rel="stylesheet" href="product-styles.css">
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="debug-overlay.css">
 </head>
 
 <body>
 
+    <!-- HAUPTNAVIGATION - OBEN RECHTS -->
+    <nav class="main-navigation">
+        <ul class="nav-menu">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#speisen">Speisen</a></li>
+            <li><a href="#getraenke">Getränke</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+            <li><a href="../impressum.html">Impressum</a></li>
+        </ul>
+    </nav>
+
     <header>
         <img src="../assets/logo.svg" alt="BANCO The Café" class="logo">
-        <a href="../" class="nav-link">← Zurück zur Hauptseite</a>
+    </header>
 
-        <div class="hero-container">
-            <!-- Dekorative Bagels -->
-            <div class="coffee-bean left">
-                <img src="../assets/casg.webp" alt="Bagel Links">
-            </div>
-            <div class="coffee-bean right">
-                <img src="../assets/pome.webp" alt="Bagel Rechts">
-            </div>
+    <div class="hero-container">
+        <!-- Dekorative Bagels -->
+        <div class="coffee-bean left">
+            <img src="../assets/casg.webp" alt="Bagel Links">
+        </div>
+        <div class="coffee-bean right">
+            <img src="../assets/pome.webp" alt="Bagel Rechts">
+        </div>
 
-            <!-- Zentrales Bowl-PNG mit Parallax -->
-            <div class="center-drink">
-                <img src="../assets/chicken_teriyaki_front.webp" alt="Bowl">
-            </div>
-
-            <!-- "We Love Coffee" Text links -->
-            <div class="hero-text left">
-                <h1 class="hero-title">We Love<br>Coffee</h1>
-            </div>
-
-            <!-- "We Love Coffee" Text rechts -->
-            <div class="hero-text right">
-                <h2 class="hero-title">We Love<br>Coffee</h2>
+        <!-- Zentrales Produkt-Bild mit automatischem Wechsel -->
+        <div class="center-drink">
+            <img id="hero-product-image" src="../assets/chicken_teriyaki_front.webp" alt="Bowl" data-product="bowl">
+            <!-- Canvas-basierter Rauch wie auf der Index-Seite -->
+            <div class="smoke">
+                <canvas id="bowl-smoke-canvas"></canvas>
             </div>
         </div>
-    </header>
+
+        <!-- "We Love Coffee" Text links -->
+        <div class="hero-text left">
+            <h1 class="hero-title">We Love<br>Coffee</h1>
+        </div>
+
+        <!-- "We Love Coffee" Text rechts -->
+        <div class="hero-text right">
+            <h2 class="hero-title">We Love<br>Coffee</h2>
+        </div>
+    </div>
 
     <div class="main-content">
         <!-- Getränke Sektion (Hell) -->
-        <section class="content-section">
+        <section id="getraenke" class="content-section">
             <div class="section-header">
                 <div class="section-info">
                     <h2 class="section-title">Unsere Getränke</h2>
@@ -117,7 +132,7 @@
         </section>
 
         <!-- Speisen Sektion (Dunkel) -->
-        <section class="content-section dark">
+        <section id="speisen" class="content-section dark">
             <div class="section-header">
                 <div class="section-info">
                     <h2 class="section-title">Unsere Speisen</h2>
@@ -296,10 +311,29 @@
                 </div>
             </div>
         </section>
+        
+        <!-- Kontakt Sektion -->
+        <section id="kontakt" class="content-section dark">
+            <div class="section-header">
+                <div class="section-info">
+                    <h2 class="section-title">Kontakt</h2>
+                    <p class="section-subtitle">Besuchen Sie uns oder kontaktieren Sie uns für Reservierungen.</p>
+                </div>
+            </div>
+            <div style="padding: 40px; text-align: center; color: white;">
+                <h3>BANCO The Café</h3>
+                <p>Musterstraße 123<br>12345 Berlin</p>
+                <p>Telefon: +49 30 12345678<br>Email: info@banco-cafe.de</p>
+                <p>Öffnungszeiten:<br>Mo-Fr: 7:00 - 19:00<br>Sa-So: 8:00 - 18:00</p>
+            </div>
+        </section>
     </div>
 
     <script src="gallery-new.js"></script>
     <script src="parallax.js"></script>
+    <script src="bowl-smoke.js"></script>
+    <script src="product-slider.js"></script>
+    <script src="navigation.js"></script>
     <script src="debug-overlay.js"></script>
 
 </body>

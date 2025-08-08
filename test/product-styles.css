@@ -1,0 +1,92 @@
+/* PRODUKT-SPEZIFISCHE STYLES */
+
+/* Basis Hero-Container Styling */
+.hero-container {
+    transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Smooth cubic bezier */
+}
+
+/* Bowl - Braune/Warme Farben */
+[data-product="bowl"]~.hero-container,
+.hero-container[data-current-product="bowl"] {
+    background: radial-gradient(circle at center, #8B4513 0%, #654321 50%, #3D2914 100%);
+}
+
+/* Lachs Bagel - Hell in der Mitte, ROSA/PINK außen (BLASSER) */
+[data-product="bagel"]~.hero-container,
+.hero-container[data-current-product="bagel"] {
+    background: radial-gradient(circle at center, #FFF0F5 0%, #FFE4E1 25%, #FFB6C1 50%, #FF69B4 75%, #FF1493 100%);
+}
+
+/* Pastrami Panini - Warme Sandwich-Töne */
+[data-product="panini"]~.hero-container,
+.hero-container[data-current-product="panini"] {
+    background: radial-gradient(circle at center, #F5F5DC 0%, #DEB887 30%, #CD853F 70%, #A0522D 100%);
+}
+
+/* Matcha Cup - Grüne Matcha-Töne (ALTES BLASSES GRÜN) */
+[data-product="matcha"]~.hero-container,
+.hero-container[data-current-product="matcha"] {
+    background: radial-gradient(circle at center, #F0FFF0 0%, #E6FFE6 25%, #90EE90 50%, #32CD32 75%, #228B22 100%);
+}
+
+/* SMOOTH TRANSITIONS für Bilder */
+.center-drink img {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Langsamer für sync */
+    transform-origin: center center;
+}
+
+/* MATCHA CUP - Spezielle Proportionen */
+.center-drink img[src*="matcha_cup"] {
+    max-height: 1200% !important;
+    /* Höher - damit der Cup sichtbar bleibt */
+    max-width: 200% !important;
+    /* Auch Breite begrenzen */
+    width: auto !important;
+    /* Automatische Breite */
+    height: auto !important;
+    /* Automatische Höhe */
+    object-fit: contain !important;
+    /* Proportionen beibehalten */
+    object-position: center top !important;
+    /* HÖHER POSITIONIERT! */
+    transform: translateY(-320px) !important;
+    /* VIEL HÖHER NACH OBEN mit !important! */
+}
+
+/* SEITLICHE ELEMENTE - Smooth Ein/Aus Animationen */
+.coffee-bean.left img,
+.coffee-bean.right img {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Synchron mit Hauptbild */
+    transform-origin: center center;
+}
+
+/* SMOOTH TRANSITIONS für Rauch */
+.smoke {
+    transition: opacity 0.8s ease-in-out;
+    /* Synchron mit allem anderen */
+}
+
+/* HEADER-VERLAUF - Synchron mit Bildwechsel */
+header::before {
+    transition: background 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    /* Etwas länger für smooth */
+}
+
+/* Hover-Effekte */
+.center-drink img:hover {
+    transform: scale(1.02) !important;
+}
+
+/* WEIßE SCHRIFT - Schatten entfernt */
+.hero-text h1,
+.hero-text h2,
+.nav-menu a {
+    text-shadow: none;
+    /* Keine Schatten mehr */
+}
+
+/* Responsive Anpassungen - NICHT ÄNDERN ohne Rücksprache */
+/* Hier später die responsive Anpassungen für verschiedene Bildgrößen */

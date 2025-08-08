@@ -5,23 +5,30 @@
 function updateParallax() {
     const scrolled = window.pageYOffset;
     
+    // VERLAUF BEWEGT SICH ENTGEGENGESETZT ZUM SCROLL
+    const gradientRate = scrolled * 0.5; // ERHÖHT für sichtbaren Effekt
+    const header = document.querySelector('header');
+    if (header) {
+        header.style.setProperty('--gradient-offset', `${gradientRate}px`);
+        console.log('Gradient offset:', gradientRate); // DEBUG
+    }
+    
     // Hero Texte - flüssigere Parallax-Geschwindigkeit
-    const heroRate = scrolled * -0.05; // Mehr Bewegung: -0.05 statt -0.02
+    const heroRate = scrolled * -0.05;
     const heroTexts = document.querySelectorAll('.hero-text');
     heroTexts.forEach(text => {
         text.style.transform = `translateY(calc(-50% + ${heroRate}px))`;
     });
     
     // Bowl - FLÜSSIGER PARALLAX aber FIXED positioniert
-    const bowlRate = scrolled * -0.03; // Mehr Bewegung: -0.03 statt -0.01
+    const bowlRate = scrolled * -0.03;
     const bowl = document.querySelector('.center-drink');
     if (bowl) {
-        // FIXED Element: Nur Parallax-Transform, keine ursprüngliche Position verlieren
         bowl.style.transform = `translateX(-50%) translateY(${bowlRate}px)`;
     }
     
     // Bagels - flüssigere Parallax-Bewegung
-    const bagelRate = scrolled * -0.05; // Mehr Bewegung: -0.05 statt -0.02
+    const bagelRate = scrolled * -0.05;
     const leftBagel = document.querySelector('.coffee-bean.left');
     const rightBagel = document.querySelector('.coffee-bean.right');
     

@@ -1,13 +1,42 @@
 /* PARALLAX & HERO STYLES */
 
-/* Hero mit radialem Gradient - volle Höhe */
+/* Hero OHNE Gradient - nur Container */
 header {
-    background: radial-gradient(circle, #D4C4B5 0%, #B49A86 70%);
+    background: transparent; /* KEIN Gradient hier - kommt vom ::before */
     height: 100vh;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Parallax-fähiger Verlauf-Overlay - PRODUKTABHÄNGIG */
+header::before {
+    content: '';
+    position: fixed; /* FIXED: Aber mit Parallax-Transform */
+    top: -50vh; /* ERWEITERT NACH OBEN: Verlauf startet höher */
+    left: 0;
+    width: 100%;
+    height: 150vh; /* GRÖSSERE HÖHE: Genug Platz für Parallax ohne weiße Ränder */
+    background: radial-gradient(ellipse 140% 100% at center 70%, #9D714F 0%, #6B3E26 35%, #50290F 65%, #2A1508 90%, #1A0D04 100%);
+    /* Standard: Braune Bowl-Farben */
+    z-index: -1; /* Hinter allen anderen Elementen */
+    will-change: transform;
+    transform: translateY(var(--gradient-offset, 0px)); /* CSS Variable für Parallax */
+    transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1); /* SMOOTH Übergang */
+}
+
+/* PRODUKTSPEZIFISCHE HEADER-VERLÄUFE */
+header[data-current-product="bagel"]::before {
+    background: radial-gradient(ellipse 140% 100% at center 70%, #FFF0F5 0%, #FFE4E1 25%, #FFB6C1 50%, #FF69B4 75%, #FF1493 100%) !important;
+}
+
+header[data-current-product="panini"]::before {
+    background: radial-gradient(ellipse 140% 100% at center 70%, #F5F5DC 0%, #DEB887 30%, #CD853F 70%, #A0522D 90%, #8B4513 100%) !important;
+}
+
+header[data-current-product="matcha"]::before {
+    background: radial-gradient(ellipse 140% 100% at center 70%, #F0FFF0 0%, #E6FFE6 25%, #90EE90 50%, #32CD32 75%, #228B22 100%) !important;
 }
 
 .hero-container {
@@ -38,6 +67,25 @@ header {
     object-fit: contain;
 }
 
+/* RAUCH-ANIMATION - CANVAS-BASIERT und nah an der Bowl */
+.smoke {
+    position: absolute; /* RELATIV zur Bowl */
+    left: 50%;
+    top: 15%; /* NACH OBEN VERSCHOBEN: Kompensiert die größere Canvas-Höhe */
+    transform: translateX(-50%);
+    z-index: 1; /* Über dem Bowl-Bild */
+    pointer-events: none;
+    width: 480px; /* VIERMAL SO BREIT: 120px × 4 = 480px */
+    height: 600px; /* VIEL HÖHER: Für längeren Rauch */
+}
+
+#bowl-smoke-canvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0.7; /* Deutlich sichtbarer */
+    mix-blend-mode: screen; /* Wie auf der Index-Seite */
+}
+
 /* Dekorative Bagels */
 .coffee-bean {
     position: fixed;
@@ -46,20 +94,21 @@ header {
 
 .coffee-bean.left {
     left: 8%;
-    top: 40%;
+    top: 35%; /* RUNTER: war 20% - Cashewnüsse weiter unten */
     transform: rotate(-15deg);
 }
 
 .coffee-bean.right {
     right: 8%;
-    top: 25%;
+    top: 10%; /* HÖHER: war 15% - Cranberries weiter oben */
     transform: rotate(25deg);
 }
 
 .coffee-bean img {
     width: clamp(120px, 15vw, 200px);
     height: auto;
-    opacity: 0.9;
+    opacity: 1; /* VOLLE SICHTBARKEIT: war 0.9 */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); /* SCHLAGSCHATTEN hinzugefügt */
 }
 
 /* "We Love Coffee" Typography */
@@ -82,11 +131,12 @@ header {
 }
 
 .hero-title {
-    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    font-size: clamp(2.2rem, 3.5vw, 4.5rem); /* KLEINER: war 2.5rem bis 5.0rem */
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     line-height: 1.2;
     margin: 0;
     color: white;
+    /* KEIN Schatten bei den Texten */
 }
