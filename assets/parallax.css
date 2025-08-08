@@ -1,0 +1,202 @@
+/* ==========================================
+   PROFESSIONELLE PARALLAX BOWL LÖSUNG
+   Native CSS + Container Queries
+   ========================================== */
+
+/* ==========================================
+   BOWL CONTAINER - RESPONSIVE POSITIONING
+   ========================================== */
+.bowl-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==========================================
+   BOWL ELEMENT - ADAPTIVE SIZING
+   ========================================== */
+.bowl {
+    position: absolute;
+    width: clamp(400px, 50vw, 600px);
+    height: auto;
+    left: 50%;
+    
+    /* RESPONSIVE BOTTOM POSITIONING */
+    bottom: clamp(-200px, -25vh, -100px);
+    
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+    transition: transform 0.1s ease-out;
+    z-index: 2;
+}
+
+.bowl img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    object-position: bottom;
+}
+
+/* ==========================================
+   DESKTOP OPTIMIERUNGEN
+   ========================================== */
+@media (min-width: 1200px) {
+    .bowl {
+        width: clamp(500px, 40vw, 700px);
+        bottom: clamp(-250px, -30vh, -150px);
+    }
+}
+
+/* ==========================================
+   TABLET LANDSCAPE ANPASSUNGEN
+   ========================================== */
+@media (max-width: 1199px) and (min-width: 900px) and (orientation: landscape) {
+    .bowl {
+        width: clamp(350px, 45vw, 500px);
+        bottom: clamp(-150px, -20vh, -80px);
+    }
+}
+
+/* ==========================================
+   TABLET PORTRAIT ANPASSUNGEN
+   ========================================== */
+@media (max-width: 1199px) and (min-width: 600px) and (orientation: portrait) {
+    .bowl {
+        width: clamp(300px, 60vw, 450px);
+        bottom: clamp(-120px, -15vh, -60px);
+    }
+}
+
+/* ==========================================
+   MOBILE LANDSCAPE ANPASSUNGEN
+   ========================================== */
+@media (max-width: 899px) and (orientation: landscape) and (max-height: 500px) {
+    .bowl {
+        width: clamp(250px, 35vw, 350px);
+        bottom: clamp(-80px, -12vh, -40px);
+    }
+}
+
+/* ==========================================
+   MOBILE PORTRAIT OPTIMIERUNGEN
+   ========================================== */
+@media (max-width: 599px) and (orientation: portrait) {
+    .bowl {
+        width: clamp(280px, 70vw, 400px);
+        bottom: clamp(-100px, -12vh, -50px);
+    }
+    
+    .bowl img {
+        max-height: 60vh;
+    }
+}
+
+/* ==========================================
+   EXTRA KLEINE BILDSCHIRME
+   ========================================== */
+@media (max-width: 380px) {
+    .bowl {
+        width: clamp(250px, 75vw, 320px);
+        bottom: clamp(-80px, -10vh, -40px);
+    }
+    
+    .bowl img {
+        max-height: 50vh;
+    }
+}
+
+/* ==========================================
+   SEHR SCHMALE HOCHFORMATE
+   ========================================== */
+@media (max-width: 320px) {
+    .bowl {
+        width: 90vw;
+        bottom: -8vh;
+        max-width: 280px;
+    }
+    
+    .bowl img {
+        max-height: 45vh;
+    }
+}
+
+/* ==========================================
+   CONTAINER QUERY SUPPORT (FALLBACK)
+   ========================================== */
+@supports (container-type: inline-size) {
+    .hero-section {
+        container-type: inline-size;
+    }
+    
+    @container (max-width: 600px) {
+        .bowl {
+            width: 70cqw;
+            bottom: -12cqh;
+        }
+    }
+    
+    @container (max-width: 400px) {
+        .bowl {
+            width: 80cqw;
+            bottom: -10cqh;
+        }
+    }
+}
+
+/* ==========================================
+   PARALLAX HELPER KLASSEN
+   ========================================== */
+.bowl-parallax-fast {
+    transform: translateX(-50%) translateY(var(--parallax-offset, 0px));
+}
+
+.bowl-parallax-slow {
+    transform: translateX(-50%) translateY(calc(var(--parallax-offset, 0px) * 0.5));
+}
+
+.bowl-no-parallax {
+    transform: translateX(-50%) !important;
+}
+
+/* ==========================================
+   PERFORMANCE OPTIMIERUNGEN
+   ========================================== */
+.bowl {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* REDUZIERTE BEWEGUNG */
+@media (prefers-reduced-motion: reduce) {
+    .bowl {
+        transition: none;
+        will-change: auto;
+    }
+    
+    .bowl-parallax-fast,
+    .bowl-parallax-slow {
+        transform: translateX(-50%) !important;
+    }
+}
+
+/* ==========================================
+   DEBUGGING HELPERS (development only)
+   ========================================== */
+.bowl-debug {
+    border: 2px dashed red;
+    background: rgba(255, 0, 0, 0.1);
+}
+
+.bowl-container-debug {
+    border: 2px dashed blue;
+    background: rgba(0, 0, 255, 0.05);
+}

@@ -1,0 +1,136 @@
+/* RESPONSIVE BREAKPOINTS */
+
+/* Desktop: 4 Karten sichtbar */
+@media (min-width: 1200px) {
+    .carousel {
+        scroll-padding-inline: calc(50% - 140px);
+    }
+}
+
+/* Tablet: 3 Karten sichtbar */
+@media (max-width: 1199px) and (min-width: 768px) {
+    .carousel {
+        scroll-padding-inline: calc(50% - 130px);
+    }
+}
+
+/* Mobile: 2 Karten sichtbar */
+@media (max-width: 767px) {
+    .carousel {
+        scroll-padding-inline: calc(50% - 130px);
+        padding: 0 1rem;
+        gap: 1.5rem;
+    }
+    .product-card {
+        width: 220px;
+    }
+    .product-image {
+        width: 180px;
+    }
+    .product-image img {
+        width: 180px;
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-text {
+        width: 30%;
+        top: 47%;
+    }
+
+    .hero-text.left {
+        left: 12%;
+    }
+
+    .hero-text.right {
+        right: 12%;
+    }
+
+    .coffee-bean.left {
+        left: 10%;
+        top: 47%;
+    }
+
+    .coffee-bean.right {
+        right: 10%;
+        top: 32%;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        height: 100vh;
+    }
+
+    .hero-text {
+        width: 35%;
+        top: 50%;
+    }
+
+    .hero-text.left {
+        left: 12%;
+    }
+
+    .hero-text.right {
+        right: 12%;
+    }
+
+    .coffee-bean.left {
+        left: 5%;
+        top: 50%;
+    }
+
+    .coffee-bean.right {
+        right: 5%;
+        top: 35%;
+    }
+
+    .center-drink {
+        bottom: -60%;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-text {
+        width: 40%;
+        top: 55%;
+    }
+
+    .hero-text.left {
+        left: 8%;
+    }
+
+    .hero-text.right {
+        right: 8%;
+    }
+
+    .coffee-bean.left {
+        left: 2%;
+        top: 55%;
+    }
+
+    .coffee-bean.right {
+        right: 2%;
+        top: 40%;
+    }
+
+    .center-drink {
+        bottom: -65%;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .nav-link {
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    header {
+        background-attachment: scroll;
+    }
+}

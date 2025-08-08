@@ -1,0 +1,343 @@
+/* GALLERY / CAROUSEL STYLES */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: #333;
+    background: #EDE8E2;
+    overflow-x: hidden;
+}
+
+/* GLOBALE REGEL: Niemals Karten abschneiden */
+.carousel-wrapper, .carousel, .product-card, .product-image, 
+.content-section, .main-content {
+    overflow-y: visible !important;
+}
+
+/* Logo oben links */
+.logo {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    width: 200px;
+    height: auto;
+    z-index: 1000;
+}
+
+.nav-link {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Sektionen */
+.main-content {
+    background: #EDE8E2;
+    position: relative;
+    z-index: 10;
+    overflow: visible !important;
+}
+
+.content-section {
+    padding: 4rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: visible !important;
+    position: relative;
+}
+
+.content-section.dark {
+    background: #39312A;
+    color: white;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 0 2rem;
+}
+
+.section-info {
+    flex: 1;
+    max-width: 600px;
+    text-align: left;
+}
+
+.section-title {
+    font-size: 40px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: left;
+    margin-bottom: 1rem;
+    color: #222;
+}
+
+.content-section.dark .section-title {
+    color: #FFF;
+}
+
+.section-subtitle {
+    font-size: 16px;
+    color: #666;
+    text-align: left;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.content-section.dark .section-subtitle {
+    color: #DDD;
+}
+
+.section-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* KOMPLETT NEUES 4-KARTEN-SYSTEM */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1920px; /* Volle Desktop-Breite */
+    margin: 0 auto;
+    overflow: hidden; /* Versteckt alle Karten außerhalb */
+    min-height: 500px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.carousel {
+    display: flex;
+    width: 100%;
+    position: relative;
+    transform: translateX(0);
+    transition: transform 0.5s ease;
+    align-items: flex-end;
+}
+
+/* JEDE KARTE hat feste Position */
+.product-card {
+    position: absolute;
+    background: white;
+    border-radius: 16px;
+    overflow: visible !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    width: 260px;
+    height: 265px;
+    transform: scale(0.85);
+    transform-origin: bottom center;
+    z-index: 1;
+    opacity: 0; /* Standardmäßig unsichtbar */
+}
+
+/* Sichtbare Karten */
+.product-card.visible {
+    opacity: 1;
+}
+
+/* Position 1: Links (10% vom Rand) */
+.product-card.pos-1 {
+    left: 10%;
+}
+
+/* Position 2: Links-Mitte (30% vom Rand) - AKTIV */
+.product-card.pos-2 {
+    left: 30%;
+    transform: scale(1.15);
+    z-index: 10;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Position 3: Rechts-Mitte (55% vom Rand) - AKTIV */
+.product-card.pos-3 {
+    left: 55%;
+    transform: scale(1.15);
+    z-index: 10;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Position 4: Rechts (80% vom Rand) */
+.product-card.pos-4 {
+    left: 80%;
+}
+
+/* Speise-Karten: #ECE7E1 */
+.content-section.dark .product-card {
+    background: #ECE7E1;
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.product-card {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    overflow: visible !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 260px;
+    height: 265px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    scroll-margin-inline: 10px;
+    transform: scale(0.85);
+    transform-origin: bottom center;
+    z-index: 1;
+    margin-top: auto;
+}
+
+/* Getränke-Karten: weiß */
+.content-section:not(.dark) .product-card {
+    background: white;
+}
+
+/* Speise-Karten: #ECE7E1 */
+.content-section.dark .product-card {
+    background: #ECE7E1;
+}
+
+.product-card.active {
+    transform: scale(1.15);
+    transform-origin: bottom center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    margin-inline: -19.5px;
+}
+
+/* Aktive Karten: Größere Bilder */
+.product-card.active .product-image {
+    top: -90px;
+}
+
+.product-card.active .product-image img {
+    width: 240px;
+    max-height: 300px;
+}
+
+.product-card:hover {
+    transform: scale(0.9);
+    transform-origin: bottom center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Überlappende Produktbilder - ABSOLUT FREI POSITIONIERT */
+.product-image {
+    position: absolute;
+    top: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 210px;
+    height: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.product-image img {
+    width: 210px;
+    height: auto;
+    max-height: 270px;
+    object-fit: contain;
+    object-position: bottom;
+}
+
+.product-content {
+    padding: 15px 18px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: calc(100% - 60px);
+    margin-top: 80px;
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    text-transform: capitalize;
+}
+
+.product-description {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-size {
+    font-size: 12px;
+    color: #666;
+}
+
+.product-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+}
+
+/* Arrow Buttons */
+.section-controls .carousel-button {
+    position: static;
+    transform: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #333;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.section-controls .carousel-button:hover {
+    background: #B49A86;
+}
+
+.content-section.dark .section-controls .carousel-button {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+.content-section.dark .section-controls .carousel-button:hover {
+    background: white;
+    color: #3B3B38;
+}

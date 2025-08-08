@@ -1,0 +1,61 @@
+/* DEBUG OVERLAY - NUR FÜR ENTWICKLUNG */
+.debug-overlay {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    z-index: 9999;
+    line-height: 1.4;
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.debug-overlay h4 {
+    margin: 0 0 10px 0;
+    color: #4CAF50;
+    font-size: 16px;
+}
+
+.debug-overlay .debug-item {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.debug-overlay .debug-label {
+    color: #FFF;
+}
+
+.debug-overlay .debug-value {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* Responsive Breakpoint Indicators */
+.debug-overlay .breakpoint {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.debug-overlay .breakpoint.mobile {
+    background: #FF5722;
+}
+
+.debug-overlay .breakpoint.tablet {
+    background: #FF9800;
+}
+
+.debug-overlay .breakpoint.desktop {
+    background: #4CAF50;
+}
+
+.debug-overlay .breakpoint.large {
+    background: #2196F3;
+}

@@ -1,0 +1,92 @@
+/* PARALLAX & HERO STYLES */
+
+/* Hero mit radialem Gradient - volle Höhe */
+header {
+    background: radial-gradient(circle, #D4C4B5 0%, #B49A86 70%);
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Zentrales Bowl-PNG - FIXED mit mehr Abstand nach unten */
+.center-drink {
+    position: fixed;
+    /* FIXED verhindert das Mitscrolln mit Header */
+    z-index: 5;
+    left: 50%;
+    bottom: calc(-30% - 230px);
+    /* 230px weiter nach unten */
+    transform: translateX(-50%);
+    /* Nur horizontale Zentrierung */
+    will-change: transform;
+}
+
+.center-drink img {
+    width: clamp(600px, 70vw, 900px);
+    height: clamp(960px, 112vw, 1440px);
+    object-fit: contain;
+}
+
+/* Dekorative Bagels */
+.coffee-bean {
+    position: fixed;
+    z-index: 2;
+}
+
+.coffee-bean.left {
+    left: 8%;
+    top: 40%;
+    transform: rotate(-15deg);
+}
+
+.coffee-bean.right {
+    right: 8%;
+    top: 25%;
+    transform: rotate(25deg);
+}
+
+.coffee-bean img {
+    width: clamp(120px, 15vw, 200px);
+    height: auto;
+    opacity: 0.9;
+}
+
+/* "We Love Coffee" Typography */
+.hero-text {
+    position: fixed;
+    z-index: 1;
+    top: 35%;
+    transform: translateY(-50%);
+    width: 25%;
+}
+
+.hero-text.left {
+    left: 10%;
+    text-align: left;
+}
+
+.hero-text.right {
+    right: 10%;
+    text-align: right;
+}
+
+.hero-title {
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin: 0;
+    color: white;
+}
