@@ -2,7 +2,8 @@
 
 /* Hero OHNE Gradient - nur Container */
 header {
-    background: transparent; /* KEIN Gradient hier - kommt vom ::before */
+    background: transparent;
+    /* KEIN Gradient hier - kommt vom ::before */
     height: 100vh;
     position: relative;
     display: flex;
@@ -13,22 +14,28 @@ header {
 /* Parallax-fähiger Verlauf-Overlay - PRODUKTABHÄNGIG */
 header::before {
     content: '';
-    position: fixed; /* FIXED: Aber mit Parallax-Transform */
-    top: -50vh; /* ERWEITERT NACH OBEN: Verlauf startet höher */
+    position: fixed;
+    /* FIXED: Aber mit Parallax-Transform */
+    top: -50vh;
+    /* ERWEITERT NACH OBEN: Verlauf startet höher */
     left: 0;
     width: 100%;
-    height: 150vh; /* GRÖSSERE HÖHE: Genug Platz für Parallax ohne weiße Ränder */
+    height: 150vh;
+    /* GRÖSSERE HÖHE: Genug Platz für Parallax ohne weiße Ränder */
     background: radial-gradient(ellipse 140% 100% at center 70%, #9D714F 0%, #6B3E26 35%, #50290F 65%, #2A1508 90%, #1A0D04 100%);
     /* Standard: Braune Bowl-Farben */
-    z-index: -1; /* Hinter allen anderen Elementen */
+    z-index: -1;
+    /* Hinter allen anderen Elementen */
     will-change: transform;
-    transform: translateY(var(--gradient-offset, 0px)); /* CSS Variable für Parallax */
-    transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1); /* SMOOTH Übergang */
+    transform: translateY(var(--gradient-offset, 0px));
+    /* CSS Variable für Parallax */
+    transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* SMOOTH Übergang */
 }
 
 /* PRODUKTSPEZIFISCHE HEADER-VERLÄUFE */
 header[data-current-product="bagel"]::before {
-    background: radial-gradient(ellipse 140% 100% at center 70%, #FFF0F5 0%, #FFE4E1 25%, #FFB6C1 50%, #FF69B4 75%, #FF1493 100%) !important;
+    background: radial-gradient(ellipse 140% 100% at center 70%, #fccedd 0%, #FFE4E1 25%, #FFB6C1 50%, #FF69B4 75%, #FF1493 100%) !important;
 }
 
 header[data-current-product="panini"]::before {
@@ -54,8 +61,8 @@ header[data-current-product="matcha"]::before {
     /* FIXED verhindert das Mitscrolln mit Header */
     z-index: 5;
     left: 50%;
-    bottom: calc(-30% - 230px);
-    /* 230px weiter nach unten */
+    bottom: calc(-30% - 350px);
+    /* NOCH WEITER NACH UNTEN: war 280px, jetzt 350px */
     transform: translateX(-50%);
     /* Nur horizontale Zentrierung */
     will-change: transform;
@@ -69,21 +76,28 @@ header[data-current-product="matcha"]::before {
 
 /* RAUCH-ANIMATION - CANVAS-BASIERT und nah an der Bowl */
 .smoke {
-    position: absolute; /* RELATIV zur Bowl */
+    position: absolute;
+    /* RELATIV zur Bowl */
     left: 50%;
-    top: 15%; /* NACH OBEN VERSCHOBEN: Kompensiert die größere Canvas-Höhe */
+    top: 15%;
+    /* NACH OBEN VERSCHOBEN: Kompensiert die größere Canvas-Höhe */
     transform: translateX(-50%);
-    z-index: 1; /* Über dem Bowl-Bild */
+    z-index: 1;
+    /* Über dem Bowl-Bild */
     pointer-events: none;
-    width: 480px; /* VIERMAL SO BREIT: 120px × 4 = 480px */
-    height: 600px; /* VIEL HÖHER: Für längeren Rauch */
+    width: 480px;
+    /* VIERMAL SO BREIT: 120px × 4 = 480px */
+    height: 600px;
+    /* VIEL HÖHER: Für längeren Rauch */
 }
 
 #bowl-smoke-canvas {
     width: 100%;
     height: 100%;
-    opacity: 0.7; /* Deutlich sichtbarer */
-    mix-blend-mode: screen; /* Wie auf der Index-Seite */
+    opacity: 0.7;
+    /* Deutlich sichtbarer */
+    mix-blend-mode: screen;
+    /* Wie auf der Index-Seite */
 }
 
 /* Dekorative Bagels */
@@ -94,49 +108,188 @@ header[data-current-product="matcha"]::before {
 
 .coffee-bean.left {
     left: 8%;
-    top: 35%; /* RUNTER: war 20% - Cashewnüsse weiter unten */
+    top: 45%;
+    /* WEITER RUNTER: war 35% - Cashewnüsse noch weiter unten */
     transform: rotate(-15deg);
 }
 
 .coffee-bean.right {
     right: 8%;
-    top: 10%; /* HÖHER: war 15% - Cranberries weiter oben */
+    top: 5%;
+    /* NOCH HÖHER: war 10% - Cranberries noch weiter oben */
     transform: rotate(25deg);
 }
 
 .coffee-bean img {
     width: clamp(120px, 15vw, 200px);
     height: auto;
-    opacity: 1; /* VOLLE SICHTBARKEIT: war 0.9 */
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); /* SCHLAGSCHATTEN hinzugefügt */
+    opacity: 1;
+    /* VOLLE SICHTBARKEIT: war 0.9 */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    /* SCHLAGSCHATTEN hinzugefügt */
 }
 
 /* "We Love Coffee" Typography */
 .hero-text {
     position: fixed;
     z-index: 1;
-    top: 35%;
+    top: 45%;
+    /* WEITER NACH OBEN: war 55%, zurück zu 35% */
     transform: translateY(-50%);
-    width: 25%;
+    width: 20%;
+    /* SCHMALER: Näher zur Mitte */
 }
 
 .hero-text.left {
-    left: 10%;
+    left: 12%;
+    /* NÄHER ZUR MITTE: war 10% */
     text-align: left;
 }
 
 .hero-text.right {
-    right: 10%;
+    right: 12%;
+    /* NÄHER ZUR MITTE: war 10% */
     text-align: right;
 }
 
 .hero-title {
-    font-size: clamp(2.2rem, 3.5vw, 4.5rem); /* KLEINER: war 2.5rem bis 5.0rem */
+    font-size: clamp(2.2rem, 3.5vw, 4.5rem);
+    /* KLEINER: war 2.5rem bis 5.0rem */
     font-weight: 700;
     letter-spacing: 0.04em;
-    text-transform: uppercase;
+    text-transform: none;
+    /* KEINE GROSSBUCHSTABEN - wir machen das manuell */
     line-height: 1.2;
     margin: 0;
     color: white;
     /* KEIN Schatten bei den Texten */
+}
+
+/* WEISZE LINIE LINKS - UNTERBROCHEN für SCROLL DOWN */
+.left-line {
+    position: fixed;
+    left: 40px;
+    /* 40px vom Rand entfernt */
+    top: 20%;
+    /* KÜRZER: Startet später */
+    bottom: 50%;
+    /* ERSTE HÄLFTE */
+    width: 2px;
+    background: white;
+    z-index: 10;
+    opacity: 0.8;
+}
+
+/* ZWEITE HÄLFTE DER LINKEN LINIE - NACH SCROLL DOWN */
+.left-line-bottom {
+    position: fixed;
+    left: 40px;
+    top: 60%;
+    /* NACH SCROLL DOWN TEXT */
+    bottom: 20%;
+    /* Endet früher */
+    width: 2px;
+    background: white;
+    z-index: 10;
+    opacity: 0.8;
+}
+
+/* RECHTE LINIE - UNTERBROCHEN für SCROLL DOWN */
+.right-line {
+    position: fixed;
+    right: 40px;
+    /* 40px vom rechten Rand entfernt */
+    top: 20%;
+    /* KÜRZER: Startet später */
+    bottom: 50%;
+    /* ERSTE HÄLFTE */
+    width: 2px;
+    background: white;
+    z-index: 10;
+    opacity: 0.8;
+}
+
+/* ZWEITE HÄLFTE DER RECHTEN LINIE - NACH SCROLL DOWN */
+.right-line-bottom {
+    position: fixed;
+    right: 40px;
+    top: 60%;
+    /* NACH SCROLL DOWN TEXT */
+    bottom: 30%;
+    /* Endet früher */
+    width: 2px;
+    background: white;
+    z-index: 10;
+    opacity: 0.8;
+}
+
+/* SCROLL DOWN TEXT - KLEINER und DICKER, zwischen Linien */
+.scroll-text-left {
+    position: fixed;
+    left: 40px;
+    /* Weiter links für bessere Zentrierung */
+    top: 52%;
+    /* ZWISCHEN den Linien-Hälften */
+    z-index: 15;
+    color: white;
+    font-size: 10px;
+    /* KLEINER: war 12px */
+    font-weight: 700;
+    /* DICKER: war 300 */
+    letter-spacing: 1px;
+    /* Weniger Letter-Spacing */
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    /* VERTIKAL */
+    text-orientation: mixed;
+    opacity: 0.9;
+}
+
+/* SCROLL DOWN TEXT - RECHTS zwischen Linien */
+.scroll-text-right {
+    position: fixed;
+    right: 20px;
+    /* Weiter rechts für bessere Zentrierung */
+    top: 52%;
+    /* ZWISCHEN den Linien-Hälften */
+    z-index: 15;
+    color: white;
+    font-size: 10px;
+    /* KLEINER: war 12px */
+    font-weight: 700;
+    /* DICKER: war 300 */
+    letter-spacing: 1px;
+    /* Weniger Letter-Spacing */
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    /* VERTIKAL */
+    text-orientation: mixed;
+    opacity: 0.9;
+}
+
+/* SOCIAL MEDIA ICONS UNTEN LINKS - KLEINER */
+.social-icons {
+    position: fixed;
+    bottom: 40px;
+    left: 20px;
+    z-index: 15;
+    display: flex;
+    flex-direction: row;
+    /* NEBENEINANDER statt vertikal */
+    gap: 8px;
+    /* NOCH WENIGER ABSTAND: war 10px */
+}
+
+.social-icons a {
+    color: white;
+    font-size: 18px;
+    /* KLEINER: war 20px */
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.social-icons a:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }
