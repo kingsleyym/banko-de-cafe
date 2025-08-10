@@ -121,3 +121,97 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// MOBILE GALLERY SYSTEM - Einfach und getrennt
+let isMobileMode = false;
+
+function initMobileGallery() {
+    const wasMobile = isMobileMode;
+    isMobileMode = window.innerWidth < 768;
+    
+    if (isMobileMode) {
+        // Mobile Mode aktivieren
+        if (!wasMobile) {
+            console.log('🔄 Mobile Gallery Mode');
+            setupMobileGalleries();
+        }
+    } else {
+        // Desktop Mode - Mobile deaktivieren
+        if (wasMobile) {
+            console.log('🔄 Desktop Gallery Mode');
+            cleanupMobileGalleries();
+        }
+    }
+}
+
+function setupMobileGalleries() {
+    const carousels = document.querySelectorAll('.carousel');
+    
+    carousels.forEach(carousel => {
+        // Desktop Navigation verstecken
+        const prevBtn = document.querySelector(`[data-carousel-prev="${carousel.id}"]`);
+        const nextBtn = document.querySelector(`[data-carousel-next="${carousel.id}"]`);
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        
+        // Touch Events für Swipe
+        setupMobileTouchEvents(carousel);
+    });
+}
+
+function setupMobileTouchEvents(carousel) {
+    let startX = 0;
+    
+    carousel.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    }, { passive: true });
+    
+    carousel.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diffX = startX - endX;
+        
+        // Swipe erkennen
+        if (Math.abs(diffX) > 50) {
+            const cards = carousel.querySelectorAll('.product-card');
+            const currentScroll = carousel.scrollLeft;
+            const cardWidth = 300; // 260px + 40px gap
+            const currentIndex = Math.round(currentScroll / cardWidth);
+            
+            if (diffX > 0 && currentIndex < cards.length - 1) {
+                // Swipe left - nächste Karte
+                carousel.scrollTo({
+                    left: (currentIndex + 1) * cardWidth,
+                    behavior: 'smooth'
+                });
+            } else if (diffX < 0 && currentIndex > 0) {
+                // Swipe right - vorherige Karte
+                carousel.scrollTo({
+                    left: (currentIndex - 1) * cardWidth,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, { passive: true });
+}
+
+function cleanupMobileGalleries() {
+    const carousels = document.querySelectorAll('.carousel');
+    
+    carousels.forEach(carousel => {
+        // Desktop Navigation wieder anzeigen
+        const prevBtn = document.querySelector(`[data-carousel-prev="${carousel.id}"]`);
+        const nextBtn = document.querySelector(`[data-carousel-next="${carousel.id}"]`);
+        if (prevBtn) prevBtn.style.display = '';
+        if (nextBtn) nextBtn.style.display = '';
+        
+        // Desktop Positionen wiederherstellen
+        updateCardPositions(carousel, carouselStates[carousel.id] || 0);
+    });
+}
+
+// Initialize Mobile Gallery
+window.addEventListener('load', initMobileGallery);
+window.addEventListener('resize', () => {
+    clearTimeout(window.mobileResizeTimeout);
+    window.mobileResizeTimeout = setTimeout(initMobileGallery, 150);
+});

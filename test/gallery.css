@@ -341,3 +341,143 @@ body {
     background: white;
     color: #3B3B38;
 }
+
+/* ==================== MOBILE OPTIMIERUNGEN ==================== */
+
+/* MOBILE - UX Verbesserungen für Galerien */
+@media screen and (max-width: 768px) {
+    
+    /* HORIZONTALES SCROLLEN VERHINDERN - außer Galerien */
+    .content-section {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+    }
+    
+    /* CAROUSEL WRAPPER - nur Galerie darf horizontal scrollen */
+    .carousel-wrapper {
+        overflow-x: auto !important; /* NUR Galerie darf scrollen */
+        width: 100% !important;
+        max-width: 100vw !important;
+    }
+    
+    /* SECTION HEADER - Vertikale Anordnung für Mobile */
+    .section-header {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 1rem !important;
+        margin-bottom: 1rem !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* SECTION INFO - Text-Bereich */
+    .section-info {
+        max-width: 100% !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    /* SECTION TITLE - Weniger Abstand nach mehrzeiligen Titeln */
+    .section-title {
+        font-size: clamp(24px, 6vw, 32px) !important;
+        margin-bottom: 0.5rem !important; /* WENIGER Abstand: war 1rem */
+        line-height: 1.1 !important; /* ENGE Zeilenhöhe für mehrzeilige Titel */
+    }
+    
+    /* SECTION SUBTITLE - Responsive Text */
+    .section-subtitle {
+        font-size: clamp(14px, 3.5vw, 16px) !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* SECTION CONTROLS - Buttons UNTER der Beschreibung */
+    .section-controls {
+        justify-content: center !important;
+        gap: 20px !important; /* MEHR Abstand zwischen Buttons */
+        margin-top: 0.5rem !important;
+    }
+    
+    /* CAROUSEL BUTTONS - Größer für bessere Touch-Bedienung */
+    .carousel-button {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 24px !important;
+        border-radius: 50% !important;
+        /* Bessere Touch-Targets für Mobile */
+    }
+}
+
+/* ==================== NEUE MOBILE GALERIE ==================== */
+
+/* MOBILE GALERIE - Komplett neues System */
+@media screen and (max-width: 768px) {
+    
+    /* DESKTOP GALERIE VERSTECKEN */
+    .carousel {
+        display: none !important;
+    }
+    
+    /* NEUER MOBILE CAROUSEL WRAPPER */
+    .carousel-wrapper {
+        position: relative !important;
+        width: 100% !important;
+        margin: 1rem 0 !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        
+        /* SNAP SCROLL AKTIVIEREN */
+        scroll-snap-type: x mandatory !important;
+        scroll-behavior: smooth !important;
+        -webkit-overflow-scrolling: touch !important;
+        
+        /* SCROLLBAR VERSTECKEN */
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+    }
+    
+    .carousel-wrapper::-webkit-scrollbar {
+        display: none !important;
+    }
+    
+    /* MOBILE CAROUSEL CONTAINER */
+    .mobile-carousel {
+        display: flex !important;
+        gap: 20px !important;
+        padding: 0 2rem !important;
+        width: max-content !important;
+        align-items: flex-end !important;
+    }
+    
+    /* MOBILE PRODUCT CARDS */
+    .mobile-product-card {
+        width: 280px !important;
+        height: 300px !important;
+        background: white !important;
+        border-radius: 16px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+        position: relative !important;
+        flex-shrink: 0 !important;
+        
+        /* SNAP POINT */
+        scroll-snap-align: center !important;
+        scroll-margin-inline: 10px !important;
+        
+        /* ERSTES GROSSES ELEMENT */
+        transform: scale(0.9) !important;
+        transform-origin: bottom center !important;
+        transition: transform 0.3s ease !important;
+    }
+    
+    /* ERSTES ELEMENT GROSS */
+    .mobile-product-card:first-child {
+        transform: scale(1.1) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+        z-index: 10 !important;
+    }
+    
+    /* SPEISE-KARTEN */
+    .content-section.dark .mobile-product-card {
+        background: #ECE7E1 !important;
+    }
+}
