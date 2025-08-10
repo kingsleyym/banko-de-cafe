@@ -1,0 +1,100 @@
+/* ==========================================
+   PROFESSIONELLE FIXES FÜR ORIGINAL DESIGN
+   Bowl Parallax + Carousel Responsive
+   ========================================== */
+
+/* BOWL PARALLAX REPARIERT */
+.center-drink {
+    /* FIXED: Bowl verschwindet nie mehr */
+    width: clamp(400px, 60vw, 900px) !important;
+    height: auto !important;
+    bottom: clamp(-300px, -35vh, -150px) !important;
+    
+    /* PARALLAX READY */
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+.center-drink img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 120vh !important;
+    object-fit: contain !important;
+    object-position: bottom !important;
+}
+
+/* MOBILE BOWL FIXES */
+@media (max-width: 768px) {
+    .center-drink {
+        width: clamp(350px, 70vw, 600px) !important;
+        bottom: clamp(-250px, -30vh, -120px) !important;
+    }
+    
+    .center-drink img {
+        max-height: 100vh !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .center-drink {
+        width: clamp(300px, 80vw, 500px) !important;
+        bottom: clamp(-200px, -25vh, -100px) !important;
+    }
+    
+    .center-drink img {
+        max-height: 80vh !important;
+    }
+}
+
+/* CAROUSEL FIXES */
+.carousel {
+    /* FIXED: Horizontales Scrollen blockiert */
+    overflow-x: auto !important;
+    
+    /* RESPONSIVE PADDING FIXED */
+    padding: 0 calc(50vw - 280px) !important;
+}
+
+/* DESKTOP: 2 ZENTRALE KARTEN */
+@media (min-width: 1200px) {
+    .carousel {
+        padding: 0 calc(50vw - 280px) !important;
+    }
+}
+
+/* TABLET: 1 ZENTRALE KARTE */
+@media (max-width: 1199px) and (min-width: 768px) {
+    .carousel {
+        padding: 0 calc(50vw - 140px) !important;
+    }
+}
+
+/* MOBILE: 1 ZENTRALE KARTE */
+@media (max-width: 767px) {
+    .carousel {
+        padding: 0 calc(50vw - 130px) !important;
+    }
+}
+
+/* PERFORMANCE OPTIMIERUNGEN */
+.product-card {
+    will-change: transform !important;
+    backface-visibility: hidden !important;
+}
+
+.product-image {
+    will-change: transform !important;
+}
+
+/* REDUCED MOTION SUPPORT */
+@media (prefers-reduced-motion: reduce) {
+    .center-drink {
+        transform: translateX(-50%) !important;
+        will-change: auto !important;
+    }
+    
+    .product-card {
+        transition: none !important;
+    }
+}

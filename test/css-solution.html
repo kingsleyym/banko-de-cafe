@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 3: Pure CSS Scroll Snap + CSS Variables Parallax</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100vw;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* ==========================================
+           CSS CUSTOM PROPERTIES
+           ========================================== */
+        :root {
+            /* CAROUSEL PROPERTIES */
+            --carousel-gap: 20px;
+            --card-width: 260px;
+            --card-height: 280px;
+            --card-scale: 0.9;
+            --card-scale-active: 1.1;
+            --carousel-padding: calc(50vw - 280px);
+            
+            /* PARALLAX PROPERTIES */
+            --parallax-speed: 0.3;
+            --bowl-width: min(50vw, 600px);
+            --bowl-bottom: -25vh;
+            
+            /* RESPONSIVE BREAKPOINTS */
+            --mobile-breakpoint: 599px;
+            --tablet-breakpoint: 899px;
+            --desktop-breakpoint: 1200px;
+        }
+
+        /* RESPONSIVE CUSTOM PROPERTIES */
+        @media (max-width: 1199px) and (min-width: 900px) {
+            :root {
+                --carousel-gap: 16px;
+                --card-width: 240px;
+                --card-height: 260px;
+                --carousel-padding: calc(50vw - 130px);
+                --bowl-width: min(45vw, 500px);
+                --bowl-bottom: -20vh;
+            }
+        }
+
+        @media (max-width: 899px) and (min-width: 600px) {
+            :root {
+                --carousel-gap: 16px;
+                --card-width: 220px;
+                --card-height: 260px;
+                --carousel-padding: calc(50vw - 120px);
+                --bowl-width: min(60vw, 450px);
+                --bowl-bottom: -15vh;
+            }
+        }
+
+        @media (max-width: 599px) {
+            :root {
+                --carousel-gap: 12px;
+                --card-width: 200px;
+                --card-height: 240px;
+                --carousel-padding: calc(50vw - 110px);
+                --bowl-width: min(70vw, 400px);
+                --bowl-bottom: -12vh;
+                --parallax-speed: 0.15;
+            }
+        }
+
+        /* ==========================================
+           PURE CSS SCROLL SNAP CAROUSEL
+           ========================================== */
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .carousel {
+            display: flex;
+            gap: var(--carousel-gap);
+            overflow-x: auto;
+            overflow-y: visible;
+            
+            /* SCROLL SNAP PROPERTIES */
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scroll-padding: var(--carousel-padding);
+            
+            /* HIDE SCROLLBAR */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            
+            /* RESPONSIVE PADDING */
+            padding: 0 var(--carousel-padding);
+        }
+
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* ==========================================
+           PURE CSS PRODUCT CARDS
+           ========================================== */
+        .product-card {
+            flex: 0 0 var(--card-width);
+            width: var(--card-width);
+            height: var(--card-height);
+            
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            
+            position: relative;
+            overflow: visible;
+            
+            /* SCROLL SNAP */
+            scroll-snap-align: center;
+            scroll-snap-stop: normal;
+            scroll-margin: var(--carousel-gap);
+            
+            /* DEFAULT TRANSFORM */
+            transform: scale(var(--card-scale));
+            transform-origin: bottom center;
+            
+            /* SMOOTH TRANSITIONS */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* HOVER STATES */
+        .product-card:hover {
+            transform: scale(0.95);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        /* FOCUS STATE (für bessere Accessibility) */
+        .product-card:focus-within {
+            transform: scale(var(--card-scale-active));
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+            outline: 2px solid #ff8c00;
+            outline-offset: 4px;
+        }
+
+        /* ==========================================
+           CSS VARIABLES PARALLAX BOWL
+           ========================================== */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            background: radial-gradient(circle at center bottom, 
+                rgba(255, 165, 0, 0.3) 0%, 
+                rgba(255, 140, 0, 0.2) 30%, 
+                rgba(255, 255, 255, 0.1) 60%, 
+                transparent 100%);
+            overflow: hidden;
+        }
+
+        .bowl-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bowl {
+            position: absolute;
+            left: 50%;
+            bottom: var(--bowl-bottom);
+            width: var(--bowl-width);
+            height: auto;
+            
+            /* CSS CUSTOM PROPERTY TRANSFORM */
+            transform: translateX(-50%) translateY(calc(var(--scroll-y, 0) * var(--parallax-speed) * 1px));
+            transform-origin: bottom center;
+            
+            /* PERFORMANCE OPTIMIZATIONS */
+            will-change: transform;
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        .bowl img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            object-position: bottom;
+        }
+
+        /* RESPONSIVE BOWL IMAGES */
+        @media (max-width: 599px) {
+            .bowl img {
+                max-height: 60vh;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .bowl img {
+                max-height: 50vh;
+            }
+        }
+
+        /* ==========================================
+           LAYOUT STYLES
+           ========================================== */
+        .nav {
+            position: relative;
+            z-index: 100;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: clamp(20px, 3vw, 24px);
+            font-weight: 700;
+            color: #333;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: clamp(20px, 4vw, 40px);
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: clamp(14px, 2vw, 16px);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff8c00;
+        }
+
+        .content-section {
+            position: relative;
+            z-index: 10;
+            background: white;
+            min-height: 100vh;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(28px, 5vw, 36px);
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 3rem;
+        }
+
+        /* ==========================================
+           PRODUCT CARD CONTENT
+           ========================================== */
+        .product-image {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            width: 200px;
+            height: auto;
+            pointer-events: none;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: auto;
+            max-height: 240px;
+            object-fit: contain;
+            object-position: bottom;
+        }
+
+        .product-content {
+            padding: 15px;
+            margin-top: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            height: calc(100% - 80px);
+        }
+
+        .product-name {
+            font-size: clamp(16px, 2vw, 18px);
+            font-weight: 600;
+            color: #222;
+            line-height: 1.2;
+        }
+
+        .product-description {
+            font-size: clamp(13px, 1.5vw, 14px);
+            color: #666;
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .product-size {
+            font-size: clamp(12px, 1.5vw, 13px);
+            color: #888;
+        }
+
+        .product-price {
+            font-size: clamp(14px, 2vw, 16px);
+            font-weight: 600;
+            color: #222;
+        }
+
+        /* RESPONSIVE PRODUCT IMAGES */
+        @media (max-width: 899px) {
+            .product-image {
+                width: 180px;
+                top: -70px;
+            }
+        }
+
+        @media (max-width: 599px) {
+            .product-image {
+                width: 160px;
+                top: -60px;
+            }
+            
+            .product-image img {
+                max-height: 200px;
+            }
+        }
+
+        /* ==========================================
+           SCROLL SNAP INDICATORS
+           ========================================== */
+        .scroll-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 20;
+        }
+
+        .scroll-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transition: background 0.3s ease;
+        }
+
+        .scroll-indicator.active {
+            background: #ff8c00;
+        }
+
+        /* ==========================================
+           ACCESSIBILITY
+           ========================================== */
+        @media (prefers-reduced-motion: reduce) {
+            .product-card,
+            .carousel,
+            .bowl {
+                transition: none;
+                scroll-behavior: auto;
+            }
+            
+            .bowl {
+                transform: translateX(-50%) !important;
+                will-change: auto;
+            }
+        }
+
+        /* FOCUS STYLES */
+        .product-card:focus {
+            outline: 2px solid #ff8c00;
+            outline-offset: 4px;
+        }
+
+        /* HIGH CONTRAST MODE */
+        @media (prefers-contrast: high) {
+            .product-card {
+                border: 2px solid #333;
+            }
+            
+            .product-card:focus {
+                outline: 3px solid #ff8c00;
+            }
+        }
+
+        /* ==========================================
+           DEBUGGING (development only)
+           ========================================== */
+        .debug .product-card {
+            border: 1px dashed red;
+        }
+        
+        .debug .bowl-container {
+            border: 2px dashed blue;
+            background: rgba(0, 0, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <!-- NAVIGATION -->
+        <nav class="nav">
+            <div class="logo">Banko de Café</div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Produkte</a></li>
+                <li><a href="#">Über uns</a></li>
+                <li><a href="#">Kontakt</a></li>
+            </ul>
+        </nav>
+
+        <!-- BOWL CONTAINER -->
+        <div class="bowl-container">
+            <div class="bowl" id="cssBowl">
+                <img src="../assets/hero.jpg" alt="Coffee Bowl">
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENT SECTION -->
+    <section class="content-section">
+        <h2 class="section-title">Pure CSS Scroll Snap</h2>
+        
+        <!-- CAROUSEL WRAPPER -->
+        <div class="carousel-wrapper">
+            <!-- CAROUSEL CONTAINER -->
+            <div class="carousel" id="cssCarousel" tabindex="0">
+                <!-- PRODUCT CARDS -->
+                <div class="product-card" tabindex="0">
+                    <div class="product-image">
+                        <img src="../assets/hero.jpg" alt="Product 1">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Pure CSS Scroll</h3>
+                        <p class="product-description">Native Browser Scroll Snap API</p>
+                        <div class="product-footer">
+                            <span class="product-size">250g</span>
+                            <span class="product-price">€12.90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" tabindex="0">
+                    <div class="product-image">
+                        <img src="../assets/hero.jpg" alt="Product 2">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">CSS Variables</h3>
+                        <p class="product-description">Dynamic Custom Properties</p>
+                        <div class="product-footer">
+                            <span class="product-size">500g</span>
+                            <span class="product-price">€18.50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" tabindex="0">
+                    <div class="product-image">
+                        <img src="../assets/hero.jpg" alt="Product 3">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Zero JavaScript</h3>
+                        <p class="product-description">100% Native CSS Solution</p>
+                        <div class="product-footer">
+                            <span class="product-size">1kg</span>
+                            <span class="product-price">€24.90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" tabindex="0">
+                    <div class="product-image">
+                        <img src="../assets/hero.jpg" alt="Product 4">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Performance</h3>
+                        <p class="product-description">GPU-Accelerated Transforms</p>
+                        <div class="product-footer">
+                            <span class="product-size">250g</span>
+                            <span class="product-price">€15.90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" tabindex="0">
+                    <div class="product-image">
+                        <img src="../assets/hero.jpg" alt="Product 5">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Accessibility</h3>
+                        <p class="product-description">Screen Reader Friendly</p>
+                        <div class="product-footer">
+                            <span class="product-size">500g</span>
+                            <span class="product-price">€19.90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" tabindex="0">
+                    <div class="product-image">
+                        <img src="../assets/hero.jpg" alt="Product 6">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Mobile First</h3>
+                        <p class="product-description">Responsive from Mobile Up</p>
+                        <div class="product-footer">
+                            <span class="product-size">1kg</span>
+                            <span class="product-price">€22.90</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SCROLL INDICATORS -->
+            <div class="scroll-indicators">
+                <div class="scroll-indicator active"></div>
+                <div class="scroll-indicator"></div>
+                <div class="scroll-indicator"></div>
+                <div class="scroll-indicator"></div>
+                <div class="scroll-indicator"></div>
+                <div class="scroll-indicator"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ==========================================
+        // MINIMAL CSS VARIABLES PARALLAX
+        // ==========================================
+        class CSSVariablesParallax {
+            constructor() {
+                this.bowl = document.getElementById('cssBowl');
+                this.indicators = document.querySelectorAll('.scroll-indicator');
+                this.carousel = document.getElementById('cssCarousel');
+                this.cards = this.carousel.querySelectorAll('.product-card');
+                
+                this.init();
+            }
+            
+            init() {
+                if (!this.bowl) return;
+                
+                // Set up parallax with CSS variables
+                window.addEventListener('scroll', this.throttle(() => {
+                    this.updateParallax();
+                }, 16)); // 60fps
+                
+                // Set up scroll indicators
+                this.carousel.addEventListener('scroll', this.throttle(() => {
+                    this.updateIndicators();
+                }, 100));
+                
+                // Keyboard navigation
+                this.setupKeyboardNavigation();
+            }
+            
+            updateParallax() {
+                const scrollY = window.pageYOffset;
+                
+                // Update CSS custom property
+                document.documentElement.style.setProperty('--scroll-y', scrollY);
+            }
+            
+            updateIndicators() {
+                const scrollLeft = this.carousel.scrollLeft;
+                const cardWidth = this.cards[0].offsetWidth;
+                const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-gap'));
+                const cardStep = cardWidth + gap;
+                
+                const activeIndex = Math.round(scrollLeft / cardStep);
+                
+                this.indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === activeIndex);
+                });
+            }
+            
+            setupKeyboardNavigation() {
+                this.carousel.addEventListener('keydown', (e) => {
+                    const cardWidth = this.cards[0].offsetWidth;
+                    const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-gap'));
+                    const cardStep = cardWidth + gap;
+                    
+                    switch(e.key) {
+                        case 'ArrowLeft':
+                            e.preventDefault();
+                            this.carousel.scrollBy({ left: -cardStep, behavior: 'smooth' });
+                            break;
+                        case 'ArrowRight':
+                            e.preventDefault();
+                            this.carousel.scrollBy({ left: cardStep, behavior: 'smooth' });
+                            break;
+                        case 'Home':
+                            e.preventDefault();
+                            this.carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                            break;
+                        case 'End':
+                            e.preventDefault();
+                            this.carousel.scrollTo({ left: this.carousel.scrollWidth, behavior: 'smooth' });
+                            break;
+                    }
+                });
+            }
+            
+            throttle(func, delay) {
+                let timeoutId;
+                let lastExecTime = 0;
+                return function (...args) {
+                    const currentTime = Date.now();
+                    
+                    if (currentTime - lastExecTime > delay) {
+                        func.apply(this, args);
+                        lastExecTime = currentTime;
+                    } else {
+                        clearTimeout(timeoutId);
+                        timeoutId = setTimeout(() => {
+                            func.apply(this, args);
+                            lastExecTime = Date.now();
+                        }, delay - (currentTime - lastExecTime));
+                    }
+                };
+            }
+        }
+        
+        // ==========================================
+        // INITIALISIERUNG
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            new CSSVariablesParallax();
+        });
+    </script>
+</body>
+</html>

@@ -410,6 +410,28 @@ body {
     /* Höher: war 270px */
 }
 
+/* SPEZIELLE REGELN FÜR MATCHA-BILDER (Gruppe 1-6) - SCHMALER */
+.product-image img[src*="Gruppe"] {
+    width: 160px !important; /* SCHMALER für Matcha-Bilder */
+    max-height: 200px !important; /* NIEDRIGER für bessere Proportionen */
+    object-fit: contain !important;
+    object-position: center bottom !important; /* Zentriert und nach unten */
+}
+
+/* Aktive Matcha-Karten (Position 2 & 3) - etwas größer aber immer noch angepasst */
+.product-card.pos-2 .product-image img[src*="Gruppe"],
+.product-card.pos-3 .product-image img[src*="Gruppe"] {
+    width: 200px !important; /* Größer für aktive Karten */
+    max-height: 250px !important; /* Entsprechend höher */
+}
+
+/* Kleine Matcha-Karten (Position 1 & 4) */
+.product-card.pos-1 .product-image img[src*="Gruppe"],
+.product-card.pos-4 .product-image img[src*="Gruppe"] {
+    width: 140px !important; /* Kleiner für seitliche Karten */
+    max-height: 180px !important; /* Entsprechend niedriger */
+}
+
 .product-content {
     padding: 12px 18px 50px;
     /* 50px unten für mehr Abstand bei kleinen Karten */
