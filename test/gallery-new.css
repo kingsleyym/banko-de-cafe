@@ -141,7 +141,8 @@ body {
 /* GETRÄNKE-KARTEN: Dunkle Karten mit hellem Text */
 .product-card {
     position: absolute;
-    background: #39312A; /* Dunkler Braun-Hintergrund für Getränkekarten */
+    background: #39312A;
+    /* Dunkler Braun-Hintergrund für Getränkekarten */
     border-radius: 16px;
     overflow: visible !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -155,41 +156,50 @@ body {
 
 /* SPEISE-KARTEN: Helle Karten (wie vorher) */
 .content-section.dark .product-card {
-    background: #ECE7E1; /* ZURÜCK ZU HELL: Wie es vorher war */
+    background: #ECE7E1;
+    /* ZURÜCK ZU HELL: Wie es vorher war */
 }
 
 /* Schriftfarben für Getränkekarten (dunkle Karten) - HELLE SCHRIFT */
 .product-card .product-name {
-    color: #E5D5C7; /* Helles Beige für Getränkekarten */
+    color: #E5D5C7;
+    /* Helles Beige für Getränkekarten */
 }
 
 .product-card .product-description {
-    color: #D0C0B0; /* Helles Graubeige für Getränkekarten */
+    color: #D0C0B0;
+    /* Helles Graubeige für Getränkekarten */
 }
 
 .product-card .product-price {
-    color: #F5F0E8; /* Sehr hell für Preise bei Getränkekarten */
+    color: #F5F0E8;
+    /* Sehr hell für Preise bei Getränkekarten */
 }
 
 .product-card .product-size {
-    color: #C0B0A0; /* Mittleres Beige für Getränkekarten */
+    color: #C0B0A0;
+    /* Mittleres Beige für Getränkekarten */
 }
 
 /* Schriftfarben für Speisekarten (helle Karten) - DUNKLE SCHRIFT (wie vorher) */
 .content-section.dark .product-card .product-name {
-    color: #7B5B3C; /* ZURÜCK: Braun wie vorher */
+    color: #7B5B3C;
+    /* ZURÜCK: Braun wie vorher */
 }
 
 .content-section.dark .product-card .product-description {
-    color: #666; /* ZURÜCK: Grau wie vorher */
+    color: #666;
+    /* ZURÜCK: Grau wie vorher */
 }
 
 .content-section.dark .product-card .product-price {
-    color: #222; /* ZURÜCK: Dunkel wie vorher */
+    color: #222;
+    /* ZURÜCK: Dunkel wie vorher */
 }
 
 .content-section.dark .product-card .product-size {
-    color: #666; /* ZURÜCK: Grau wie vorher */
+    color: #666;
+    /* ZURÜCK: Grau wie vorher */
 }
 
 /* Nur die 4 sichtbaren Karten */
@@ -257,29 +267,38 @@ body {
 
     .product-card.pos-1,
     .product-card.pos-4 {
-        width: 200px; /* Breiter: war 180px */
-        height: 280px; /* GLEICHE HÖHE wie bei >1300px */
-        transform: scale(0.95); /* Weniger verkleinert */
+        width: 200px;
+        /* Breiter: war 180px */
+        height: 280px;
+        /* GLEICHE HÖHE wie bei >1300px */
+        transform: scale(0.95);
+        /* Weniger verkleinert */
     }
 
     .product-card.pos-2,
     .product-card.pos-3 {
-        width: 240px; /* Breiter: war 220px */
-        height: 285px; /* GLEICHE HÖHE wie bei >1300px */
-        transform: scale(1.1); /* Gleiches Scale wie große Karten */
+        width: 240px;
+        /* Breiter: war 220px */
+        height: 285px;
+        /* GLEICHE HÖHE wie bei >1300px */
+        transform: scale(1.1);
+        /* Gleiches Scale wie große Karten */
     }
 
     /* Neue Positionen für breitere Karten */
     .product-card.pos-2 {
-        left: calc(50px + 200px + var(--gap)); /* Angepasst für 200px */
+        left: calc(50px + 200px + var(--gap));
+        /* Angepasst für 200px */
     }
 
     .product-card.pos-3 {
-        left: calc(50px + 200px + var(--gap) + 240px + var(--gap)); /* Angepasst für 200px und 240px */
+        left: calc(50px + 200px + var(--gap) + 240px + var(--gap));
+        /* Angepasst für 200px und 240px */
     }
 
     .product-card.pos-4 {
-        left: calc(50px + 200px + var(--gap) + 240px + var(--gap) + 240px + var(--gap)); /* Angepasst */
+        left: calc(50px + 200px + var(--gap) + 240px + var(--gap) + 240px + var(--gap));
+        /* Angepasst */
     }
 }
 
@@ -294,10 +313,14 @@ body {
 
     /* Position 1: Kleine Karte links bleibt */
     .product-card.pos-1 {
-        left: 50px; /* Angepasst für Konsistenz */
-        width: 180px; /* Breiter: war 160px */
-        height: 280px; /* GLEICHE HÖHE wie bei größeren Breakpoints */
-        transform: scale(0.95); /* Weniger verkleinert */
+        left: 50px;
+        /* Angepasst für Konsistenz */
+        width: 180px;
+        /* Breiter: war 160px */
+        height: 280px;
+        /* GLEICHE HÖHE wie bei größeren Breakpoints */
+        transform: scale(0.95);
+        /* Weniger verkleinert */
     }
 
     /* Position 3: Große Karte wird zentriert */
@@ -305,19 +328,24 @@ body {
         left: calc(50% - 130px);
         /* Zentriert (260px / 2 = 130px) */
         width: 260px;
-        height: 285px; /* GLEICHE HÖHE beibehalten */
+        height: 285px;
+        /* GLEICHE HÖHE beibehalten */
         transform: scale(1.1);
     }
 
     /* Position 4: Kleine Karte rechts */
     .product-card.pos-4 {
-        right: 50px; /* Angepasst für Konsistenz */
+        right: 50px;
+        /* Angepasst für Konsistenz */
         /* Von rechts positioniert */
         left: auto;
         /* Überschreibt left-Berechnung */
-        width: 180px; /* Breiter: war 160px */
-        height: 280px; /* GLEICHE HÖHE wie bei größeren Breakpoints */
-        transform: scale(0.95); /* Weniger verkleinert */
+        width: 180px;
+        /* Breiter: war 160px */
+        height: 280px;
+        /* GLEICHE HÖHE wie bei größeren Breakpoints */
+        transform: scale(0.95);
+        /* Weniger verkleinert */
     }
 }
 
@@ -328,7 +356,7 @@ body {
     /* Weniger hoch: war -70px */
     left: 50%;
     transform: translateX(-50%);
-    width: 180px;
+    width: 200px;
     /* Kleiner für normale Karten: war 210px */
     height: auto;
     display: flex;
@@ -339,7 +367,7 @@ body {
 }
 
 .product-image img {
-    width: 180px;
+    width: 200px;
     /* Kleiner für normale Karten: war 210px */
     height: auto;
     max-height: 240px;
@@ -351,14 +379,18 @@ body {
 /* Größere Bilder für kleine Karten (Position 1 & 4) */
 .product-card.pos-1 .product-image,
 .product-card.pos-4 .product-image {
-    top: -70px; /* Etwas höher für größere Bilder */
-    width: 220px; /* Größer: war 180px */
+    top: -70px;
+    /* Etwas höher für größere Bilder */
+    width: 220px;
+    /* Größer: war 180px */
 }
 
 .product-card.pos-1 .product-image img,
 .product-card.pos-4 .product-image img {
-    width: 220px; /* Größer: war 180px */
-    max-height: 280px; /* Höher: war 240px */
+    width: 220px;
+    /* Größer: war 180px */
+    max-height: 280px;
+    /* Höher: war 240px */
 }
 
 /* Größere Bilder für aktive Karten (Position 2 & 3) */
@@ -366,13 +398,13 @@ body {
 .product-card.pos-3 .product-image {
     top: -80px;
     /* Höher für aktive Karten */
-    width: 250px;
+    width: 280px;
     /* Größer: war 210px */
 }
 
 .product-card.pos-2 .product-image img,
 .product-card.pos-3 .product-image img {
-    width: 250px;
+    width: 280px;
     /* Größer: war 210px */
     max-height: 320px;
     /* Höher: war 270px */
@@ -519,7 +551,8 @@ body {
     --container-width: 100%;
     --side-margin: 100px;
     /* REDUZIERT: 50px links + 50px rechts (war 200px) */
-    --small-card: 240px; /* KORRIGIERT: Aktualisiert auf neue Größe */
+    --small-card: 240px;
+    /* KORRIGIERT: Aktualisiert auf neue Größe */
     --big-card: 260px;
     --total-cards: calc(var(--small-card) + var(--small-card) + var(--big-card) + var(--big-card));
     --available-space: calc(100vw - var(--side-margin) - var(--total-cards));
@@ -531,22 +564,24 @@ body {
 @media (min-width: 1440px) {
     :root {
         /* Berechne Abstände exakt wie bei 1420px und friere sie ein */
-        --frozen-gap: calc((1420px - 100px - 1040px) / 3); /* Basis: 1420px */
+        --frozen-gap: calc((1420px - 100px - 1040px) / 3);
+        /* Basis: 1420px */
     }
-    
+
     /* Alle Positionen ab 1440px - LINKER ABSTAND BLEIBT KONSTANT BEI 50px */
     .product-card.pos-1 {
-        left: 50px; /* KONSTANT: Bleibt immer bei 50px, verschiebt sich nicht */
+        left: 50px;
+        /* KONSTANT: Bleibt immer bei 50px, verschiebt sich nicht */
     }
-    
+
     .product-card.pos-2 {
         left: calc(50px + 240px + var(--frozen-gap));
     }
-    
+
     .product-card.pos-3 {
         left: calc(50px + 240px + var(--frozen-gap) + 260px + var(--frozen-gap));
     }
-    
+
     .product-card.pos-4 {
         left: calc(50px + 240px + var(--frozen-gap) + 260px + var(--frozen-gap) + 260px + var(--frozen-gap));
     }

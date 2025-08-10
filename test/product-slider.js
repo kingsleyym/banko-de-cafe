@@ -38,7 +38,7 @@ class ProductSlider {
             },
             {
                 name: 'Matcha Cup',
-                image: '../assets/matcha_cup.webp',
+                image: '../assets/Gruppe 6.webp',
                 alt: 'Matcha Cup',
                 type: 'matcha',
                 showSmoke: true, // Heißer Matcha hat Dampf
@@ -62,7 +62,7 @@ class ProductSlider {
 
     init() {
         if (!this.heroImage) return;
-        
+
         // Setze erstes Produkt beim Laden
         this.showProduct(0);
 
@@ -72,7 +72,7 @@ class ProductSlider {
         // Pausiere beim Hover
         this.heroImage.addEventListener('mouseenter', () => this.pauseAutoSlide());
         this.heroImage.addEventListener('mouseleave', () => this.startAutoSlide());
-        
+
         // TASTATUR-NAVIGATION - Links/Rechts Pfeile
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') {
@@ -92,7 +92,7 @@ class ProductSlider {
         // PHASE 1: Alles ausblenden (synchron und langsam)
         this.heroImage.style.opacity = '0';
         this.heroImage.style.transform = 'scale(0.9)';
-        
+
         // Seitliche Elemente raus-animieren (links raus, rechts raus)
         if (this.leftElement) {
             this.leftElement.style.transform = 'translateX(-100px) scale(0.8)';
@@ -102,19 +102,19 @@ class ProductSlider {
             this.rightElement.style.transform = 'translateX(100px) scale(0.8)';
             this.rightElement.style.opacity = '0';
         }
-        
+
         // Rauch ausblenden
         if (this.smokeElement) {
             this.smokeElement.style.opacity = '0';
         }
-        
+
         // PHASE 2: Nach 800ms - Bilder wechseln
         setTimeout(() => {
             // Hauptbild wechseln
             this.heroImage.src = product.image;
             this.heroImage.alt = product.alt;
             this.heroImage.setAttribute('data-product', product.type);
-            
+
             // Seitliche Bilder wechseln
             if (this.leftElement && product.sideElements) {
                 this.leftElement.src = product.sideElements.left;
@@ -122,18 +122,18 @@ class ProductSlider {
             if (this.rightElement && product.sideElements) {
                 this.rightElement.src = product.sideElements.right;
             }
-            
+
             // Hintergrund ändern - SYNCHRON MIT BILD!
             this.updateBackground(product);
-            
+
         }, 800); // Langsamer Wechsel
-        
+
         // PHASE 3: Nach 1000ms - Alles einblenden (synchron)
         setTimeout(() => {
             // Hauptbild einblenden
             this.heroImage.style.opacity = '1';
             this.heroImage.style.transform = 'scale(1.02)';
-            
+
             // Seitliche Elemente rein-animieren
             if (this.leftElement) {
                 this.leftElement.style.transform = 'translateX(0) scale(1)';
@@ -143,17 +143,17 @@ class ProductSlider {
                 this.rightElement.style.transform = 'translateX(0) scale(1)';
                 this.rightElement.style.opacity = '1';
             }
-            
+
             // Rauch einblenden falls nötig
             if (this.smokeElement) {
                 this.smokeElement.style.opacity = product.showSmoke ? '1' : '0';
             }
-            
+
             // PHASE 4: Nach 1300ms - Zurück zu normaler Größe
             setTimeout(() => {
                 this.heroImage.style.transform = 'scale(1)';
             }, 300);
-            
+
         }, 1000); // Synchroner Einblend-Start
 
         // Event für weitere Anpassungen
@@ -161,7 +161,7 @@ class ProductSlider {
             detail: { product, index }
         }));
     }
-    
+
     updateBackground(product) {
         // Hintergrund ändern - AUCH DEN HEADER!
         const heroContainer = document.querySelector('.hero-container');
@@ -170,7 +170,7 @@ class ProductSlider {
             console.log('Setting background for product:', product.type);
             heroContainer.setAttribute('data-current-product', product.type);
         }
-        
+
         if (header) {
             header.setAttribute('data-current-product', product.type);
             console.log('Header background set for:', product.type);

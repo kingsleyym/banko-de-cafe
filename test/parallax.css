@@ -35,7 +35,7 @@ header::before {
 
 /* PRODUKTSPEZIFISCHE HEADER-VERLÄUFE */
 header[data-current-product="bagel"]::before {
-    background: radial-gradient(ellipse 140% 100% at center 70%, #fccedd 0%, #FFE4E1 25%, #FFB6C1 50%, #FF69B4 75%, #FF1493 100%) !important;
+    background: radial-gradient(ellipse 140% 100% at center 70%, #fccedd 0%, #f0c3be 25%, #f198a6 50%, #FF69B4 75%, #FF1493 100%) !important;
 }
 
 header[data-current-product="panini"]::before {
@@ -43,7 +43,7 @@ header[data-current-product="panini"]::before {
 }
 
 header[data-current-product="matcha"]::before {
-    background: radial-gradient(ellipse 140% 100% at center 70%, #F0FFF0 0%, #E6FFE6 25%, #90EE90 50%, #32CD32 75%, #228B22 100%) !important;
+    background: radial-gradient(ellipse 140% 100% at center 70%, #ccfbcc 0%, #b3f8b3 25%, #76f576 50%, #32CD32 75%, #228B22 100%) !important;
 }
 
 .hero-container {
