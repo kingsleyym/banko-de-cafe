@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="product-styles.css">
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="debug-overlay.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 </head>
 
 <body>
@@ -386,28 +388,65 @@
         </section>
 
         <!-- Kontakt Sektion -->
-        <section id="kontakt" class="content-section dark">
+        <section id="kontakt" class="content-section">
             <div class="section-header">
                 <div class="section-info">
-                    <h2 class="section-title">Kontakt</h2>
+                    <h2 class="section-title">Adresse</h2>
                     <p class="section-subtitle">Besuchen Sie uns oder kontaktieren Sie uns für Reservierungen.</p>
                 </div>
             </div>
-            <div style="padding: 40px; text-align: center; color: white;">
-                <h3>BANCO The Café</h3>
-                <p>Musterstraße 123<br>12345 Berlin</p>
-                <p>Telefon: +49 30 12345678<br>Email: info@banco-cafe.de</p>
-                <p>Öffnungszeiten:<br>Mo-Fr: 7:00 - 19:00<br>Sa-So: 8:00 - 18:00</p>
+            <div id="location-wrapper">
+                <div id="location-text">
+                    <h3>Banco de Café</h3>
+                    <p>
+                        Fürstenrieder&nbsp;Str.&nbsp;8<br />
+                        80687&nbsp;München
+                    </p>
+                    <p style="margin-top: 1.4rem; font-size: 1rem; opacity: 0.85;">
+                        Tel.&nbsp;
+                        <a href="tel:+4917631115508">0176&nbsp;3111&nbsp;5508</a>
+                    </p>
+                    <p style="margin-top: 0.5rem; font-size: 1rem; opacity: 0.85;">
+                        <a href="mailto:info@banco-de-cafe.de">info@banco-de-cafe.de</a>
+                    </p>
+                </div>
+                <div id="location-map">
+                    <div id="map"></div>
+                </div>
             </div>
         </section>
     </div>
 
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    
     <script src="gallery-new.js"></script>
     <script src="parallax.js"></script>
     <script src="bowl-smoke.js"></script>
     <script src="product-slider.js"></script>
     <script src="navigation.js"></script>
     <script src="debug-overlay.js"></script>
+
+    <!-- Map Initialisierung -->
+    <script>
+        // Leaflet Map Init
+        const map = L.map('map', {
+            center: [48.1231, 11.5033], // München-Laim Koordinaten
+            zoom: 16,
+            scrollWheelZoom: false,
+            dragging: true,
+            tap: false,
+        });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+        }).addTo(map);
+
+        L.marker([48.1231, 11.5033])
+            .addTo(map)
+            .bindPopup('Banco de Café<br>Fürstenrieder Str. 8')
+            .openPopup();
+    </script>
 
 </body>
 

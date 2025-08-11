@@ -18,7 +18,8 @@ body {
 .logo {
     position: fixed;
     top: 30px;
-    left: 30px;
+    left: 50px;
+    /* Gleiche Position wie die linke Linie */
     width: 200px;
     height: auto;
     z-index: 1000;
@@ -57,6 +58,19 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     position: relative;
+}
+
+/* WENIGER ABSTAND UNTEN für Galerie-Sektionen */
+.content-section:has(.carousel-wrapper) {
+    padding-bottom: 2rem;
+    /* Weniger Abstand unten: war 4rem */
+}
+
+/* Alternative für Browser ohne :has() Support */
+#getraenke,
+#speisen {
+    padding-bottom: 2rem !important;
+    /* Weniger Abstand unten für Getränke und Speisen Sektionen */
 }
 
 .content-section.dark {
@@ -116,7 +130,8 @@ body {
     width: 100%;
     height: 500px;
     /* Feste Höhe */
-    margin: 0 auto;
+    margin: 0 auto -2rem auto;
+    /* NEGATIVER UNTEREN MARGIN: Reduziert Abstand zur nächsten Sektion */
     overflow: hidden;
     /* VERSTECKT alle anderen Karten */
 }
@@ -352,8 +367,8 @@ body {
 /* Produktbilder - Standard */
 .product-image {
     position: absolute;
-    top: -60px;
-    /* Höher: war -60px, jetzt 20px weiter nach oben */
+    top: -40px;
+    /* Zurück zur ursprünglichen Position */
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
@@ -379,8 +394,8 @@ body {
 /* Größere Bilder für kleine Karten (Position 1 & 4) */
 .product-card.pos-1 .product-image,
 .product-card.pos-4 .product-image {
-    top: -90px;
-    /* Höher: war -70px, jetzt 20px weiter nach oben */
+    top: -70px;
+    /* Zurück zur ursprünglichen Position */
     width: 220px;
     /* Größer: war 180px */
 }
@@ -396,8 +411,8 @@ body {
 /* Größere Bilder für aktive Karten (Position 2 & 3) */
 .product-card.pos-2 .product-image,
 .product-card.pos-3 .product-image {
-    top: -100px;
-    /* Höher: war -80px, jetzt 20px weiter nach oben */
+    top: -80px;
+    /* Zurück zur ursprünglichen Position */
     width: 280px;
     /* Größer: war 210px */
 }
@@ -1036,5 +1051,90 @@ body {
     .content-section.dark .mobile-card-price {
         color: #222 !important;
         /* Dunkel für Speisen */
+    }
+}
+
+/* ==================== KONTAKT / LOCATION SEKTION ==================== */
+
+/* Location Wrapper - responsive Container für Adresse + Karte */
+#location-wrapper {
+    background: #f5f0e8;
+    /* Beige Hintergrund */
+    color: #4a473f;
+    /* Beige Text */
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 2rem auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    min-height: 320px;
+}
+
+#location-text,
+#location-map {
+    flex: 1 1 320px;
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+#location-text h3 {
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 1rem;
+    color: #c19a6b;
+    /* Accent color */
+}
+
+#location-text p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 1.4rem;
+    font-weight: 400;
+}
+
+#location-text p a {
+    color: #4a473f;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#location-text p a:hover,
+#location-text p a:focus-visible {
+    text-decoration: underline;
+    color: #c19a6b;
+}
+
+/* Leaflet Map */
+#location-map #map {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    min-height: 280px;
+    max-height: 400px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    #location-wrapper {
+        flex-direction: column;
+        margin: 2rem 1rem;
+        min-height: auto;
+    }
+
+    #location-text,
+    #location-map {
+        flex: none;
+        padding: 2rem 1.5rem;
+    }
+
+    #location-map #map {
+        max-height: 300px;
+        min-height: 240px;
     }
 }
