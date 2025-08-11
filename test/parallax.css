@@ -440,36 +440,21 @@ header[data-current-product="matcha"]::before {
     }
 }
 
-/* MOBILE HÖHEN-SPEZIFISCH - Produktbild Anpassungen */
-
-/* KLEINE MOBILE (bis 637px Höhe) - Standard */
-@media screen and (max-width: 768px) and (max-height: 637px) {
-    .center-drink {
-        bottom: calc(-30% - 120px) !important;
-        /* Standard für kleine mobile - bleibt gleich */
+/* MOBILE HERO PRODUKTBILD - UNTEN RECHTS VERANKERT */
+@media screen and (max-width: 768px) {
+    
+    /* BILDGRÖSSE: 80% größer als Desktop */
+    .center-drink img {
+        width: clamp(1080px, 70vw, 1620px) !important; /* 80% größer: 600px × 1.8 = 1080px */
+        height: clamp(1728px, 112vw, 2592px) !important; /* 80% größer: 960px × 1.8 = 1728px */
     }
-}
-
-/* MITTLERE MOBILE (638px - 800px Höhe) */
-@media screen and (max-width: 768px) and (min-height: 638px) and (max-height: 800px) {
+    
+    /* BILD UNTEN RECHTS VERANKERN */
     .center-drink {
-        bottom: calc(-25% - 100px) !important;
-        /* NUR ETWAS HÖHER - war -20%, jetzt -25% */
-    }
-}
-
-/* GROSSE MOBILE (801px - 928px Höhe) */
-@media screen and (max-width: 768px) and (min-height: 801px) and (max-height: 928px) {
-    .center-drink {
-        bottom: calc(-20% - 80px) !important;
-        /* ETWAS HÖHER - war -10%, jetzt -20% */
-    }
-}
-
-/* SEHR GROSSE MOBILE (ab 929px Höhe) */
-@media screen and (max-width: 768px) and (min-height: 929px) {
-    .center-drink {
-        bottom: calc(-15% - 60px) !important;
-        /* HÖHER aber nicht zu hoch - war -5%, jetzt -15% */
+        /* Position: UNTEN RECHTS statt zentriert */
+        left: auto !important; /* Entferne zentrale Positionierung */
+        right: -20% !important; /* RECHTS: 20% des Bildes verschwindet rechts */
+        bottom: -10% !important; /* UNTEN: 10% des Bildes verschwindet unten */
+        transform: none !important; /* Entferne transform - nur feste Positionierung */
     }
 }

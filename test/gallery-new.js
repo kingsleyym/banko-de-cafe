@@ -122,111 +122,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// MOBILE GALLERY SYSTEM - Einfach und getrennt
-let isMobileMode = false;
-
+// NEUES MOBILE SYSTEM - Eine Karte zentriert
 function initMobileGallery() {
-    const wasMobile = isMobileMode;
-    isMobileMode = window.innerWidth < 768;
-    
-    if (isMobileMode) {
-        // Mobile Mode aktivieren
-        if (!wasMobile) {
-            console.log('🔄 Mobile Gallery Mode');
-            setupMobileGalleries();
+    if (window.innerWidth < 768) {
+        // Mobile: Erstelle separates System
+        if (!document.querySelector('.mobile-gallery')) {
+            createMobileGallery();
         }
     } else {
-        // Desktop Mode - Mobile deaktivieren
-        if (wasMobile) {
-            console.log('🔄 Desktop Gallery Mode');
-            cleanupMobileGalleries();
-        }
+        // Desktop: Entferne Mobile System
+        removeMobileGallery();
     }
 }
 
-function setupMobileGalleries() {
-    const carousels = document.querySelectorAll('.carousel');
-    
-    carousels.forEach(carousel => {
-        // Desktop Navigation verstecken
-        const prevBtn = document.querySelector(`[data-carousel-prev="${carousel.id}"]`);
-        const nextBtn = document.querySelector(`[data-carousel-next="${carousel.id}"]`);
-        if (prevBtn) prevBtn.style.display = 'none';
-        if (nextBtn) nextBtn.style.display = 'none';
-        
-        // ALLE Desktop Klassen von ALLEN Karten entfernen
-        const allCards = carousel.querySelectorAll('.product-card');
-        allCards.forEach(card => {
-            card.classList.remove('visible', 'pos-1', 'pos-2', 'pos-3', 'pos-4');
-        });
-        
-        // Touch Events für Swipe
-        setupMobileTouchEvents(carousel);
-    });
-}
-
-function setupMobileTouchEvents(carousel) {
-    let startX = 0;
-    
-    carousel.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-    }, { passive: true });
-    
-    carousel.addEventListener('touchend', (e) => {
-        const endX = e.changedTouches[0].clientX;
-        const diffX = startX - endX;
-        
-        // Swipe erkennen
-        if (Math.abs(diffX) > 50) {
-            const cards = carousel.querySelectorAll('.product-card');
-            const currentScroll = carousel.scrollLeft;
-            const cardWidth = 275; // 240px + 35px gap
-            const currentIndex = Math.round(currentScroll / cardWidth);
-            
-            if (diffX > 0 && currentIndex < cards.length - 1) {
-                // Swipe left - nächste Karte
-                carousel.scrollTo({
-                    left: (currentIndex + 1) * cardWidth,
-                    behavior: 'smooth'
-                });
-            } else if (diffX < 0 && currentIndex > 0) {
-                // Swipe right - vorherige Karte
-                carousel.scrollTo({
-                    left: (currentIndex - 1) * cardWidth,
-                    behavior: 'smooth'
-                });
-            }
-        }
-    }, { passive: true });
-}
-
-function cleanupMobileGalleries() {
-    const carousels = document.querySelectorAll('.carousel');
-    
-    carousels.forEach(carousel => {
-        // Desktop Navigation wieder anzeigen
-        const prevBtn = document.querySelector(`[data-carousel-prev="${carousel.id}"]`);
-        const nextBtn = document.querySelector(`[data-carousel-next="${carousel.id}"]`);
-        if (prevBtn) prevBtn.style.display = '';
-        if (nextBtn) nextBtn.style.display = '';
-        
-        // Desktop Positionen wiederherstellen
-        updateCardPositions(carousel, carouselStates[carousel.id] || 0);
-    });
-}
-
-// Initialize Mobile Gallery
-window.addEventListener('load', initMobileGallery);
-window.addEventListener('resize', () => {
-    clearTimeout(window.mobileResizeTimeout);
-    window.mobileResizeTimeout = setTimeout(initMobileGallery, 150);
-});
-
-// KOMPLETT SEPARATES MOBILE SYSTEM - berührt Desktop NICHT
 function createMobileGallery() {
-    if (window.innerWidth >= 768) return; // Nur auf Mobile
-    
-    console.log('🔄 Creating separate Mobile Gallery');
+    console.log('🔄 Creating Mobile Gallery - One Card Centered');
     
     // Finde alle Carousel-Wrapper
     const carouselWrappers = document.querySelectorAll('.carousel-wrapper');
@@ -255,15 +165,17 @@ function createMobileGallery() {
             const productSize = card.querySelector('.product-size');
             const productPrice = card.querySelector('.product-price');
             
-            // Erstelle Mobile-Karte HTML
+            // Erstelle Mobile-Karte HTML - NEUE STRUKTUR mit Inner-Karte
             mobileCard.innerHTML = `
-                <img class="mobile-card-image" src="${productImage?.src || ''}" alt="${productName?.textContent || ''}" />
-                <div class="mobile-card-content">
-                    <h3 class="mobile-card-title">${productName?.textContent || ''}</h3>
-                    <p class="mobile-card-description">${productDescription?.textContent || ''}</p>
-                    <div class="mobile-card-footer">
-                        <span class="mobile-card-size">${productSize?.textContent || ''}</span>
-                        <span class="mobile-card-price">${productPrice?.textContent || ''}</span>
+                <div class="mobile-card-inner">
+                    <img class="mobile-card-image" src="${productImage?.src || ''}" alt="${productName?.textContent || ''}" />
+                    <div class="mobile-card-content">
+                        <h3 class="mobile-card-title">${productName?.textContent || ''}</h3>
+                        <p class="mobile-card-description">${productDescription?.textContent || ''}</p>
+                        <div class="mobile-card-footer">
+                            <span class="mobile-card-size">${productSize?.textContent || ''}</span>
+                            <span class="mobile-card-price">${productPrice?.textContent || ''}</span>
+                        </div>
                     </div>
                 </div>
             `;
@@ -271,7 +183,7 @@ function createMobileGallery() {
             mobileGallery.appendChild(mobileCard);
         });
         
-        // Erstelle Mobile Touch Events
+        // Touch Events für Swipe
         setupMobileTouch(mobileGallery);
         
         // Füge Mobile Gallery nach dem Wrapper ein
@@ -324,14 +236,9 @@ function removeMobileGallery() {
     mobileGalleries.forEach(gallery => gallery.remove());
 }
 
-function initMobileGallery() {
-    if (window.innerWidth < 768) {
-        // Mobile: Erstelle separates System
-        if (!document.querySelector('.mobile-gallery')) {
-            createMobileGallery();
-        }
-    } else {
-        // Desktop: Entferne Mobile System
-        removeMobileGallery();
-    }
-}
+// Initialize Mobile Gallery
+window.addEventListener('load', initMobileGallery);
+window.addEventListener('resize', () => {
+    clearTimeout(window.mobileResizeTimeout);
+    window.mobileResizeTimeout = setTimeout(initMobileGallery, 150);
+});
