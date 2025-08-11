@@ -353,7 +353,7 @@ body {
 .product-image {
     position: absolute;
     top: -60px;
-    /* Weniger hoch: war -70px */
+    /* Höher: war -60px, jetzt 20px weiter nach oben */
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
@@ -379,8 +379,8 @@ body {
 /* Größere Bilder für kleine Karten (Position 1 & 4) */
 .product-card.pos-1 .product-image,
 .product-card.pos-4 .product-image {
-    top: -70px;
-    /* Etwas höher für größere Bilder */
+    top: -90px;
+    /* Höher: war -70px, jetzt 20px weiter nach oben */
     width: 220px;
     /* Größer: war 180px */
 }
@@ -396,8 +396,8 @@ body {
 /* Größere Bilder für aktive Karten (Position 2 & 3) */
 .product-card.pos-2 .product-image,
 .product-card.pos-3 .product-image {
-    top: -80px;
-    /* Höher für aktive Karten */
+    top: -100px;
+    /* Höher: war -80px, jetzt 20px weiter nach oben */
     width: 280px;
     /* Größer: war 210px */
 }
@@ -831,129 +831,141 @@ body {
 /* ==================== NEUES MOBILE SYSTEM - EINE KARTE ZENTRIERT ==================== */
 
 @media (max-width: 767px) {
-    
+
     /* Desktop Gallery verstecken */
     .carousel-wrapper {
         display: none !important;
     }
-    
+
     /* Content Section - Container-Padding entfernen für Mobile */
     .content-section {
-        padding: 4rem 0 !important; /* KEIN seitliches Padding auf Mobile */
+        padding: 4rem 0 !important;
+        /* KEIN seitliches Padding auf Mobile */
         max-width: none !important;
     }
-    
+
     /* Mobile Container - DIREKT AM BILDSCHIRMRAND */
     .mobile-gallery {
         display: flex !important;
         overflow-x: scroll !important;
         scroll-snap-type: x mandatory !important;
         scroll-behavior: smooth !important;
-        
+
         /* Container geht WIRKLICH von Rand zu Rand */
         width: 100vw !important;
         height: 500px !important;
         padding: 80px 0 20px 0 !important;
         margin: 0 !important;
-        gap: 0 !important; /* KEIN GAP - sonst sieht man 2 Karten */
-        
+        gap: 0 !important;
+        /* KEIN GAP - sonst sieht man 2 Karten */
+
         /* POSITION ABSOLUT vom Bildschirmrand */
         position: relative !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
-        
+
         /* Scrollbar verstecken */
         scrollbar-width: none !important;
         -ms-overflow-style: none !important;
     }
-    
+
     .mobile-gallery::-webkit-scrollbar {
         display: none !important;
     }
-    
+
     /* Mobile Karte - EINE KARTE = GANZE BILDSCHIRMBREITE */
     .mobile-card {
         /* JEDE KARTE NIMMT GANZE BILDSCHIRMBREITE - dann zentriert sich die 280px Karte automatisch */
-        width: 100vw !important; /* VOLLE BILDSCHIRMBREITE für Snap-Bereich */
-        min-width: 100vw !important; /* Verhindert Schrumpfen */
+        width: 100vw !important;
+        /* VOLLE BILDSCHIRMBREITE für Snap-Bereich */
+        min-width: 100vw !important;
+        /* Verhindert Schrumpfen */
         height: 260px !important;
         flex-shrink: 0 !important;
-        scroll-snap-align: center !important; /* CENTER: Karte verschwindet erst am Bildschirmrand */
-        
+        scroll-snap-align: center !important;
+        /* CENTER: Karte verschwindet erst am Bildschirmrand */
+
         /* Karte selbst ist zentriert INNERHALB der 100vw */
         display: flex !important;
         justify-content: center !important;
         align-items: flex-start !important;
-        
+
         /* Kein Background/Style hier - das kommt auf .mobile-card-inner */
         background: none !important;
         border: none !important;
         box-shadow: none !important;
-        
+
         /* Positionierung */
         position: relative !important;
         overflow: visible !important;
         transform: none !important;
         z-index: 10 !important;
     }
-    
+
     /* INNERE KARTE - das eigentliche Design */
     .mobile-card-inner {
-        width: 280px !important; /* FESTE BREITE der eigentlichen Karte */
+        width: 280px !important;
+        /* FESTE BREITE der eigentlichen Karte */
         height: 260px !important;
-        
+
         /* STYLE der Karte */
-        background: #39312A !important; /* Dunkle Karten für Getränke */
+        background: #39312A !important;
+        /* Dunkle Karten für Getränke */
         border-radius: 16px !important;
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
-        
+
         /* Positionierung */
         position: relative !important;
         overflow: visible !important;
     }
-    
+
     /* Mobile Karte für Speisen (helle Karten) */
     .content-section.dark .mobile-card-inner {
-        background: #ECE7E1 !important; /* Helle Karten für Speisen */
+        background: #ECE7E1 !important;
+        /* Helle Karten für Speisen */
     }
-    
+
     /* Mobile Produktbild - wie Desktop */
     .mobile-card-image {
         position: absolute !important;
-        top: -60px !important;
+        top: -80px !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
         width: 200px !important;
         height: auto !important;
         z-index: 20 !important;
-        
+
         /* Bildstyle */
         object-fit: contain !important;
         object-position: bottom !important;
         max-height: 240px !important;
     }
-    
+
     /* GRÖSSERE BILDER für Speisekarten (helle Karten) */
     .content-section.dark .mobile-card-image {
-        width: 280px !important; /* VIEL GRÖSSER: 200px → 280px für Speisen */
-        max-height: 320px !important; /* Entsprechend höher für Speisen */
-        top: -70px !important; /* Etwas höher wegen größerem Bild */
+        width: 280px !important;
+        /* VIEL GRÖSSER: 200px → 280px für Speisen */
+        max-height: 320px !important;
+        /* Entsprechend höher für Speisen */
+        top: -70px !important;
+        /* Etwas höher wegen größerem Bild */
     }
-    
+
     /* Spezielle Matcha-Bilder (bleiben wie sie waren) */
     .mobile-card-image[src*="Gruppe"] {
         width: 160px !important;
         max-height: 200px !important;
     }
-    
+
     /* Matcha-Bilder bei Speisen auch größer */
     .content-section.dark .mobile-card-image[src*="Gruppe"] {
-        width: 220px !important; /* Größer als normal aber nicht so groß wie andere Speisen */
+        width: 220px !important;
+        /* Größer als normal aber nicht so groß wie andere Speisen */
         max-height: 280px !important;
     }
-    
+
     /* Mobile Content - wie Desktop */
     .mobile-card-content {
         padding: 12px 18px 20px !important;
@@ -964,58 +976,65 @@ body {
         height: calc(100% - 40px) !important;
         margin-top: 60px !important;
     }
-    
+
     /* Mobile Text - gleiche Farben wie Desktop Getränkekarten */
     .mobile-card-title {
         font-size: 20px !important;
         font-weight: 600 !important;
-        color: #E5D5C7 !important; /* Helles Beige für Getränke */
+        color: #E5D5C7 !important;
+        /* Helles Beige für Getränke */
         margin: 0 0 8px 0 !important;
         line-height: 1.2 !important;
         text-align: left !important;
     }
-    
+
     .mobile-card-description {
         font-size: 13px !important;
-        color: #D0C0B0 !important; /* Helles Graubeige für Getränke */
+        color: #D0C0B0 !important;
+        /* Helles Graubeige für Getränke */
         margin: 0 0 30px 0 !important;
         text-align: left !important;
         line-height: 1.4 !important;
     }
-    
+
     .mobile-card-footer {
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
         margin: 0 !important;
     }
-    
+
     .mobile-card-size {
         font-size: 12px !important;
-        color: #C0B0A0 !important; /* Mittleres Beige für Getränke */
+        color: #C0B0A0 !important;
+        /* Mittleres Beige für Getränke */
     }
-    
+
     .mobile-card-price {
         font-size: 20px !important;
         font-weight: 700 !important;
-        color: #F5F0E8 !important; /* Sehr hell für Preise bei Getränken */
+        color: #F5F0E8 !important;
+        /* Sehr hell für Preise bei Getränken */
     }
-    
+
     /* Mobile Text für Speisekarten (helle Karten) */
     .content-section.dark .mobile-card-title {
-        color: #7B5B3C !important; /* Braun für Speisen */
+        color: #7B5B3C !important;
+        /* Braun für Speisen */
     }
-    
+
     .content-section.dark .mobile-card-description {
-        color: #666 !important; /* Grau für Speisen */
+        color: #666 !important;
+        /* Grau für Speisen */
     }
-    
+
     .content-section.dark .mobile-card-size {
-        color: #666 !important; /* Grau für Speisen */
+        color: #666 !important;
+        /* Grau für Speisen */
     }
-    
+
     .content-section.dark .mobile-card-price {
-        color: #222 !important; /* Dunkel für Speisen */
+        color: #222 !important;
+        /* Dunkel für Speisen */
     }
 }
-

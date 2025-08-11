@@ -69,8 +69,8 @@ header[data-current-product="matcha"]::before {
 }
 
 .center-drink img {
-    width: 1800px !important;
-    height: 2880px !important;
+    width: 1260px !important;
+    height: 2016px !important;
     object-fit: contain;
 }
 
@@ -347,8 +347,8 @@ header[data-current-product="matcha"]::before {
         max-width: 100vw !important;
     }
 
-    /* ALLE CONTAINER dürfen nicht zu breit werden */
-    * {
+    /* ALLE CONTAINER dürfen nicht zu breit werden - AUSSER PRODUKTBILD */
+    *:not(.center-drink):not(.center-drink img) {
         max-width: 100vw !important;
         box-sizing: border-box !important;
     }
@@ -467,11 +467,22 @@ header[data-current-product="matcha"]::before {
         /* Position: UNTEN LINKS mit FESTEN PIXELN */
         left: auto !important;
         /* WENIGER LINKS: Hälfte zurück nach rechts (war -200px) */
-        right: -150px !important;
+        right: -300px !important;
         /* Entferne right */
-        bottom: -1200px !important;
+        bottom: -1500px !important;
         /* NOCH VIEL WEITER RUNTER: 900px unter Bildschirmrand */
         transform: none !important;
         /* Entferne transform - nur feste Positionierung */
+    }
+
+    /* MOBILE BILDGRÖSSE - KOMPLETT SEPARATE KONTROLLE */
+    .center-drink img {
+        width: 700px !important;
+        height: 3200px !important;
+        min-width: 700px !important;
+        min-height: 3200px !important;
+        max-width: none !important;
+        max-height: none !important;
+        /* MOBILE: Große feste Größe - unabhängig von Desktop - NIEMALS KLEINER */
     }
 }

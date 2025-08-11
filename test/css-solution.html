@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test 3: Pure CSS Scroll Snap + CSS Variables Parallax</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         /* BASE STYLES */
         * {
@@ -13,7 +15,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             overflow-x: hidden !important;
             max-width: 100vw;
             font-family: 'Poppins', sans-serif;
@@ -30,12 +33,12 @@
             --card-scale: 0.9;
             --card-scale-active: 1.1;
             --carousel-padding: calc(50vw - 280px);
-            
+
             /* PARALLAX PROPERTIES */
             --parallax-speed: 0.3;
             --bowl-width: min(50vw, 600px);
             --bowl-bottom: -25vh;
-            
+
             /* RESPONSIVE BREAKPOINTS */
             --mobile-breakpoint: 599px;
             --tablet-breakpoint: 899px;
@@ -93,16 +96,16 @@
             gap: var(--carousel-gap);
             overflow-x: auto;
             overflow-y: visible;
-            
+
             /* SCROLL SNAP PROPERTIES */
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
             scroll-padding: var(--carousel-padding);
-            
+
             /* HIDE SCROLLBAR */
             scrollbar-width: none;
             -ms-overflow-style: none;
-            
+
             /* RESPONSIVE PADDING */
             padding: 0 var(--carousel-padding);
         }
@@ -118,23 +121,23 @@
             flex: 0 0 var(--card-width);
             width: var(--card-width);
             height: var(--card-height);
-            
+
             background: white;
             border-radius: 16px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            
+
             position: relative;
             overflow: visible;
-            
+
             /* SCROLL SNAP */
             scroll-snap-align: center;
             scroll-snap-stop: normal;
             scroll-margin: var(--carousel-gap);
-            
+
             /* DEFAULT TRANSFORM */
             transform: scale(var(--card-scale));
             transform-origin: bottom center;
-            
+
             /* SMOOTH TRANSITIONS */
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
@@ -162,11 +165,11 @@
             width: 100%;
             height: 100vh;
             min-height: 600px;
-            background: radial-gradient(circle at center bottom, 
-                rgba(255, 165, 0, 0.3) 0%, 
-                rgba(255, 140, 0, 0.2) 30%, 
-                rgba(255, 255, 255, 0.1) 60%, 
-                transparent 100%);
+            background: radial-gradient(circle at center bottom,
+                    rgba(255, 165, 0, 0.3) 0%,
+                    rgba(255, 140, 0, 0.2) 30%,
+                    rgba(255, 255, 255, 0.1) 60%,
+                    transparent 100%);
             overflow: hidden;
         }
 
@@ -187,11 +190,11 @@
             bottom: var(--bowl-bottom);
             width: var(--bowl-width);
             height: auto;
-            
+
             /* CSS CUSTOM PROPERTY TRANSFORM */
             transform: translateX(-50%) translateY(calc(var(--scroll-y, 0) * var(--parallax-speed) * 1px));
             transform-origin: bottom center;
-            
+
             /* PERFORMANCE OPTIMIZATIONS */
             will-change: transform;
             backface-visibility: hidden;
@@ -347,7 +350,7 @@
                 width: 160px;
                 top: -60px;
             }
-            
+
             .product-image img {
                 max-height: 200px;
             }
@@ -382,13 +385,14 @@
            ACCESSIBILITY
            ========================================== */
         @media (prefers-reduced-motion: reduce) {
+
             .product-card,
             .carousel,
             .bowl {
                 transition: none;
                 scroll-behavior: auto;
             }
-            
+
             .bowl {
                 transform: translateX(-50%) !important;
                 will-change: auto;
@@ -406,7 +410,7 @@
             .product-card {
                 border: 2px solid #333;
             }
-            
+
             .product-card:focus {
                 outline: 3px solid #ff8c00;
             }
@@ -418,13 +422,14 @@
         .debug .product-card {
             border: 1px dashed red;
         }
-        
+
         .debug .bowl-container {
             border: 2px dashed blue;
             background: rgba(0, 0, 255, 0.05);
         }
     </style>
 </head>
+
 <body>
     <!-- HERO SECTION -->
     <section class="hero-section">
@@ -450,7 +455,7 @@
     <!-- CONTENT SECTION -->
     <section class="content-section">
         <h2 class="section-title">Pure CSS Scroll Snap</h2>
-        
+
         <!-- CAROUSEL WRAPPER -->
         <div class="carousel-wrapper">
             <!-- CAROUSEL CONTAINER -->
@@ -540,7 +545,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- SCROLL INDICATORS -->
             <div class="scroll-indicators">
                 <div class="scroll-indicator active"></div>
@@ -563,54 +568,54 @@
                 this.indicators = document.querySelectorAll('.scroll-indicator');
                 this.carousel = document.getElementById('cssCarousel');
                 this.cards = this.carousel.querySelectorAll('.product-card');
-                
+
                 this.init();
             }
-            
+
             init() {
                 if (!this.bowl) return;
-                
+
                 // Set up parallax with CSS variables
                 window.addEventListener('scroll', this.throttle(() => {
                     this.updateParallax();
                 }, 16)); // 60fps
-                
+
                 // Set up scroll indicators
                 this.carousel.addEventListener('scroll', this.throttle(() => {
                     this.updateIndicators();
                 }, 100));
-                
+
                 // Keyboard navigation
                 this.setupKeyboardNavigation();
             }
-            
+
             updateParallax() {
                 const scrollY = window.pageYOffset;
-                
+
                 // Update CSS custom property
                 document.documentElement.style.setProperty('--scroll-y', scrollY);
             }
-            
+
             updateIndicators() {
                 const scrollLeft = this.carousel.scrollLeft;
                 const cardWidth = this.cards[0].offsetWidth;
                 const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-gap'));
                 const cardStep = cardWidth + gap;
-                
+
                 const activeIndex = Math.round(scrollLeft / cardStep);
-                
+
                 this.indicators.forEach((indicator, index) => {
                     indicator.classList.toggle('active', index === activeIndex);
                 });
             }
-            
+
             setupKeyboardNavigation() {
                 this.carousel.addEventListener('keydown', (e) => {
                     const cardWidth = this.cards[0].offsetWidth;
                     const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-gap'));
                     const cardStep = cardWidth + gap;
-                    
-                    switch(e.key) {
+
+                    switch (e.key) {
                         case 'ArrowLeft':
                             e.preventDefault();
                             this.carousel.scrollBy({ left: -cardStep, behavior: 'smooth' });
@@ -630,13 +635,13 @@
                     }
                 });
             }
-            
+
             throttle(func, delay) {
                 let timeoutId;
                 let lastExecTime = 0;
                 return function (...args) {
                     const currentTime = Date.now();
-                    
+
                     if (currentTime - lastExecTime > delay) {
                         func.apply(this, args);
                         lastExecTime = currentTime;
@@ -650,7 +655,7 @@
                 };
             }
         }
-        
+
         // ==========================================
         // INITIALISIERUNG
         // ==========================================
@@ -659,4 +664,5 @@
         });
     </script>
 </body>
+
 </html>
