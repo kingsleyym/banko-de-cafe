@@ -154,6 +154,12 @@ function setupMobileGalleries() {
         if (prevBtn) prevBtn.style.display = 'none';
         if (nextBtn) nextBtn.style.display = 'none';
         
+        // ALLE Desktop Klassen von ALLEN Karten entfernen
+        const allCards = carousel.querySelectorAll('.product-card');
+        allCards.forEach(card => {
+            card.classList.remove('visible', 'pos-1', 'pos-2', 'pos-3', 'pos-4');
+        });
+        
         // Touch Events für Swipe
         setupMobileTouchEvents(carousel);
     });
@@ -174,7 +180,7 @@ function setupMobileTouchEvents(carousel) {
         if (Math.abs(diffX) > 50) {
             const cards = carousel.querySelectorAll('.product-card');
             const currentScroll = carousel.scrollLeft;
-            const cardWidth = 300; // 260px + 40px gap
+            const cardWidth = 275; // 240px + 35px gap
             const currentIndex = Math.round(currentScroll / cardWidth);
             
             if (diffX > 0 && currentIndex < cards.length - 1) {
@@ -215,3 +221,117 @@ window.addEventListener('resize', () => {
     clearTimeout(window.mobileResizeTimeout);
     window.mobileResizeTimeout = setTimeout(initMobileGallery, 150);
 });
+
+// KOMPLETT SEPARATES MOBILE SYSTEM - berührt Desktop NICHT
+function createMobileGallery() {
+    if (window.innerWidth >= 768) return; // Nur auf Mobile
+    
+    console.log('🔄 Creating separate Mobile Gallery');
+    
+    // Finde alle Carousel-Wrapper
+    const carouselWrappers = document.querySelectorAll('.carousel-wrapper');
+    
+    carouselWrappers.forEach((wrapper, index) => {
+        const carousel = wrapper.querySelector('.carousel');
+        if (!carousel) return;
+        
+        const productCards = carousel.querySelectorAll('.product-card');
+        if (productCards.length === 0) return;
+        
+        // Erstelle Mobile Gallery Container
+        const mobileGallery = document.createElement('div');
+        mobileGallery.className = 'mobile-gallery';
+        mobileGallery.id = `mobile-gallery-${index}`;
+        
+        // Konvertiere jede Desktop-Karte zu Mobile-Karte
+        productCards.forEach((card, cardIndex) => {
+            const mobileCard = document.createElement('div');
+            mobileCard.className = 'mobile-card';
+            
+            // Extrahiere Daten von Desktop-Karte
+            const productImage = card.querySelector('.product-image img');
+            const productName = card.querySelector('.product-name');
+            const productDescription = card.querySelector('.product-description');
+            const productSize = card.querySelector('.product-size');
+            const productPrice = card.querySelector('.product-price');
+            
+            // Erstelle Mobile-Karte HTML
+            mobileCard.innerHTML = `
+                <img class="mobile-card-image" src="${productImage?.src || ''}" alt="${productName?.textContent || ''}" />
+                <div class="mobile-card-content">
+                    <h3 class="mobile-card-title">${productName?.textContent || ''}</h3>
+                    <p class="mobile-card-description">${productDescription?.textContent || ''}</p>
+                    <div class="mobile-card-footer">
+                        <span class="mobile-card-size">${productSize?.textContent || ''}</span>
+                        <span class="mobile-card-price">${productPrice?.textContent || ''}</span>
+                    </div>
+                </div>
+            `;
+            
+            mobileGallery.appendChild(mobileCard);
+        });
+        
+        // Erstelle Mobile Touch Events
+        setupMobileTouch(mobileGallery);
+        
+        // Füge Mobile Gallery nach dem Wrapper ein
+        wrapper.parentNode.insertBefore(mobileGallery, wrapper.nextSibling);
+    });
+}
+
+function setupMobileTouch(gallery) {
+    let startX = 0;
+    let startTime = 0;
+    
+    gallery.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startTime = Date.now();
+    }, { passive: true });
+    
+    gallery.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const endTime = Date.now();
+        const diffX = startX - endX;
+        const diffTime = endTime - startTime;
+        
+        // Swipe detection
+        if (Math.abs(diffX) > 50 && diffTime < 300) {
+            const currentScroll = gallery.scrollLeft;
+            const cardWidth = window.innerWidth; // 100vw pro Karte
+            const currentIndex = Math.round(currentScroll / cardWidth);
+            const totalCards = gallery.children.length;
+            
+            if (diffX > 0 && currentIndex < totalCards - 1) {
+                // Swipe left - nächste Karte
+                gallery.scrollTo({
+                    left: (currentIndex + 1) * cardWidth,
+                    behavior: 'smooth'
+                });
+            } else if (diffX < 0 && currentIndex > 0) {
+                // Swipe right - vorherige Karte
+                gallery.scrollTo({
+                    left: (currentIndex - 1) * cardWidth,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, { passive: true });
+}
+
+function removeMobileGallery() {
+    // Entferne alle Mobile Galleries
+    const mobileGalleries = document.querySelectorAll('.mobile-gallery');
+    mobileGalleries.forEach(gallery => gallery.remove());
+}
+
+function initMobileGallery() {
+    if (window.innerWidth < 768) {
+        // Mobile: Erstelle separates System
+        if (!document.querySelector('.mobile-gallery')) {
+            createMobileGallery();
+        }
+    } else {
+        // Desktop: Entferne Mobile System
+        removeMobileGallery();
+    }
+}
