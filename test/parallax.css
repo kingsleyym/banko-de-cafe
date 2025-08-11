@@ -69,8 +69,8 @@ header[data-current-product="matcha"]::before {
 }
 
 .center-drink img {
-    width: clamp(600px, 70vw, 900px);
-    height: clamp(960px, 112vw, 1440px);
+    width: 1800px !important;
+    height: 2880px !important;
     object-fit: contain;
 }
 
@@ -175,7 +175,8 @@ header[data-current-product="matcha"]::before {
     background-color: white;
     z-index: 4;
     top: 10%;
-    height: 30vh; /* Kürzer für bessere Lücke */
+    height: 30vh;
+    /* Kürzer für bessere Lücke */
 }
 
 /* LINKE SEITE - Unterer Teil der unterbrochenen Linie */
@@ -186,7 +187,8 @@ header[data-current-product="matcha"]::before {
     background-color: white;
     z-index: 4;
     bottom: 10%;
-    height: 30vh; /* Kürzer für bessere Lücke */
+    height: 30vh;
+    /* Kürzer für bessere Lücke */
 }
 
 /* RECHTE SEITE - Oberer Teil der unterbrochenen Linie */
@@ -197,7 +199,8 @@ header[data-current-product="matcha"]::before {
     background-color: white;
     z-index: 4;
     top: 10%;
-    height: 30vh; /* Kürzer für bessere Lücke */
+    height: 30vh;
+    /* Kürzer für bessere Lücke */
 }
 
 /* RECHTE SEITE - Unterer Teil der unterbrochenen Linie */
@@ -208,7 +211,8 @@ header[data-current-product="matcha"]::before {
     background-color: white;
     z-index: 4;
     bottom: 10%;
-    height: 30vh; /* Kürzer für bessere Lücke */
+    height: 30vh;
+    /* Kürzer für bessere Lücke */
 }
 
 /* ========== SCROLL TEXT IN DER LINIENLÜCKE ========== */
@@ -226,7 +230,8 @@ header[data-current-product="matcha"]::before {
     letter-spacing: 1px;
     text-transform: uppercase;
     opacity: 0.9;
-    z-index: 5; /* Über den Linien */
+    z-index: 5;
+    /* Über den Linien */
     white-space: nowrap;
 }
 
@@ -243,7 +248,8 @@ header[data-current-product="matcha"]::before {
     letter-spacing: 1px;
     text-transform: uppercase;
     opacity: 0.9;
-    z-index: 5; /* Über den Linien */
+    z-index: 5;
+    /* Über den Linien */
     white-space: nowrap;
 }
 
@@ -282,7 +288,7 @@ header[data-current-product="matcha"]::before {
         bottom: calc(-30% - 120px) !important;
         /* NOCH WENIGER nach unten - 80px höher als vorher */
     }
-    
+
     .center-drink img {
         width: 700px !important;
         height: 1120px !important;
@@ -300,27 +306,30 @@ header[data-current-product="matcha"]::before {
 
 /* TABLET - Spezifische Anpassungen für 769px - 1024px */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-    
+
     /* "WE LOVE COFFEE" TEXTE - weiter runter für Tablet */
     .hero-text {
-        top: 50% !important; /* WEITER RUNTER: für Tablet */
+        top: 50% !important;
+        /* WEITER RUNTER: für Tablet */
     }
-    
+
     /* BAGEL BILDER - weiter runter für Tablet */
     .coffee-bean.left {
-        top: 50% !important; /* WEITER RUNTER: war zu hoch */
+        top: 50% !important;
+        /* WEITER RUNTER: war zu hoch */
     }
-    
+
     .coffee-bean.right {
-        top: 20% !important; /* WEITER RUNTER: war zu hoch */
+        top: 20% !important;
+        /* WEITER RUNTER: war zu hoch */
     }
-    
+
     /* PRODUKTBILD - KLEINER und höher für Tablet */
     .center-drink {
         bottom: calc(-30% - 100px) !important;
         /* NOCH HÖHER für Tablet */
     }
-    
+
     .center-drink img {
         width: 600px !important;
         height: 960px !important;
@@ -330,19 +339,20 @@ header[data-current-product="matcha"]::before {
 
 /* MOBILE - Einfache responsive Anpassungen */
 @media screen and (max-width: 768px) {
-    
+
     /* HORIZONTALES SCROLLEN VERHINDERN */
-    html, body {
+    html,
+    body {
         overflow-x: hidden !important;
         max-width: 100vw !important;
     }
-    
+
     /* ALLE CONTAINER dürfen nicht zu breit werden */
     * {
         max-width: 100vw !important;
         box-sizing: border-box !important;
     }
-    
+
     /* MAIN CONTENT BEREICHE */
     .main-content,
     .content-section,
@@ -351,72 +361,81 @@ header[data-current-product="matcha"]::before {
         width: 100% !important;
         max-width: 100vw !important;
     }
-    
+
     /* UNTERBROCHENE LINIEN - kürzer auf mobile */
     .left-line-top,
     .right-line-top {
-        height: 30vh !important; /* Oberer Teil kürzer */
+        height: 30vh !important;
+        /* Oberer Teil kürzer */
     }
-    
+
     .left-line-bottom,
     .right-line-bottom {
-        height: 30vh !important; /* Unterer Teil kürzer */
+        height: 30vh !important;
+        /* Unterer Teil kürzer */
     }
-    
-    /* PRODUKTBILD - nach rechts verschieben bei Mobile */
-    .center-drink {
-        left: 75% !important; /* WEITER NACH RECHTS: 50% + 25% = 75% */
-        transform: translateX(-50%) !important; /* Weiterhin zentriert auf die neue Position */
-    }
-    
+
+    /* PRODUKTBILD POSITIONIERUNG - wird im separaten mobilen Block gehandhabt */
+
     /* "WE LOVE COFFEE" TEXTE - näher zusammen und weiter oben */
     .hero-text {
-        top: 30% !important; /* WEITER OBEN: war 45% */
-        width: 25% !important; /* ETWAS BREITER für mobile */
+        top: 30% !important;
+        /* WEITER OBEN: war 45% */
+        width: 25% !important;
+        /* ETWAS BREITER für mobile */
     }
-    
+
     .hero-text.left {
-        left: 20% !important; /* NÄHER ZUR MITTE: war 12% */
+        left: 20% !important;
+        /* NÄHER ZUR MITTE: war 12% */
     }
-    
+
     .hero-text.right {
-        display: none !important; /* RECHTEN TEXT AUSBLENDEN */
+        display: none !important;
+        /* RECHTEN TEXT AUSBLENDEN */
     }
-    
+
     /* LINKER TEXT - über ganze Breite und größer */
     .hero-text.left {
-        left: 25% !important; /* WEITER NACH RECHTS: war 15%, jetzt 25% */
-        width: 70% !important; /* GANZE BREITE nutzen */
+        left: 25% !important;
+        /* WEITER NACH RECHTS: war 15%, jetzt 25% */
+        width: 70% !important;
+        /* GANZE BREITE nutzen */
     }
-    
+
     .hero-title {
-        font-size: clamp(2.8rem, 5vw, 6rem) !important; /* GRÖSSER */
+        font-size: clamp(2.8rem, 5vw, 6rem) !important;
+        /* GRÖSSER */
     }
-    
+
     /* BAGEL BILDER - näher zusammen und weiter oben */
     .coffee-bean.left {
-        left: 10% !important; /* WEITER LINKS aber nicht die Linie berühren */
-        top: 20% !important; /* WEITER OBEN: war 25% */
+        left: 10% !important;
+        /* WEITER LINKS aber nicht die Linie berühren */
+        top: 20% !important;
+        /* WEITER OBEN: war 25% */
     }
-    
+
     .coffee-bean.right {
-        display: none !important; /* RECHTES BILD AUSBLENDEN */
+        display: none !important;
+        /* RECHTES BILD AUSBLENDEN */
     }
-    
+
     .coffee-bean img {
-        width: clamp(100px, 15vw, 150px) !important; /* GRÖSSER für mobile */
+        width: clamp(100px, 15vw, 150px) !important;
+        /* GRÖSSER für mobile */
     }
 
     /* LOGO noch kleiner für mobile */
     .logo {
         width: clamp(100px, 12vw, 140px) !important;
     }
-    
+
     /* NAVIGATION ausblenden - Burger Menu zeigen */
     .main-navigation {
         display: none !important;
     }
-    
+
     /* BURGER MENU für mobile */
     .burger-menu {
         display: block !important;
@@ -428,7 +447,7 @@ header[data-current-product="matcha"]::before {
         height: 30px;
         cursor: pointer;
     }
-    
+
     .burger-menu span {
         display: block;
         width: 100%;
@@ -442,19 +461,17 @@ header[data-current-product="matcha"]::before {
 
 /* MOBILE HERO PRODUKTBILD - UNTEN RECHTS VERANKERT */
 @media screen and (max-width: 768px) {
-    
-    /* BILDGRÖSSE: 80% größer als Desktop */
-    .center-drink img {
-        width: clamp(1080px, 70vw, 1620px) !important; /* 80% größer: 600px × 1.8 = 1080px */
-        height: clamp(1728px, 112vw, 2592px) !important; /* 80% größer: 960px × 1.8 = 1728px */
-    }
-    
-    /* BILD UNTEN RECHTS VERANKERN */
+
+    /* BILD WENIGER LINKS UND NOCH VIEL WEITER RUNTER */
     .center-drink {
-        /* Position: UNTEN RECHTS statt zentriert */
-        left: auto !important; /* Entferne zentrale Positionierung */
-        right: -20% !important; /* RECHTS: 20% des Bildes verschwindet rechts */
-        bottom: -10% !important; /* UNTEN: 10% des Bildes verschwindet unten */
-        transform: none !important; /* Entferne transform - nur feste Positionierung */
+        /* Position: UNTEN LINKS mit FESTEN PIXELN */
+        left: auto !important;
+        /* WENIGER LINKS: Hälfte zurück nach rechts (war -200px) */
+        right: -150px !important;
+        /* Entferne right */
+        bottom: -1200px !important;
+        /* NOCH VIEL WEITER RUNTER: 900px unter Bildschirmrand */
+        transform: none !important;
+        /* Entferne transform - nur feste Positionierung */
     }
 }
