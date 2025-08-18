@@ -1,0 +1,24 @@
+.carousel-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1.1rem;
+  margin-bottom: 0.2rem;
+  min-height: 24px;
+}
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d6c7b7;
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.carousel-dot.active {
+  width: 22px;
+  height: 12px;
+  border-radius: 8px;
+  background: #b49a86;
+  opacity: 1;
+}

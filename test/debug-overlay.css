@@ -1,7 +1,7 @@
 /* DEBUG OVERLAY - ZENTRIERT & MINIMIERBAR */
 .debug-overlay {
     position: fixed;
-    top: 50%;
+    top: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.9);
@@ -21,7 +21,7 @@
 
 .debug-overlay.minimized {
     transform: translate(-50%, -50%) scale(0.8);
-    opacity: 0.7;
+    opacity: 0.5;
     max-height: 60px;
     overflow: hidden;
 }
@@ -127,18 +127,22 @@
     font-family: Arial, sans-serif;
     font-size: 16px;
     font-weight: 500;
-    padding: 0; /* Kein Padding für Boxen */
+    padding: 0;
+    /* Kein Padding für Boxen */
     transition: all 0.3s ease;
     position: relative;
 }
 
 .nav-menu a:hover {
-    color: white; /* Bleibt weiß */
+    color: white;
+    /* Bleibt weiß */
 }
 
 .nav-menu a.active {
-    color: white; /* Bleibt weiß */
-    text-decoration: underline; /* Nur unterstreichen */
+    color: white;
+    /* Bleibt weiß */
+    text-decoration: underline;
+    /* Nur unterstreichen */
 }
 
 .debug-overlay .breakpoint.large {

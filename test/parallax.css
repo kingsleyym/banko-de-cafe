@@ -79,10 +79,10 @@ header[data-current-product="matcha"]::before {
     position: absolute;
     /* RELATIV zur Bowl */
     left: 50%;
-    top: 15%;
-    /* NACH OBEN VERSCHOBEN: Kompensiert die größere Canvas-Höhe */
+    top: 5%;
+    /* AM OBEREN RAND der Bowl für Rauch-Effekt */
     transform: translateX(-50%);
-    z-index: 1;
+    z-index: 6;
     /* Über dem Bowl-Bild */
     pointer-events: none;
     width: 480px;
@@ -294,6 +294,16 @@ header[data-current-product="matcha"]::before {
         height: 1120px !important;
         /* KLEINER: war 900px × 1440px, jetzt kleiner */
     }
+
+    /* RAUCH für Desktop */
+    .smoke {
+        top: 8% !important;
+        /* Etwas höher auf Desktop */
+        width: 350px !important;
+        /* Proportional kleiner */
+        height: 450px !important;
+        /* Proportional kleiner */
+    }
 }
 
 /* TABLET UND MOBILE - Logo kleiner */
@@ -334,6 +344,16 @@ header[data-current-product="matcha"]::before {
         width: 600px !important;
         height: 960px !important;
         /* NOCH KLEINER für Tablet */
+    }
+
+    /* RAUCH für Tablet */
+    .smoke {
+        top: 10% !important;
+        /* Etwas höher für Tablet */
+        width: 300px !important;
+        /* Kleiner für Tablet */
+        height: 400px !important;
+        /* Kleiner für Tablet */
     }
 }
 
@@ -489,5 +509,19 @@ header[data-current-product="matcha"]::before {
         max-width: none !important;
         max-height: none !important;
         /* MOBILE: Große feste Größe - unabhängig von Desktop - NIEMALS KLEINER */
+    }
+
+    /* RAUCH für Mobile - folgt dem Bowl */
+    .smoke {
+        top: 3% !important;
+        /* RELATIV zur Bowl-Oberseite */
+        left: 50% !important;
+        /* ZENTRIERT relativ zur Bowl */
+        transform: translateX(-50%) !important;
+        /* ZENTRIERT */
+        width: 250px !important;
+        /* Kleiner für Mobile */
+        height: 350px !important;
+        /* Kleiner für Mobile */
     }
 }

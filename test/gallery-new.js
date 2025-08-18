@@ -137,34 +137,27 @@ function initMobileGallery() {
 
 function createMobileGallery() {
     console.log('🔄 Creating Mobile Gallery - One Card Centered');
-    
     // Finde alle Carousel-Wrapper
     const carouselWrappers = document.querySelectorAll('.carousel-wrapper');
-    
     carouselWrappers.forEach((wrapper, index) => {
         const carousel = wrapper.querySelector('.carousel');
         if (!carousel) return;
-        
         const productCards = carousel.querySelectorAll('.product-card');
         if (productCards.length === 0) return;
-        
         // Erstelle Mobile Gallery Container
         const mobileGallery = document.createElement('div');
         mobileGallery.className = 'mobile-gallery';
         mobileGallery.id = `mobile-gallery-${index}`;
-        
         // Konvertiere jede Desktop-Karte zu Mobile-Karte
         productCards.forEach((card, cardIndex) => {
             const mobileCard = document.createElement('div');
             mobileCard.className = 'mobile-card';
-            
             // Extrahiere Daten von Desktop-Karte
             const productImage = card.querySelector('.product-image img');
             const productName = card.querySelector('.product-name');
             const productDescription = card.querySelector('.product-description');
             const productSize = card.querySelector('.product-size');
             const productPrice = card.querySelector('.product-price');
-            
             // Erstelle Mobile-Karte HTML - NEUE STRUKTUR mit Inner-Karte
             mobileCard.innerHTML = `
                 <div class="mobile-card-inner">
@@ -179,40 +172,51 @@ function createMobileGallery() {
                     </div>
                 </div>
             `;
-            
             mobileGallery.appendChild(mobileCard);
         });
-        
+        // Punkt-Scrolling-Indicator erzeugen
+        const dots = document.createElement('div');
+        dots.className = 'gallery-scroll-dots mobile-dots';
+        for (let i = 0; i < productCards.length; i++) {
+            const dot = document.createElement('span');
+            dot.className = 'gallery-scroll-dot' + (i === 0 ? ' active' : '');
+            dots.appendChild(dot);
+        }
         // Touch Events für Swipe
-        setupMobileTouch(mobileGallery);
-        
+        setupMobileTouch(mobileGallery, dots);
         // Füge Mobile Gallery nach dem Wrapper ein
         wrapper.parentNode.insertBefore(mobileGallery, wrapper.nextSibling);
+        // Füge Dots nach der Mobile Gallery ein
+        wrapper.parentNode.insertBefore(dots, mobileGallery.nextSibling);
+        // Synchronisiere Dots beim Scrollen
+        mobileGallery.addEventListener('scroll', function() {
+            const cardWidth = window.innerWidth;
+            const index = Math.round(mobileGallery.scrollLeft / cardWidth);
+            Array.from(dots.children).forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        });
     });
 }
 
-function setupMobileTouch(gallery) {
+function setupMobileTouch(gallery, dots) {
     let startX = 0;
     let startTime = 0;
-    
     gallery.addEventListener('touchstart', (e) => {
         startX = e.touches[0].clientX;
         startTime = Date.now();
     }, { passive: true });
-    
     gallery.addEventListener('touchend', (e) => {
         const endX = e.changedTouches[0].clientX;
         const endTime = Date.now();
         const diffX = startX - endX;
         const diffTime = endTime - startTime;
-        
         // Swipe detection
         if (Math.abs(diffX) > 50 && diffTime < 300) {
             const currentScroll = gallery.scrollLeft;
             const cardWidth = window.innerWidth; // 100vw pro Karte
             const currentIndex = Math.round(currentScroll / cardWidth);
             const totalCards = gallery.children.length;
-            
             if (diffX > 0 && currentIndex < totalCards - 1) {
                 // Swipe left - nächste Karte
                 gallery.scrollTo({

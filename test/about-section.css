@@ -1,0 +1,159 @@
+/* Catering CTA */
+.catering-section .catering-cta-row,
+#catering .catering-cta-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+.catering-section .catering-btn,
+#catering .catering-btn {
+  padding: 1rem 2.5rem;
+  background: #b49a86;
+  color: #fff;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s ease;
+}
+@media (max-width: 768px) {
+  .catering-section .catering-cta-row,
+  #catering .catering-cta-row {
+    justify-content: center;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+  }
+}
+
+/* Einheitlicher Innenabstand für alle Content-Sections */
+.section-inner {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Zielselector: sowohl IDs als auch optional vorhandene wrapper-klassen abdecken */
+#ueberuns .about-content,
+.about-section .about-content,
+#catering .about-content,
+.catering-section .about-content {
+  display: flex;
+  flex-direction: row; /* Desktop: Bild links, Text rechts */
+  align-items: center;
+  gap: 4rem; /* größerer Abstand zwischen Bild und Text auf Desktop */
+}
+
+/* Bildcontainer */
+#ueberuns .about-images-overlap,
+.about-section .about-images-overlap,
+#catering .about-images-overlap,
+.catering-section .about-images-overlap {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 420px; /* gleiche Containerbreite auf Desktop */
+  max-width: 100%;
+}
+
+/* Einheitliches Bild: immer 5:4 */
+#ueberuns .about-img,
+.about-section .about-img,
+#catering .about-img,
+.catering-section .about-img {
+  aspect-ratio: 5/4;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  width: 100%;
+  max-width: 420px;
+  min-width: 180px;
+  height: auto;
+  display: block;
+}
+
+/* Textbereich */
+#ueberuns .section-info,
+.about-section .section-info,
+#catering .section-info,
+.catering-section .section-info {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+/* BREAKPOINT: Mobile / Tablet */
+@media (max-width: 900px) {
+  /* Stapeln: Bild oben, Text unten */
+  #ueberuns .about-content,
+  .about-section .about-content,
+  #catering .about-content,
+  .catering-section .about-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  /* Bilder auf Mobile größer darstellen (breiter) */
+  #ueberuns .about-images-overlap,
+  .about-section .about-images-overlap,
+  #catering .about-images-overlap,
+  .catering-section .about-images-overlap {
+    width: 98vw;
+    max-width: 98vw;
+  }
+
+  #ueberuns .about-img,
+  .about-section .about-img,
+  #catering .about-img,
+  .catering-section .about-img {
+    width: 98vw;
+    max-width: 98vw;
+    min-width: 120px;
+    aspect-ratio: 5/4;
+    margin-bottom: 0;
+  }
+}
+
+/* Zusätzliche Regeln für Überlappende Bilder (Catering mit mehreren Bildern) */
+.catering-section .about-img-top,
+#catering .about-img-top {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+.catering-section .about-img-bottom,
+#catering .about-img-bottom {
+  position: absolute;
+  left: 20%;
+  top: 18px;
+  z-index: 1;
+  filter: grayscale(0.25) brightness(0.95);
+}
+
+/* Animationen (optional) */
+.catering-section .about-img,
+#catering .about-img,
+.about-section .about-img,
+#ueberuns .about-img {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes aboutImgTopIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes aboutImgBottomIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Ende Datei */

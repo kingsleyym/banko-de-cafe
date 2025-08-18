@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="product-styles.css">
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="debug-overlay.css">
+    <link rel="stylesheet" href="mobile-menu.css">
+    <link rel="stylesheet" href="about-section.css">
+    <link rel="stylesheet" href="location-map.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="kontakt.css">
+    <link rel="stylesheet" href="carousel-indicator.css">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 </head>
@@ -19,19 +25,31 @@
     <!-- HAUPTNAVIGATION - OBEN RECHTS -->
     <nav class="main-navigation">
         <ul class="nav-menu">
-            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#ueberuns">Über uns</a></li>
             <li><a href="#speisen">Speisen</a></li>
             <li><a href="#getraenke">Getränke</a></li>
+            <li><a href="#catering">Catering</a></li>
             <li><a href="#kontakt">Kontakt</a></li>
-            <li><a href="../impressum.html">Impressum</a></li>
         </ul>
     </nav>
 
     <!-- BURGER MENU für mobile (nur sichtbar auf mobile) -->
-    <div class="burger-menu" style="display: none;">
+    <div class="burger-menu" id="burgerMenu">
         <span></span>
         <span></span>
         <span></span>
+    </div>
+
+    <!-- Fullscreen Overlay für das mobile Menü -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <button class="close-mobile-menu" id="closeMobileMenu" aria-label="Menü schließen">&times;</button>
+        <ul class="mobile-menu-list">
+            <li><a href="#ueberuns" class="mobile-menu-link">Über uns</a></li>
+            <li><a href="#speisen" class="mobile-menu-link">Speisen</a></li>
+            <li><a href="#getraenke" class="mobile-menu-link">Getränke</a></li>
+            <li><a href="#catering" class="mobile-menu-link">Catering</a></li>
+            <li><a href="#kontakt" class="mobile-menu-link">Kontakt</a></li>
+        </ul>
     </div>
 
     <header>
@@ -39,13 +57,13 @@
 
         <!-- UNTERBROCHENE LINIE LINKS (Oberer Teil) -->
         <div class="left-line-top"></div>
-        
+
         <!-- UNTERBROCHENE LINIE LINKS (Unterer Teil) -->
         <div class="left-line-bottom"></div>
 
         <!-- UNTERBROCHENE LINIE RECHTS (Oberer Teil) -->
         <div class="right-line-top"></div>
-        
+
         <!-- UNTERBROCHENE LINIE RECHTS (Unterer Teil) -->
         <div class="right-line-bottom"></div>
 
@@ -108,6 +126,205 @@
     </div>
 
     <div class="main-content">
+
+        <!-- Über uns Sektion: 1 Bild, mobil über Text, Desktop links neben Text -->
+        <section id="ueberuns" class="content-section">
+            <div class="section-inner">
+                <div class="about-content">
+                    <div class="about-images-overlap">
+                        <img class="about-img"
+                            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+                            alt="Über uns Bild">
+                    </div>
+                    <div class="section-info">
+                        <h2 class="section-title">Über uns</h2>
+                        <p class="section-subtitle">Hey! Wir sind ein junges Café mit viel Liebe für Matcha, Kaffee und gute
+                            Stimmung. Genieße beste Drinks, handgemachte Kuchen und entspannte Atmosphäre – direkt bei uns
+                            im Café!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Speisen Sektion (Dunkel) -->
+        <section id="speisen" class="content-section dark">
+            <div class="section-header">
+                <div class="section-info">
+                    <h2 class="section-title">Unsere Speisen</h2>
+                    <p class="section-subtitle">Genießen Sie unsere handgemachten Bagels, knusprigen Focaccias und
+                        nahrhaften Bowls - alle frisch zubereitet.</p>
+                </div>
+                <div class="section-controls">
+                    <button class="carousel-button prev" onclick="scrollCarousel('food-carousel', -1)">‹</button>
+                    <button class="carousel-button next" onclick="scrollCarousel('food-carousel', 1)">›</button>
+                </div>
+            </div>
+            <div class="carousel-wrapper">
+                <div class="carousel" id="food-carousel">
+                    <!-- Bagels -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/manhatten_city_plate.webp" alt="Manhattan City Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Manhattan City</div>
+                            <div class="product-description">Frischkäse, Avocado, Räucherlachs, Dill, Rucola</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€6,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card active">
+                        <div class="product-image">
+                            <img src="../assets/new_york_style_plate.webp" alt="New York Style Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">New York Style</div>
+                            <div class="product-description">Cream Cheese, Tomaten, Zwiebeln, Kapern</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€5,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/pastrami_deluxe_plate.webp" alt="Pastrami Deluxe Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Pastrami Deluxe</div>
+                            <div class="product-description">Pastrami, Senf, Gewürzgurken, Zwiebeln</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€7,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/pastrami_plate.webp" alt="Pastrami Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Pastrami</div>
+                            <div class="product-description">Pastrami, Senf, Gewürzgurken</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€6,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/vegan_vegas_plate.webp" alt="Vegan Vegas Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Vegan Vegas</div>
+                            <div class="product-description">Hummus, Avocado, Sprossen, Tomaten</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€6,50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Focaccias -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/giuliana_plate.webp" alt="Giuliana Focaccia">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Giuliana</div>
+                            <div class="product-description">Mozzarella, Pesto, Tomaten, Basilikum</div>
+                            <div class="product-footer">
+                                <span class="product-size">Focaccia</span>
+                                <span class="product-price">€6,50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/italiano_plate.webp" alt="Italiano Focaccia">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Italiano</div>
+                            <div class="product-description">Rinder Salami, Burrata, Rucola, Pesto</div>
+                            <div class="product-footer">
+                                <span class="product-size">Focaccia</span>
+                                <span class="product-price">€6,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/milano_plate.webp" alt="Milano Focaccia">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Milano</div>
+                            <div class="product-description">Prosciutto, Mozzarella, Rucola, Balsamico</div>
+                            <div class="product-footer">
+                                <span class="product-size">Focaccia</span>
+                                <span class="product-price">€7,50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bowls -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/chicken_teriyaki_front.webp" alt="Chicken Teriyaki Bowl">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Chicken Teriyaki</div>
+                            <div class="product-description">Grilled Chicken, Teriyaki Sauce, Basmati Reis</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bowl</span>
+                                <span class="product-price">€9,90</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/falafel_front.webp" alt="Falafel Bowl">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Falafel Bowl</div>
+                            <div class="product-description">Falafel, Quinoa, Sesam Sauce, Hummus</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bowl</span>
+                                <span class="product-price">€9,90</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/peanut_chicken_front.webp" alt="Peanut Chicken Bowl">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Peanut Chicken</div>
+                            <div class="product-description">Hähnchen, Erdnuss Sauce, Jasmin Reis, Gemüse</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bowl</span>
+                                <span class="product-price">€10,50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/caesars_front.webp" alt="Caesars Bowl">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Caesars Bowl</div>
+                            <div class="product-description">Hähnchen, Caesar Dressing, Parmesan, Croutons</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bowl</span>
+                                <span class="product-price">€9,50</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-indicator" id="food-carousel-indicator"></div>
+            </div>
+        </section>
+
         <!-- Getränke Sektion (Hell) -->
         <section id="getraenke" class="content-section">
             <div class="section-header">
@@ -121,7 +338,6 @@
                     <button class="carousel-button next" onclick="scrollCarousel('drinks-carousel', 1)">›</button>
                 </div>
             </div>
-
             <div class="carousel-wrapper">
                 <div class="carousel" id="drinks-carousel">
                     <div class="product-card">
@@ -203,191 +419,32 @@
                         </div>
                     </div>
                 </div>
+                <div class="carousel-indicator" id="drinks-carousel-indicator"></div>
             </div>
         </section>
 
-        <!-- Speisen Sektion (Dunkel) -->
-        <section id="speisen" class="content-section dark">
-            <div class="section-header">
-                <div class="section-info">
-                    <h2 class="section-title">Unsere Speisen</h2>
-                    <p class="section-subtitle">Genießen Sie unsere handgemachten Bagels, knusprigen Focaccias und
-                        nahrhaften Bowls - alle frisch zubereitet.</p>
+        <!-- Catering Sektion: 1 Bild, wie Über uns aufgebaut -->
+        <section id="catering" class="content-section dark">
+            <div class="section-inner">
+                <div class="about-content">
+                    <div class="about-images-overlap">
+                        <img class="about-img"
+                            src="https://placehold.co/400x500?text=Catering+1"
+                            alt="Catering Bild">
+                    </div>
+                    <div class="section-info">
+                        <h2 class="section-title">Catering & Events</h2>
+                        <p class="section-subtitle">Sie planen ein Event? Wir bieten individuelles Catering für jeden
+                            Anlass!</p>
+                    </div>
                 </div>
-                <div class="section-controls">
-                    <button class="carousel-button prev" onclick="scrollCarousel('food-carousel', -1)">‹</button>
-                    <button class="carousel-button next" onclick="scrollCarousel('food-carousel', 1)">›</button>
-                </div>
-            </div>
-
-            <div class="carousel-wrapper">
-                <div class="carousel" id="food-carousel">
-                    <!-- Bagels -->
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/manhatten_city_plate.webp" alt="Manhattan City Bagel">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Manhattan City</div>
-                            <div class="product-description">Frischkäse, Avocado, Räucherlachs, Dill, Rucola</div>
-                            <div class="product-footer">
-                                <span class="product-size">Bagel</span>
-                                <span class="product-price">€6,95</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card active">
-                        <div class="product-image">
-                            <img src="../assets/new_york_style_plate.webp" alt="New York Style Bagel">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">New York Style</div>
-                            <div class="product-description">Cream Cheese, Tomaten, Zwiebeln, Kapern</div>
-                            <div class="product-footer">
-                                <span class="product-size">Bagel</span>
-                                <span class="product-price">€5,95</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/pastrami_deluxe_plate.webp" alt="Pastrami Deluxe Bagel">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Pastrami Deluxe</div>
-                            <div class="product-description">Pastrami, Senf, Gewürzgurken, Zwiebeln</div>
-                            <div class="product-footer">
-                                <span class="product-size">Bagel</span>
-                                <span class="product-price">€7,95</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/pastrami_plate.webp" alt="Pastrami Bagel">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Pastrami</div>
-                            <div class="product-description">Pastrami, Senf, Gewürzgurken</div>
-                            <div class="product-footer">
-                                <span class="product-size">Bagel</span>
-                                <span class="product-price">€6,95</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/vegan_vegas_plate.webp" alt="Vegan Vegas Bagel">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Vegan Vegas</div>
-                            <div class="product-description">Hummus, Avocado, Sprossen, Tomaten</div>
-                            <div class="product-footer">
-                                <span class="product-size">Bagel</span>
-                                <span class="product-price">€6,50</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Focaccias -->
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/giuliana_plate.webp" alt="Giuliana Focaccia">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Giuliana</div>
-                            <div class="product-description">Mozzarella, Pesto, Tomaten, Basilikum</div>
-                            <div class="product-footer">
-                                <span class="product-size">Focaccia</span>
-                                <span class="product-price">€6,50</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/italiano_plate.webp" alt="Italiano Focaccia">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Italiano</div>
-                            <div class="product-description">Rinder Salami, Burrata, Rucola, Pesto</div>
-                            <div class="product-footer">
-                                <span class="product-size">Focaccia</span>
-                                <span class="product-price">€6,95</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/milano_plate.webp" alt="Milano Focaccia">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Milano</div>
-                            <div class="product-description">Prosciutto, Mozzarella, Rucola, Balsamico</div>
-                            <div class="product-footer">
-                                <span class="product-size">Focaccia</span>
-                                <span class="product-price">€7,50</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bowls -->
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/chicken_teriyaki_front.webp" alt="Chicken Teriyaki Bowl">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Chicken Teriyaki</div>
-                            <div class="product-description">Grilled Chicken, Teriyaki Sauce, Basmati Reis</div>
-                            <div class="product-footer">
-                                <span class="product-size">Bowl</span>
-                                <span class="product-price">€9,90</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/falafel_front.webp" alt="Falafel Bowl">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Falafel Bowl</div>
-                            <div class="product-description">Falafel, Quinoa, Sesam Sauce, Hummus</div>
-                            <div class="product-footer">
-                                <span class="product-size">Bowl</span>
-                                <span class="product-price">€9,90</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/peanut_chicken_front.webp" alt="Peanut Chicken Bowl">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Peanut Chicken</div>
-                            <div class="product-description">Hähnchen, Erdnuss Sauce, Jasmin Reis, Gemüse</div>
-                            <div class="product-footer">
-                                <span class="product-size">Bowl</span>
-                                <span class="product-price">€10,50</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/caesars_front.webp" alt="Caesars Bowl">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Caesars Bowl</div>
-                            <div class="product-description">Hähnchen, Caesar Dressing, Parmesan, Croutons</div>
-                            <div class="product-footer">
-                                <span class="product-size">Bowl</span>
-                                <span class="product-price">€9,50</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="catering-cta-row">
+                    <a href="mailto:info@banco-de-cafe.de" class="catering-btn">Jetzt Kontaktieren</a>
                 </div>
             </div>
         </section>
 
-        <!-- Kontakt Sektion -->
+        <!-- Kontakt Sektion (einmal, Buttons, Layout angepasst) -->
         <section id="kontakt" class="content-section">
             <div class="section-header">
                 <div class="section-info">
@@ -395,37 +452,98 @@
                     <p class="section-subtitle">Besuchen Sie uns oder kontaktieren Sie uns für Reservierungen.</p>
                 </div>
             </div>
-            <div id="location-wrapper">
-                <div id="location-text">
+            <div class="kontakt-content-container">
+                <div class="kontakt-info-text">
                     <h3>Banco de Café</h3>
-                    <p>
-                        Fürstenrieder&nbsp;Str.&nbsp;8<br />
-                        80687&nbsp;München
-                    </p>
-                    <p style="margin-top: 1.4rem; font-size: 1rem; opacity: 0.85;">
-                        Tel.&nbsp;
-                        <a href="tel:+4917631115508">0176&nbsp;3111&nbsp;5508</a>
-                    </p>
-                    <p style="margin-top: 0.5rem; font-size: 1rem; opacity: 0.85;">
-                        <a href="mailto:info@banco-de-cafe.de">info@banco-de-cafe.de</a>
-                    </p>
-                </div>
-                <div id="location-map">
-                    <div id="map"></div>
+                    <p>Fürstenrieder&nbsp;Str.&nbsp;8<br />80687&nbsp;München</p>
+                    <div class="kontakt-buttons">
+                        <a href="tel:+4917631115508" class="kontakt-btn">Anrufen</a>
+                        <a href="mailto:info@banco-de-cafe.de" class="kontakt-btn">E-Mail</a>
+                    </div>
                 </div>
             </div>
+            <div id="location-map-fullwidth">
+                <div id="map"></div>
+            </div>
         </section>
+
+        <!-- Footer-Balken (Platzhalter) -->
+        <footer class="footer-bar">
+            <div class="footer-content">
+                <span>© 2025 Banco de Café</span>
+                <a href="#" style="margin-left:2rem; color:inherit; text-decoration:underline;">Impressum</a>
+                <a href="#" style="margin-left:1.5rem; color:inherit; text-decoration:underline;">Datenschutz</a>
+            </div>
+        </footer>
     </div>
 
     <!-- Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-    
+
     <script src="gallery-new.js"></script>
+    <script src="about-carousel.js"></script>
+    <script src="catering-carousel.js"></script>
     <script src="parallax.js"></script>
     <script src="bowl-smoke.js"></script>
     <script src="product-slider.js"></script>
+    <script src="drinks-carousel-indicator.js"></script>
+    <script src="food-carousel-indicator.js"></script>
     <script src="navigation.js"></script>
     <script src="debug-overlay.js"></script>
+
+    <!-- Mobile Menü Script -->
+    <script>
+        // Mobile Menü Overlay öffnen/schließen und Icon-Animation
+        const burgerMenu = document.getElementById('burgerMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        const logo = document.querySelector('.logo');
+        const socialIcons = document.querySelector('.social-icons');
+
+        function openMobileMenu() {
+            mobileMenuOverlay.classList.add('active');
+            burgerMenu.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            if (logo) logo.classList.add('hide-on-menu');
+            if (socialIcons) socialIcons.classList.add('hide-on-menu');
+        }
+        function closeMobileMenuFn() {
+            mobileMenuOverlay.classList.remove('active');
+            burgerMenu.classList.remove('open');
+            document.body.style.overflow = '';
+            if (logo) logo.classList.remove('hide-on-menu');
+            if (socialIcons) socialIcons.classList.remove('hide-on-menu');
+        }
+
+        if (burgerMenu && mobileMenuOverlay && closeMobileMenu) {
+            burgerMenu.addEventListener('click', function () {
+                if (mobileMenuOverlay.classList.contains('active')) {
+                    closeMobileMenuFn();
+                } else {
+                    openMobileMenu();
+                }
+            });
+            closeMobileMenu.addEventListener('click', closeMobileMenuFn);
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenuFn);
+            });
+        }
+
+        // Logo und Social Icons beim Scrollen ausblenden, wenn nicht Menü offen
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', function () {
+            if (mobileMenuOverlay.classList.contains('active')) return;
+            if (window.scrollY > 30) {
+                if (logo) logo.classList.add('hide-on-menu');
+                if (socialIcons) socialIcons.classList.add('hide-on-menu');
+            } else {
+                if (logo) logo.classList.remove('hide-on-menu');
+                if (socialIcons) socialIcons.classList.remove('hide-on-menu');
+            }
+            lastScrollY = window.scrollY;
+        });
+    </script>
 
     <!-- Map Initialisierung -->
     <script>

@@ -1,0 +1,132 @@
+/* Burger-Icon Animation und X-Icon */
+.burger-menu.open span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+  background: #b49a86;
+}
+.burger-menu.open span:nth-child(2) {
+  opacity: 0;
+}
+.burger-menu.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+  background: #b49a86;
+}
+
+.burger-menu span {
+  transition: all 0.3s cubic-bezier(.4,2,.6,1);
+}
+
+/* Logo und Social Icons nach hinten, wenn Menü offen oder beim Scrollen */
+.logo.hide-on-menu {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.social-icons.hide-on-menu {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 1 !important;
+}
+/* Mobile Menü Overlay und Burger-Menü */
+
+
+@media (max-width: 900px) {
+    .main-navigation {
+        display: none !important;
+    }
+
+    .burger-menu {
+        display: flex !important;
+        flex-direction: column;
+        gap: 6px;
+        cursor: pointer;
+        position: fixed;
+        top: 1.5rem;
+        right: 1.5rem;
+        z-index: 10000;
+        background: #fff;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        border: 1px solid #eee;
+        transition: box-shadow 0.2s;
+    }
+
+    .burger-menu span {
+        display: block;
+        width: 28px;
+        height: 3px;
+        background: #222;
+        border-radius: 2px;
+        transition: background 0.2s;
+    }
+
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #fff;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s;
+    }
+
+    .mobile-menu-overlay.active {
+        display: flex;
+    }
+
+    .close-mobile-menu {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        font-size: 2.5rem;
+        color: #333;
+        cursor: pointer;
+        z-index: 10001;
+    }
+
+    .mobile-menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        align-items: center;
+    }
+
+    .mobile-menu-link {
+        font-size: 2rem;
+        color: #222;
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        transition: color 0.2s;
+    }
+
+    .mobile-menu-link:hover {
+        color: #b49a86;
+    }
+}
+
+@media (min-width: 901px) {
+    .mobile-menu-overlay {
+        display: none !important;
+    }
+
+    .burger-menu {
+        display: none !important;
+    }
+}
