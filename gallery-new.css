@@ -25,6 +25,51 @@ body {
     z-index: 1000;
 }
 
+/* DESKTOP NAVIGATION - NUR WEIßE SCHRIFT, KEIN CONTAINER */
+.main-navigation {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 8888;
+    /* Kein Hintergrund, keine Boxen! */
+}
+
+.nav-menu {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    margin: 0;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0;
+    /* Kein Padding für Boxen */
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-menu a:hover {
+    color: white;
+    /* Bleibt weiß */
+}
+
+.nav-menu a.active {
+    color: white;
+    /* Bleibt weiß */
+    text-decoration: underline;
+    /* Nur unterstreichen */
+}
+
 .nav-link {
     position: absolute;
     top: 30px;
