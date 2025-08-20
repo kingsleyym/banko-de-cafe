@@ -1,548 +1,562 @@
 <!DOCTYPE html>
-<html lang="de" >
+<html lang="de">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Banco de Café – Neueröffnung</title>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    crossorigin=""
-  />
-
-  <style>
-    :root {
-      --accent: #c19a6b;
-      --bg: #111;
-      --text: #f6f6f6;
-      --max-width: 900px;
-
-      --beige-bg: #f5f0e8;
-      --beige-text: #4a473f;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-      line-height: 1.6;
-      min-height: 100vh;
-      position: relative;
-    }
-
-    /* ---------- HERO / PARALLAX ---------- */
-    .hero {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-      perspective: 1px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 6vh;
-      text-align: center;
-      justify-content: flex-start;
-
-      background: url('assets/hero.jpg') center/cover no-repeat fixed;
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-
-    /* iOS & Mobile fix: kein fixed Background */
-    @media (max-width: 768px), (hover: none) and (pointer: coarse) {
-      .hero {
-        background-attachment: scroll;
-        background-position: center center;
-        background-size: cover;
-      }
-    }
-
-    .shade {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      z-index: 0;
-    }
-
-    #logo {
-      width: min(260px, 36vw);
-      max-width: 90%;
-      margin-bottom: clamp(2.5rem, 5vw, 4.2rem);
-      will-change: transform;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex-grow: 1;
-      animation: fadeInUp 1s ease forwards;
-    }
-
-    .hero-content h1 {
-      font-weight: 600;
-      font-size: clamp(2rem, 6vw, 3.6rem);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      line-height: 1.1;
-      margin-bottom: 0.7rem;
-      max-width: 90vw;
-      color: var(--text);
-      opacity: 0;
-      animation: fadeInText 1.2s ease forwards 0.3s;
-    }
-
-    .hero-content .sub {
-      font-weight: 300;
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      opacity: 0;
-      max-width: 80vw;
-      margin: 0 auto 2rem auto;
-      color: var(--text);
-      line-height: 1.3;
-      animation: fadeInText 1.2s ease forwards 0.6s;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.6rem 2rem;
-      border: none;
-      border-radius: 4px;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-      font-size: 1rem;
-      text-decoration: none;
-      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      text-align: center;
-      max-width: 90vw;
-      opacity: 0;
-      animation: fadeInText 1.2s ease forwards 0.9s;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .btn:active {
-      transform: translateY(-1px);
-    }
-
-    /* ---------- SECTION LAYOUT ---------- */
-    section {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: clamp(3.5rem, 7vw, 5.5rem) 1rem;
-      opacity: 0;
-      transform: translateY(60px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-
-    section.reveal {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* Kaffee · Kultur · Community Sektion (dunkel) */
-    #about {
-      color: var(--text);
-      text-align: center;
-    }
-
-    #about h2 {
-      font-weight: 600;
-      font-size: clamp(1.9rem, 3.2vw, 2.2rem);
-      margin-bottom: 1.2rem;
-      color: var(--accent);
-    }
-
-    #about p {
-      font-size: clamp(1.1rem, 1.4vw, 1.3rem);
-      max-width: 60ch;
-      margin-left: auto;
-      margin-right: auto;
-      font-weight: 300;
-    }
-
-    /* Text angepasst nach Wunsch */
-    #about p {
-      max-width: 70ch;
-    }
-
-    /* Adresse + Map Sektion - beige Hintergrund, geteiltes Layout */
-    #location-wrapper {
-      background: var(--beige-bg);
-      color: var(--beige-text);
-      border-radius: 16px;
-      overflow: hidden;
-      display: flex;
-      flex-wrap: wrap;
-      max-width: var(--max-width);
-      margin: 4rem auto;
-      box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
-      min-height: 320px;
-    }
-
-    #location-text,
-    #location-map {
-      flex: 1 1 320px;
-      padding: 3rem 2.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: left;
-    }
-
-    #location-text h2 {
-      font-weight: 600;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      margin-bottom: 1rem;
-      color: var(--accent);
-    }
-
-    #location-text p {
-      font-size: 1.1rem;
-      line-height: 1.5;
-      margin-bottom: 1.4rem;
-      font-weight: 400;
-    }
-
-    #location-text p a {
-      color: var(--beige-text);
-      text-decoration: none;
-    }
-
-    #location-text p a:hover,
-    #location-text p:focus-visible {
-      text-decoration: underline;
-    }
-
-    /* Leaflet Map */
-    #location-map #map {
-      width: 100%;
-      height: 100%;
-      border-radius: 16px;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.12);
-      min-height: 280px;
-      max-height: 400px;
-    }
-
-    /* Scroll Indicator */
-    #scroll-indicator {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 30px;
-      height: 50px;
-      border: 2px solid var(--accent);
-      border-radius: 25px;
-      opacity: 1;
-      animation: scrollIndicatorPulse 2s ease-in-out 3;
-      z-index: 10;
-      pointer-events: none;
-      background: transparent;
-    }
-
-    #scroll-indicator::before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 10px;
-      border-radius: 3px;
-      background: var(--accent);
-      animation: scrollIndicatorMove 2s ease-in-out 3;
-    }
-
-    @keyframes scrollIndicatorPulse {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.3;
-      }
-    }
-
-    @keyframes scrollIndicatorMove {
-      0% {
-        top: 10px;
-        opacity: 1;
-      }
-      100% {
-        top: 30px;
-        opacity: 0;
-      }
-    }
-
-    /* FadeIn Text */
-    @keyframes fadeInText {
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    /* Rauch-Animation (simple example) */
-    #smoke-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      width: 100vw;
-      height: 100vh;
-      z-index: 1;
-      mix-blend-mode: screen;
-      opacity: 0.15;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      #location-wrapper {
-        flex-direction: column;
-        margin: 3rem 1rem;
-        min-height: auto;
-      }
-
-      #location-text,
-      #location-map {
-        flex: none;
-        padding: 2rem 1rem;
-      }
-
-      #location-map #map {
-        max-height: 300px;
-        min-height: 240px;
-      }
-
-      /* Hero mobile smaller text and button */
-      .hero-content h1 {
-        font-size: 2rem;
-        margin-bottom: 0.6rem;
-      }
-
-      .hero-content .sub {
-        font-size: 1rem;
-        margin-bottom: 1.6rem;
-      }
-
-      .btn {
-        padding: 0.5rem 1.6rem;
-        font-size: 0.95rem;
-        max-width: 80vw;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Banco de Café - Matcha, Coffee & Bowls München</title>
+    
+    <!-- Favicon - Coffee/Matcha Theme -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23B49A86;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%236B8E3D;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23A0522D;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23grad)' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M25 35 Q50 20 75 35 Q75 55 50 70 Q25 55 25 35 Z' fill='%23fff' opacity='0.9'/%3E%3Ccircle cx='40' cy='45' r='3' fill='url(%23grad)'/%3E%3Ccircle cx='60' cy='45' r='3' fill='url(%23grad)'/%3E%3Cpath d='M45 55 Q50 60 55 55' stroke='url(%23grad)' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23B49A86;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%236B8E3D;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23A0522D;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23grad)' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M25 35 Q50 20 75 35 Q75 55 50 70 Q25 55 25 35 Z' fill='%23fff' opacity='0.9'/%3E%3Ccircle cx='40' cy='45' r='3' fill='url(%23grad)'/%3E%3Ccircle cx='60' cy='45' r='3' fill='url(%23grad)'/%3E%3Cpath d='M45 55 Q50 60 55 55' stroke='url(%23grad)' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+    
+    <link rel="stylesheet" href="gallery-new.css">
+    <link rel="stylesheet" href="parallax.css">
+    <link rel="stylesheet" href="product-styles.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="debug-overlay.css">
+    <link rel="stylesheet" href="mobile-menu.css">
+    <link rel="stylesheet" href="about-section.css">
+    <link rel="stylesheet" href="location-map.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="kontakt.css">
+    <link rel="stylesheet" href="carousel-indicator.css">
+    <!-- entfernt: Leaflet CSS -->
 </head>
 
 <body>
-  <header class="hero" role="banner">
-    <div class="shade"></div>
 
-    <img id="logo" src="assets/logo.svg" alt="Banco de Café Logo" />
+    <!-- HAUPTNAVIGATION - OBEN RECHTS -->
+    <nav class="main-navigation">
+        <ul class="nav-menu">
+            <li><a href="#ueberuns">Über uns</a></li>
+            <li><a href="#speisen">Speisen</a></li>
+            <li><a href="#getraenke">Getränke</a></li>
+            <li><a href="#catering">Catering</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+    </nav>
 
-    <div class="hero-content">
-      <h1>Neueröffnung</h1>
-      <p class="sub">
-        Wir bieten Bagels, Sandwiches, mit liebe zubereitete Snacks und den besten Kaffee.
-      </p>
-      <a class="btn" href="mailto:info@banco-de-cafe.de">Kontakt&nbsp;aufnehmen</a>
+    <!-- BURGER MENU für mobile (nur sichtbar auf mobile) -->
+    <div class="burger-menu" id="burgerMenu">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
-  </header>
 
-  <section id="about" class="reveal" role="region" aria-labelledby="about-title">
-    <h2 id="about-title">Kaffee · Kultur · Community</h2>
-    <p>
-      Ein minimalistischer Treffpunkt für echte Kaffee­liebhaber – mit
-      sorgfältig gerösteten Bohnen, hausgemachter Pâtisserie und entspanntem
-      Ambiente.
-    </p>
-  </section>
-
-  <section
-    id="location-wrapper"
-    class="reveal"
-    role="region"
-    aria-labelledby="location-title"
-  >
-    <div id="location-text">
-      <h2 id="location-title">Adresse</h2>
-      <p>
-        Fürstenrieder&nbsp;Str.&nbsp;8<br />
-        80687&nbsp;München
-      </p>
-      <p style="margin-top: 1.4rem; font-size: 1rem; opacity: 0.85;">
-        Tel.&nbsp;
-        <a href="tel:+4917631115508">0176&nbsp;3111&nbsp;5508</a> &middot;
-       
-      </p>
-        <p style="margin-top: 1.4rem; font-size: 1rem; opacity: 0.85;">
-           <a href="mailto:info@banco-de-cafe.de">info@banco-de-cafe.de</a>
-             </p>
+    <!-- Fullscreen Overlay für das mobile Menü -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <ul class="mobile-menu-list">
+            <li><a href="#ueberuns" class="mobile-menu-link">Über uns</a></li>
+            <li><a href="#speisen" class="mobile-menu-link">Speisen</a></li>
+            <li><a href="#getraenke" class="mobile-menu-link">Getränke</a></li>
+            <li><a href="#catering" class="mobile-menu-link">Catering</a></li>
+            <li><a href="#kontakt" class="mobile-menu-link">Kontakt</a></li>
+        </ul>
     </div>
-    <div id="location-map">
-      <div id="map"></div>
+
+    <header>
+        <img src="../assets/logo.svg" alt="BANCO The Café" class="logo">
+
+        <!-- UNTERBROCHENE LINIE LINKS (Oberer Teil) -->
+        <div class="left-line-top"></div>
+
+        <!-- UNTERBROCHENE LINIE LINKS (Unterer Teil) -->
+        <div class="left-line-bottom"></div>
+
+        <!-- UNTERBROCHENE LINIE RECHTS (Oberer Teil) -->
+        <div class="right-line-top"></div>
+
+        <!-- UNTERBROCHENE LINIE RECHTS (Unterer Teil) -->
+        <div class="right-line-bottom"></div>
+
+        <!-- SCROLL DOWN TEXT unter linker Linie -->
+        <div class="scroll-text-left">scroll down</div>
+
+        <!-- SCROLL DOWN TEXT unter rechter Linie -->
+        <div class="scroll-text-right">scroll down</div>
+
+        <!-- SOCIAL MEDIA ICONS UNTEN LINKS -->
+        <div class="social-icons">
+            <a href="https://instagram.com" target="_blank" title="Instagram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+            </a>
+            <a href="https://tiktok.com" target="_blank" title="TikTok">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                </svg>
+            </a>
+            <a href="#" target="_blank" title="Website">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <div class="hero-container">
+        <!-- Dekorative Bagels -->
+        <div class="coffee-bean left">
+            <img src="../assets/casg.webp" alt="Bagel Links">
+        </div>
+        <div class="coffee-bean right">
+            <img src="../assets/salat_obj.webp" alt="Salatobjekt Rechts">
+        </div>
+
+        <!-- Zentrales Produkt-Bild mit automatischem Wechsel -->
+        <div class="center-drink">
+            <img id="hero-product-image" src="../assets/chicken_teriyaki_front.webp" alt="Bowl" data-product="bowl">
+            <!-- Canvas-basierter Rauch wie auf der Index-Seite -->
+            <div class="smoke">
+                <canvas id="bowl-smoke-canvas"></canvas>
+            </div>
+        </div>
+
+        <!-- "We Love Coffee" Text links -->
+        <div class="hero-text left">
+            <h1 class="hero-title">We love<br>coffee</h1>
+        </div>
+
+        <!-- "We Love Coffee" Text rechts -->
+        <div class="hero-text right">
+            <h2 class="hero-title">We love<br>coffee</h2>
+        </div>
     </div>
-  </section>
 
-  <footer>© 2025 Banco de Café</footer>
+    <div class="main-content">
 
-  <div id="scroll-indicator" aria-hidden="true"></div>
+        <!-- Über uns Sektion: 1 Bild, mobil über Text, Desktop links neben Text -->
+        <section id="ueberuns" class="content-section">
+            <div class="section-inner">
+                <!-- Mobile-only Marquee: direkt über dem Bild/Text platziert -->
+                <div class="about-mobile-marquee-wrap" aria-hidden="true">
+                    <div class="about-marquee">
+                        <div class="about-marquee-inner">
+                            <div class="about-marquee-content">
+                                <span>Coffee</span><span>Matcha</span><span>Bowls</span><span>Bagels</span><span>Focaccia</span><span>Croissants</span>
+                            </div>
+                            <div class="about-marquee-content" aria-hidden="true">
+                                <span>Coffee</span><span>Matcha</span><span>Bowls</span><span>Bagels</span><span>Focaccia</span><span>Croissants</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-mobile-band"></div>
+                </div>
 
-  <canvas id="smoke-canvas" aria-hidden="true"></canvas>
+                <div class="about-content">
+                    <div class="about-images-overlap">
+                        <img class="about-img"
+                            src="https://lh3.googleusercontent.com/p/AF1QipPPwzOdOetiEdWBrNdbiR4Ug7Qdo_8Z1SplmluH=s1360-w1360-h1020-rw"
+                            alt="Über uns - Banco de Café Innenraum">
+                    </div>
+                    <div class="section-info">
+                        <h2 class="section-title">Über uns</h2>
+                        <p class="section-subtitle">Hey! Wir sind ein junges Café mit viel Liebe für Matcha, Kaffee und
+                            gute
+                            Stimmung. Genieße beste Drinks, handgemachte Baguettes und frische Bowls – direkt bei
+                            uns
+                            im Café!</p>
+                        <!-- Animiertes Coffee Bean Gadget -->
+                        <div class="floating-beans">
+                            <div class="bean bean-1">☕</div>
+                            <div class="bean bean-2">🫘</div>
+                            <div class="bean bean-3">☕</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    crossorigin=""
-  ></script>
+        <!-- Speisen Sektion (Dunkel) -->
+        <section id="speisen" class="content-section dark">
+            <div class="section-header">
+                <div class="section-info">
+                    <h2 class="section-title">Unsere Speisen</h2>
+                    <p class="section-subtitle">Genießen Sie unsere handgemachten Bagels, knusprigen Focaccias und
+                        nahrhaften Bowls - alle frisch zubereitet.</p>
+                </div>
+                <div class="section-controls">
+                    <button class="carousel-button prev" onclick="scrollCarousel('food-carousel', -1)">‹</button>
+                    <button class="carousel-button next" onclick="scrollCarousel('food-carousel', 1)">›</button>
+                </div>
+            </div>
+            <div class="carousel-wrapper">
+                <div class="carousel" id="food-carousel">
+                    <!-- Bagels -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/manhatten_city_plate.webp" alt="Manhattan City Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Manhattan City</div>
+                            <div class="product-description">Frischkäse, Avocado, Räucherlachs, Dill, Rucola</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€6,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card active">
+                        <div class="product-image">
+                            <img src="../assets/new_york_style_plate.webp" alt="New York Style Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">New York Style</div>
+                            <div class="product-description">Cream Cheese, Tomaten, Zwiebeln, Kapern</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€5,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/pastrami_deluxe_plate.webp" alt="Pastrami Deluxe Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Pastrami Deluxe</div>
+                            <div class="product-description">Pastrami, Senf, Gewürzgurken, Zwiebeln</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€7,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/pastrami_plate.webp" alt="Pastrami Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Pastrami</div>
+                            <div class="product-description">Pastrami, Senf, Gewürzgurken</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€6,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/vegan_vegas_plate.webp" alt="Vegan Vegas Bagel">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Vegan Vegas</div>
+                            <div class="product-description">Hummus, Avocado, Sprossen, Tomaten</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bagel</span>
+                                <span class="product-price">€6,50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Focaccias -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/giuliana_plate.webp" alt="Giuliana Focaccia">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Giuliana</div>
+                            <div class="product-description">Mozzarella, Pesto, Tomaten, Basilikum</div>
+                            <div class="product-footer">
+                                <span class="product-size">Focaccia</span>
+                                <span class="product-price">€6,50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/italiano_plate.webp" alt="Italiano Focaccia">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Italiano</div>
+                            <div class="product-description">Rinder Salami, Burrata, Rucola, Pesto</div>
+                            <div class="product-footer">
+                                <span class="product-size">Focaccia</span>
+                                <span class="product-price">€6,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/milano_plate.webp" alt="Milano Focaccia">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Milano</div>
+                            <div class="product-description">Prosciutto, Mozzarella, Rucola, Balsamico</div>
+                            <div class="product-footer">
+                                <span class="product-size">Focaccia</span>
+                                <span class="product-price">€7,50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bowls -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/chicken_teriyaki_front.webp" alt="Chicken Teriyaki Bowl">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Chicken Teriyaki</div>
+                            <div class="product-description">Grilled Chicken, Teriyaki Sauce, Basmati Reis</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bowl</span>
+                                <span class="product-price">€9,90</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/falafel_front.webp" alt="Falafel Bowl">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Falafel Bowl</div>
+                            <div class="product-description">Falafel, Quinoa, Sesam Sauce, Hummus</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bowl</span>
+                                <span class="product-price">€9,90</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/peanut_chicken_front.webp" alt="Peanut Chicken Bowl">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Peanut Chicken</div>
+                            <div class="product-description">Hähnchen, Erdnuss Sauce, Jasmin Reis, Gemüse</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bowl</span>
+                                <span class="product-price">€10,50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/caesars_front.webp" alt="Caesars Bowl">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Caesars Bowl</div>
+                            <div class="product-description">Hähnchen, Caesar Dressing, Parmesan, Croutons</div>
+                            <div class="product-footer">
+                                <span class="product-size">Bowl</span>
+                                <span class="product-price">€9,50</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-indicator" id="food-carousel-indicator"></div>
+            </div>
+        </section>
 
-  <script>
-    // Section-Reveal
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('reveal');
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-    document.querySelectorAll('section').forEach((s) => io.observe(s));
+        <!-- Getränke Sektion (Hell) -->
+        <section id="getraenke" class="content-section">
+            <div class="section-header">
+                <div class="section-info">
+                    <h2 class="section-title">Unsere Getränke</h2>
+                    <p class="section-subtitle">Entdecken Sie unsere exklusiven Matcha-Kreationen - von klassisch bis fruchtig, jede Tasse ein besonderes Erlebnis.</p>
+                </div>
+                <div class="section-controls">
+                    <button class="carousel-button prev" onclick="scrollCarousel('drinks-carousel', -1)">‹</button>
+                    <button class="carousel-button next" onclick="scrollCarousel('drinks-carousel', 1)">›</button>
+                </div>
+            </div>
+            <div class="carousel-wrapper">
+                <div class="carousel" id="drinks-carousel">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/Gruppe 1.webp" alt="Berry Matcha">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Berry Matcha</div>
+                            <div class="product-description">Cremiger Matcha mit frischen Blaubeeren und einem Hauch Süße</div>
+                            <div class="product-footer">
+                                <span class="product-size">300ml</span>
+                                <span class="product-price">€4,95</span>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/Gruppe 3.webp" alt="Matcha Latte Signature">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Matcha Latte Signature</div>
+                            <div class="product-description">Unser Klassiker - hochwertiger Matcha mit perfekt aufgeschäumter Milch</div>
+                            <div class="product-footer">
+                                <span class="product-size">300ml</span>
+                                <span class="product-price">€4,95</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/Gruppe 4.webp" alt="Mango Matcha">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Mango Matcha</div>
+                            <div class="product-description">Tropische Mango trifft auf erdigen Matcha - eine exotische Geschmacksreise</div>
+                            <div class="product-footer">
+                                <span class="product-size">300ml</span>
+                                <span class="product-price">€4,95</span>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/Gruppe 6.webp" alt="Hojicha Matcha">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Hojicha Matcha</div>
+                            <div class="product-description">Gerösteter Hojicha-Tee mit Erdbeeren - mild und fruchtig süß</div>
+                            <div class="product-footer">
+                                <span class="product-size">300ml</span>
+                                <span class="product-price">€4,95</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-indicator" id="drinks-carousel-indicator"></div>
+            </div>
+        </section>
 
-    // Logo-Parallax (dezente Bewegung)
-    const logo = document.getElementById('logo');
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY * 0.06; // geringer Faktor → Motion-Comfort
-      logo.style.transform = `translateY(${y}px)`;
-    });
+        <!-- Catering Sektion: 1 Bild, wie Über uns aufgebaut -->
+        <section id="catering" class="content-section dark">
+            <div class="section-inner">
+                <div class="about-content">
+                    <div class="about-images-overlap">
+                        <img class="about-img" src="https://images.pexels.com/photos/3217157/pexels-photo-3217157.jpeg" alt="Catering - Event & Party Setup">
+                    </div>
+                    <div class="section-info">
+                        <h2 class="section-title">Catering & Events</h2>
+                        <p class="section-subtitle">Sie planen ein besonderes Event? Wir bringen das Banco de Café Erlebnis zu Ihnen! Von Business-Meetings über Hochzeiten bis hin zu privaten Feiern – unser individuelles Catering verwöhnt Ihre Gäste mit frischen Matcha-Spezialitäten, aromatischen Kaffeevariationen, handgemachten Baguettes und gesunden Bowl-Kreationen. Lassen Sie uns gemeinsam Ihr Event unvergesslich machen!</p>
+                        <div class="catering-cta-row">
+                            <a href="mailto:info@banco-de-cafe.de" class="catering-btn">Jetzt Kontaktieren</a>
+                        </div>
+                        <!-- Animierte Event-Symbole -->
+                        <div class="floating-events">
+                            <div class="event-icon icon-1">🎉</div>
+                            <div class="event-icon icon-2">🥐</div>
+                            <div class="event-icon icon-3">🍽️</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    // Leaflet Map Init
-    const map = L.map('map', {
-      center: [48.1231, 11.5033], // München-Laim Koordinaten
-      zoom: 16,
-      scrollWheelZoom: false,
-      dragging: true,
-      tap: false,
-    });
+        <!-- Kontakt Sektion (einmal, Buttons, Layout angepasst) -->
+        <section id="kontakt" class="content-section">
+            <div class="section-header">
+                <div class="section-info">
+                    <h2 class="section-title">Adresse</h2>
+                    <p class="section-subtitle">Besuchen Sie uns oder kontaktieren Sie uns für Reservierungen.</p>
+                </div>
+            </div>
+            <div class="kontakt-content-container">
+                <div class="kontakt-info-text">
+                    <h3>Banco de Café</h3>
+                    <p>Fürstenrieder Str. 8<br />80687 München</p>
+                    <p><strong>Telefon:</strong> +49 176 31115508</p>
+                    <p><strong>E-Mail:</strong> info@banco-de-cafe.de</p>
+                </div>
+                <div class="kontakt-buttons">
+                    <a href="tel:+4917631115508" class="kontakt-btn">Anrufen</a>
+                    <a href="mailto:info@banco-de-cafe.de" class="kontakt-btn">E-Mail</a>
+                </div>
+            </div>
+            <!-- Google Maps Embed ersetzt Leaflet-Map -->
+            <div id="location-map-fullwidth">
+                <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;">
+                  <iframe
+                    src="https://www.google.com/maps?q=Banco%20de%20Caf%C3%A9%2C%20F%C3%BCrstenrieder%20Str.%208%2C%2080687%20M%C3%BCnchen&z=16&output=embed"
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                  </iframe>
+                </div>
+            </div>
+        </section>
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution:
-        '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
-    }).addTo(map);
+        <!-- Footer-Balken (Platzhalter) -->
+        <footer class="footer-bar">
+            <div class="footer-content">
+                <span>© 2025 Banco de Café</span>
+                <a href="#" style="margin-left:2rem; color:inherit; text-decoration:underline;">Impressum</a>
+            </div>
+        </footer>
+    </div>
 
-    L.marker([48.1231, 11.5033])
-      .addTo(map)
-      .bindPopup('Banco de Café<br>Fürstenrieder Str. 8')
-      .openPopup();
+    <script src="gallery-new.js"></script>
+    <script src="parallax.js"></script>
+    <script src="bowl-smoke.js"></script>
+    <script src="product-slider.js"></script>
+    <script src="drinks-carousel-indicator.js"></script>
+    <script src="food-carousel-indicator.js"></script>
+    <script src="navigation.js"></script>
+    <script src="debug-overlay.js"></script>
 
-    // Scroll Indicator nach 5 Sekunden langsam ausblenden
-    setTimeout(() => {
-      const indicator = document.getElementById('scroll-indicator');
-      if (indicator) {
-        indicator.style.transition = 'opacity 2s ease';
-        indicator.style.opacity = '0';
-        setTimeout(() => {
-          indicator.style.display = 'none';
-        }, 2000);
-      }
-    }, 5000);
+    <!-- Mobile Menü Script -->
+    <script>
+        // Mobile Menü Overlay öffnen/schließen und Icon-Animation
+        const burgerMenu = document.getElementById('burgerMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        const logo = document.querySelector('.logo');
+        const socialIcons = document.querySelector('.social-icons');
 
-    // Simple Rauch-Animation auf Canvas
-    const canvas = document.getElementById('smoke-canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * width;
-        this.y = height + Math.random() * 100;
-        this.radius = 10 + Math.random() * 20;
-        this.speed = 0.3 + Math.random() * 0.7;
-        this.alpha = 0.1 + Math.random() * 0.15;
-      }
-      update() {
-        this.y -= this.speed;
-        this.alpha -= 0.001;
-        if (this.alpha <= 0) {
-          this.reset();
+        function openMobileMenu() {
+            mobileMenuOverlay.classList.add('active');
+            burgerMenu.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            if (logo) logo.classList.add('hide-on-menu');
+            if (socialIcons) socialIcons.classList.add('hide-on-menu');
         }
-      }
-      draw() {
-        ctx.beginPath();
-        const gradient = ctx.createRadialGradient(
-          this.x,
-          this.y,
-          0,
-          this.x,
-          this.y,
-          this.radius
-        );
-        gradient.addColorStop(0, `rgba(255,255,255,${this.alpha})`);
-        gradient.addColorStop(1, 'rgba(255,255,255,0)');
-        ctx.fillStyle = gradient;
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
+        function closeMobileMenuFn() {
+            mobileMenuOverlay.classList.remove('active');
+            burgerMenu.classList.remove('open');
+            document.body.style.overflow = '';
+            if (logo) logo.classList.remove('hide-on-menu');
+            if (socialIcons) socialIcons.classList.remove('hide-on-menu');
+        }
 
-    for (let i = 0; i < 25; i++) {
-      particles.push(new Particle());
-    }
+        if (burgerMenu && mobileMenuOverlay) {
+            burgerMenu.addEventListener('click', function () {
+                if (mobileMenuOverlay.classList.contains('active')) {
+                    closeMobileMenuFn();
+                } else {
+                    openMobileMenu();
+                }
+            });
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenuFn);
+            });
+        }
 
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animate);
-    }
+        // Logo und Social Icons beim Scrollen ausblenden, wenn nicht Menü offen
+        // PLUS: Burger Menu Kreis beim Scrollen
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', function () {
+            if (mobileMenuOverlay.classList.contains('active')) return;
+            if (window.scrollY > 30) {
+                if (logo) logo.classList.add('hide-on-menu');
+                if (socialIcons) socialIcons.classList.add('hide-on-menu');
+                // BURGER MENU: Schwarzer Kreis beim Scrollen
+                if (burgerMenu) burgerMenu.classList.add('scrolled');
+            } else {
+                if (logo) logo.classList.remove('hide-on-menu');
+                if (socialIcons) socialIcons.classList.remove('hide-on-menu');
+                // BURGER MENU: Zurück zu transparenten Balken
+                if (burgerMenu) burgerMenu.classList.remove('scrolled');
+            }
+            lastScrollY = window.scrollY;
+        });
+    </script>
 
-    animate();
-  </script>
 </body>
+
 </html>

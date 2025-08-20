@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Coffee & Food - Test</title>
+    <title>Banco de Café - Matcha, Coffee & Bowls München</title>
+    
+    <!-- Favicon - Coffee/Matcha Theme -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23B49A86;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%236B8E3D;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23A0522D;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23grad)' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M25 35 Q50 20 75 35 Q75 55 50 70 Q25 55 25 35 Z' fill='%23fff' opacity='0.9'/%3E%3Ccircle cx='40' cy='45' r='3' fill='url(%23grad)'/%3E%3Ccircle cx='60' cy='45' r='3' fill='url(%23grad)'/%3E%3Cpath d='M45 55 Q50 60 55 55' stroke='url(%23grad)' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23B49A86;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%236B8E3D;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23A0522D;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23grad)' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M25 35 Q50 20 75 35 Q75 55 50 70 Q25 55 25 35 Z' fill='%23fff' opacity='0.9'/%3E%3Ccircle cx='40' cy='45' r='3' fill='url(%23grad)'/%3E%3Ccircle cx='60' cy='45' r='3' fill='url(%23grad)'/%3E%3Cpath d='M45 55 Q50 60 55 55' stroke='url(%23grad)' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+    
     <link rel="stylesheet" href="gallery-new.css">
     <link rel="stylesheet" href="parallax.css">
     <link rel="stylesheet" href="product-styles.css">
@@ -16,8 +21,7 @@
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="kontakt.css">
     <link rel="stylesheet" href="carousel-indicator.css">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <!-- entfernt: Leaflet CSS -->
 </head>
 
 <body>
@@ -42,7 +46,6 @@
 
     <!-- Fullscreen Overlay für das mobile Menü -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-        <button class="close-mobile-menu" id="closeMobileMenu" aria-label="Menü schließen">&times;</button>
         <ul class="mobile-menu-list">
             <li><a href="#ueberuns" class="mobile-menu-link">Über uns</a></li>
             <li><a href="#speisen" class="mobile-menu-link">Speisen</a></li>
@@ -102,7 +105,7 @@
             <img src="../assets/casg.webp" alt="Bagel Links">
         </div>
         <div class="coffee-bean right">
-            <img src="../assets/pome.webp" alt="Bagel Rechts">
+            <img src="../assets/salat_obj.webp" alt="Salatobjekt Rechts">
         </div>
 
         <!-- Zentrales Produkt-Bild mit automatischem Wechsel -->
@@ -130,17 +133,40 @@
         <!-- Über uns Sektion: 1 Bild, mobil über Text, Desktop links neben Text -->
         <section id="ueberuns" class="content-section">
             <div class="section-inner">
+                <!-- Mobile-only Marquee: direkt über dem Bild/Text platziert -->
+                <div class="about-mobile-marquee-wrap" aria-hidden="true">
+                    <div class="about-marquee">
+                        <div class="about-marquee-inner">
+                            <div class="about-marquee-content">
+                                <span>Coffee</span><span>Matcha</span><span>Bowls</span><span>Bagels</span><span>Focaccia</span><span>Croissants</span>
+                            </div>
+                            <div class="about-marquee-content" aria-hidden="true">
+                                <span>Coffee</span><span>Matcha</span><span>Bowls</span><span>Bagels</span><span>Focaccia</span><span>Croissants</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-mobile-band"></div>
+                </div>
+
                 <div class="about-content">
                     <div class="about-images-overlap">
                         <img class="about-img"
-                            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-                            alt="Über uns Bild">
+                            src="https://lh3.googleusercontent.com/p/AF1QipPPwzOdOetiEdWBrNdbiR4Ug7Qdo_8Z1SplmluH=s1360-w1360-h1020-rw"
+                            alt="Über uns - Banco de Café Innenraum">
                     </div>
                     <div class="section-info">
                         <h2 class="section-title">Über uns</h2>
-                        <p class="section-subtitle">Hey! Wir sind ein junges Café mit viel Liebe für Matcha, Kaffee und gute
-                            Stimmung. Genieße beste Drinks, handgemachte Kuchen und entspannte Atmosphäre – direkt bei uns
+                        <p class="section-subtitle">Hey! Wir sind ein junges Café mit viel Liebe für Matcha, Kaffee und
+                            gute
+                            Stimmung. Genieße beste Drinks, handgemachte Baguettes und frische Bowls – direkt bei
+                            uns
                             im Café!</p>
+                        <!-- Animiertes Coffee Bean Gadget -->
+                        <div class="floating-beans">
+                            <div class="bean bean-1">☕</div>
+                            <div class="bean bean-2">🫘</div>
+                            <div class="bean bean-3">☕</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -330,8 +356,7 @@
             <div class="section-header">
                 <div class="section-info">
                     <h2 class="section-title">Unsere Getränke</h2>
-                    <p class="section-subtitle">Entdecken Sie unsere köstliche Auswahl an frisch gebrühten Kaffees,
-                        cremigen Cappuccinos und erfrischenden Cold Brews.</p>
+                    <p class="section-subtitle">Entdecken Sie unsere exklusiven Matcha-Kreationen - von klassisch bis fruchtig, jede Tasse ein besonderes Erlebnis.</p>
                 </div>
                 <div class="section-controls">
                     <button class="carousel-button prev" onclick="scrollCarousel('drinks-carousel', -1)">‹</button>
@@ -342,79 +367,55 @@
                 <div class="carousel" id="drinks-carousel">
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="../assets/Gruppe 1.webp" alt="Cappuccino">
+                            <img src="../assets/Gruppe 1.webp" alt="Berry Matcha">
                         </div>
                         <div class="product-content">
-                            <div class="product-name">Cappuccino</div>
-                            <div class="product-description">Cremiger Cappuccino mit perfekt aufgeschäumter Milch</div>
-                            <div class="product-footer">
-                                <span class="product-size">250ml</span>
-                                <span class="product-price">€3,50</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card active">
-                        <div class="product-image">
-                            <img src="../assets/Gruppe 2.webp" alt="Latte Macchiato">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Latte Macchiato</div>
-                            <div class="product-description">Geschichteter Latte mit aromatischem Espresso</div>
+                            <div class="product-name">Berry Matcha</div>
+                            <div class="product-description">Cremiger Matcha mit frischen Blaubeeren und einem Hauch Süße</div>
                             <div class="product-footer">
                                 <span class="product-size">300ml</span>
-                                <span class="product-price">€4,20</span>
+                                <span class="product-price">€4,95</span>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="../assets/Gruppe 3.webp" alt="Matcha Latte Signature">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-name">Matcha Latte Signature</div>
+                            <div class="product-description">Unser Klassiker - hochwertiger Matcha mit perfekt aufgeschäumter Milch</div>
+                            <div class="product-footer">
+                                <span class="product-size">300ml</span>
+                                <span class="product-price">€4,95</span>
                             </div>
                         </div>
                     </div>
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="../assets/Gruppe 3.webp" alt="Espresso">
+                            <img src="../assets/Gruppe 4.webp" alt="Mango Matcha">
                         </div>
                         <div class="product-content">
-                            <div class="product-name">Espresso</div>
-                            <div class="product-description">Kraftvoller italienischer Espresso</div>
+                            <div class="product-name">Mango Matcha</div>
+                            <div class="product-description">Tropische Mango trifft auf erdigen Matcha - eine exotische Geschmacksreise</div>
                             <div class="product-footer">
-                                <span class="product-size">50ml</span>
-                                <span class="product-price">€2,50</span>
+                                <span class="product-size">300ml</span>
+                                <span class="product-price">€4,95</span>
                             </div>
                         </div>
                     </div>
+                   
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="../assets/Gruppe 4.webp" alt="Cold Brew">
+                            <img src="../assets/Gruppe 6.webp" alt="Hojicha Matcha">
                         </div>
                         <div class="product-content">
-                            <div class="product-name">Cold Brew</div>
-                            <div class="product-description">Kalt gebrühter Kaffee mit intensivem Aroma</div>
+                            <div class="product-name">Hojicha Matcha</div>
+                            <div class="product-description">Gerösteter Hojicha-Tee mit Erdbeeren - mild und fruchtig süß</div>
                             <div class="product-footer">
-                                <span class="product-size">400ml</span>
-                                <span class="product-price">€4,50</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/Gruppe 5.webp" alt="Cold Brew">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Cold Brew</div>
-                            <div class="product-description">Kalt gebrühter Kaffee mit intensivem Aroma</div>
-                            <div class="product-footer">
-                                <span class="product-size">400ml</span>
-                                <span class="product-price">€4,50</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="../assets/Gruppe 6.webp" alt="Cold Brew">
-                        </div>
-                        <div class="product-content">
-                            <div class="product-name">Cold Brew</div>
-                            <div class="product-description">Kalt gebrühter Kaffee mit intensivem Aroma</div>
-                            <div class="product-footer">
-                                <span class="product-size">400ml</span>
-                                <span class="product-price">€4,50</span>
+                                <span class="product-size">300ml</span>
+                                <span class="product-price">€4,95</span>
                             </div>
                         </div>
                     </div>
@@ -428,18 +429,21 @@
             <div class="section-inner">
                 <div class="about-content">
                     <div class="about-images-overlap">
-                        <img class="about-img"
-                            src="https://placehold.co/400x500?text=Catering+1"
-                            alt="Catering Bild">
+                        <img class="about-img" src="https://images.pexels.com/photos/3217157/pexels-photo-3217157.jpeg" alt="Catering - Event & Party Setup">
                     </div>
                     <div class="section-info">
                         <h2 class="section-title">Catering & Events</h2>
-                        <p class="section-subtitle">Sie planen ein Event? Wir bieten individuelles Catering für jeden
-                            Anlass!</p>
+                        <p class="section-subtitle">Sie planen ein besonderes Event? Wir bringen das Banco de Café Erlebnis zu Ihnen! Von Business-Meetings über Hochzeiten bis hin zu privaten Feiern – unser individuelles Catering verwöhnt Ihre Gäste mit frischen Matcha-Spezialitäten, aromatischen Kaffeevariationen, handgemachten Baguettes und gesunden Bowl-Kreationen. Lassen Sie uns gemeinsam Ihr Event unvergesslich machen!</p>
+                        <div class="catering-cta-row">
+                            <a href="mailto:info@banco-de-cafe.de" class="catering-btn">Jetzt Kontaktieren</a>
+                        </div>
+                        <!-- Animierte Event-Symbole -->
+                        <div class="floating-events">
+                            <div class="event-icon icon-1">🎉</div>
+                            <div class="event-icon icon-2">🥐</div>
+                            <div class="event-icon icon-3">🍽️</div>
+                        </div>
                     </div>
-                </div>
-                <div class="catering-cta-row">
-                    <a href="mailto:info@banco-de-cafe.de" class="catering-btn">Jetzt Kontaktieren</a>
                 </div>
             </div>
         </section>
@@ -455,15 +459,26 @@
             <div class="kontakt-content-container">
                 <div class="kontakt-info-text">
                     <h3>Banco de Café</h3>
-                    <p>Fürstenrieder&nbsp;Str.&nbsp;8<br />80687&nbsp;München</p>
-                    <div class="kontakt-buttons">
-                        <a href="tel:+4917631115508" class="kontakt-btn">Anrufen</a>
-                        <a href="mailto:info@banco-de-cafe.de" class="kontakt-btn">E-Mail</a>
-                    </div>
+                    <p>Fürstenrieder Str. 8<br />80687 München</p>
+                    <p><strong>Telefon:</strong> +49 176 31115508</p>
+                    <p><strong>E-Mail:</strong> info@banco-de-cafe.de</p>
+                </div>
+                <div class="kontakt-buttons">
+                    <a href="tel:+4917631115508" class="kontakt-btn">Anrufen</a>
+                    <a href="mailto:info@banco-de-cafe.de" class="kontakt-btn">E-Mail</a>
                 </div>
             </div>
+            <!-- Google Maps Embed ersetzt Leaflet-Map -->
             <div id="location-map-fullwidth">
-                <div id="map"></div>
+                <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;">
+                  <iframe
+                    src="https://www.google.com/maps?q=Banco%20de%20Caf%C3%A9%2C%20F%C3%BCrstenrieder%20Str.%208%2C%2080687%20M%C3%BCnchen&z=16&output=embed"
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                  </iframe>
+                </div>
             </div>
         </section>
 
@@ -472,17 +487,11 @@
             <div class="footer-content">
                 <span>© 2025 Banco de Café</span>
                 <a href="#" style="margin-left:2rem; color:inherit; text-decoration:underline;">Impressum</a>
-                <a href="#" style="margin-left:1.5rem; color:inherit; text-decoration:underline;">Datenschutz</a>
             </div>
         </footer>
     </div>
 
-    <!-- Leaflet JavaScript -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-
     <script src="gallery-new.js"></script>
-    <script src="about-carousel.js"></script>
-    <script src="catering-carousel.js"></script>
     <script src="parallax.js"></script>
     <script src="bowl-smoke.js"></script>
     <script src="product-slider.js"></script>
@@ -496,7 +505,6 @@
         // Mobile Menü Overlay öffnen/schließen und Icon-Animation
         const burgerMenu = document.getElementById('burgerMenu');
         const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-        const closeMobileMenu = document.getElementById('closeMobileMenu');
         const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
         const logo = document.querySelector('.logo');
         const socialIcons = document.querySelector('.social-icons');
@@ -516,7 +524,7 @@
             if (socialIcons) socialIcons.classList.remove('hide-on-menu');
         }
 
-        if (burgerMenu && mobileMenuOverlay && closeMobileMenu) {
+        if (burgerMenu && mobileMenuOverlay) {
             burgerMenu.addEventListener('click', function () {
                 if (mobileMenuOverlay.classList.contains('active')) {
                     closeMobileMenuFn();
@@ -524,46 +532,29 @@
                     openMobileMenu();
                 }
             });
-            closeMobileMenu.addEventListener('click', closeMobileMenuFn);
             mobileMenuLinks.forEach(link => {
                 link.addEventListener('click', closeMobileMenuFn);
             });
         }
 
         // Logo und Social Icons beim Scrollen ausblenden, wenn nicht Menü offen
+        // PLUS: Burger Menu Kreis beim Scrollen
         let lastScrollY = window.scrollY;
         window.addEventListener('scroll', function () {
             if (mobileMenuOverlay.classList.contains('active')) return;
             if (window.scrollY > 30) {
                 if (logo) logo.classList.add('hide-on-menu');
                 if (socialIcons) socialIcons.classList.add('hide-on-menu');
+                // BURGER MENU: Schwarzer Kreis beim Scrollen
+                if (burgerMenu) burgerMenu.classList.add('scrolled');
             } else {
                 if (logo) logo.classList.remove('hide-on-menu');
                 if (socialIcons) socialIcons.classList.remove('hide-on-menu');
+                // BURGER MENU: Zurück zu transparenten Balken
+                if (burgerMenu) burgerMenu.classList.remove('scrolled');
             }
             lastScrollY = window.scrollY;
         });
-    </script>
-
-    <!-- Map Initialisierung -->
-    <script>
-        // Leaflet Map Init
-        const map = L.map('map', {
-            center: [48.1231, 11.5033], // München-Laim Koordinaten
-            zoom: 16,
-            scrollWheelZoom: false,
-            dragging: true,
-            tap: false,
-        });
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
-        }).addTo(map);
-
-        L.marker([48.1231, 11.5033])
-            .addTo(map)
-            .bindPopup('Banco de Café<br>Fürstenrieder Str. 8')
-            .openPopup();
     </script>
 
 </body>
