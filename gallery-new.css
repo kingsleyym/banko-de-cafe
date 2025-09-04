@@ -500,17 +500,20 @@ body {
 
 /* GETRÄNKE-SEKTION: Bilder höher positionieren um Text-Überlappung zu vermeiden */
 #getraenke .product-image {
-    top: -60px !important; /* Höher: war -40px */
+    top: -60px !important;
+    /* Höher: war -40px */
 }
 
 #getraenke .product-card.pos-1 .product-image,
 #getraenke .product-card.pos-4 .product-image {
-    top: -90px !important; /* Höher: war -70px */
+    top: -90px !important;
+    /* Höher: war -70px */
 }
 
 #getraenke .product-card.pos-2 .product-image,
 #getraenke .product-card.pos-3 .product-image {
-    top: -100px !important; /* Höher: war -80px */
+    top: -150px !important;
+    /* Etwas höher: war -80px, aber nicht zu hoch um Abschneiden zu vermeiden */
 }
 
 .product-content {
@@ -1201,9 +1204,10 @@ body {
 
 /* Ausnahme: Über uns & Catering – kompaktere Ränder als die Galerie-Defaultwerte */
 @media (max-width: 767px) {
-  #ueberuns.content-section,
-  #catering.content-section {
-    padding-top: 24px !important;
-    padding-bottom: 24px !important;
-  }
+
+    #ueberuns.content-section,
+    #catering.content-section {
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
+    }
 }
